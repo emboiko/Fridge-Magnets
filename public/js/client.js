@@ -45,6 +45,7 @@ class Mouse{
         self.x = undefined;
         self.y = undefined;
         self.dragging = false;
+        self.draggingBackground = false;
         self.magnetIndex = 0;
     }
 }
@@ -70,6 +71,10 @@ fridge.canvas.addEventListener("mousedown", (e) => {
             }
         }
     });
+
+    if (!mouse.dragging) {
+        mouse.draggingBackground = true;
+    }
 });
 
 fridge.canvas.addEventListener("mousemove", (e) => {
@@ -84,6 +89,9 @@ fridge.canvas.addEventListener("mousemove", (e) => {
             y:adjustedY,
             i:mouse.magnetIndex
         });
+    } else if (mouse.draggingBackground) {
+        document.documentElement.scrollLeft -= e.movementX;
+        document.documentElement.scrollTop -= e.movementY;
     }
 });
 
