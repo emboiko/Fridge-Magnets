@@ -12,6 +12,15 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
     res.render("home");
 });
+app.get("/about", (req, res) => {
+    res.render("about");
+});
+app.get("/suggestions", (req, res) => {
+    res.render("suggestions");
+});
+app.get("*", (req, res) => {
+    res.render("notfound");
+});
 
 const PORT = process.env.PORT;
 const expressServer = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
