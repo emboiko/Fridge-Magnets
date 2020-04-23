@@ -14,8 +14,14 @@ body{
     display: grid;
 }
 
+.blue{
+    color:#0078D5;
+}
+.red{
+    color:#E23225;
+}
+
 canvas{
-    background-image: linear-gradient(to bottom, var(--main-color), var(--secondary-color));
     vertical-align: bottom;
 }
 
@@ -37,4 +43,12 @@ canvas{
 }
 #sub-title{
     margin: auto 0 auto 25px;
+}
+#cone{
+    width:50px;
+}
+#beta{
+    color:yellow;
+    margin-top: 10px;
+    transform: rotate(-20deg);
 }

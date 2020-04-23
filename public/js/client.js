@@ -1,24 +1,31 @@
 const socket = io();
 
 class Magnet{
-    constructor(x,y,radius, letter){
+    constructor(x,y,radius, letter, sprite){
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.letter = letter;
+        this.sprite = sprite;
+        
+        if (this.sprite) {
+            this.image = new Image();
+            this.image.src = `/img/canvas/${this.sprite}`;
+        }
     }
-
+    
     draw(){
-        fridge.c.beginPath();
-        fridge.c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-
         fridge.c.textAlign = "center";
-        fridge.c.strokeStyle = "#FFFFFF";
+        fridge.c.strokeStyle = "#000000";
         fridge.c.fillStyle = "#333333";
         fridge.c.textBaseline = "middle";
         fridge.c.font="40px Georgia";
         fridge.c.fillText(this.letter, this.x, this.y);
         fridge.c.stroke();
+        
+        if (this.sprite) {
+            fridge.c.drawImage(this.image, this.x-this.image.width/2, this.y-this.image.width/2);
+        }
     }
 }
 
@@ -102,7 +109,13 @@ socket.on("welcome", (magnets) => {
 
     fridge.magnets = []; //Redundant, makes for a safe restart.
     magnets.forEach((magnet) => {
-        fridge.magnets.push(new Magnet(magnet.x, magnet.y, magnet.radius, magnet.letter));
+        fridge.magnets.push(new Magnet(
+            magnet.x,
+            magnet.y,
+            magnet.radius,
+            magnet.letter,
+            magnet.sprite
+        ));
     });
 });
 

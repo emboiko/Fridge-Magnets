@@ -1,6 +1,8 @@
 const express = require("express");
 const helmet = require("helmet");
 const socketio = require("socket.io");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(helmet());
@@ -16,19 +18,22 @@ const expressServer = app.listen(PORT, () => console.log(`Listening on port ${PO
 const io = socketio(expressServer);
 
 class Magnet{
-    constructor(x,y,radius, letter){
+    constructor(x,y,radius, letter, sprite){
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.letter = letter;
+        this.sprite = sprite;
     }
 }
 
 class Fridge{
     constructor(){
         const radius = 30;
+        const specials = "0123456789=#!?&♪↖↗↙↘↯";
         this.magnets = [];
         
+        // Bulk random chars
         for (let i=0; i<300; i++) {
             this.magnets.push(new Magnet(
                 Math.random() * (4000-radius*2) + radius,
@@ -37,12 +42,41 @@ class Fridge{
                 this.generateCharacter()
             ));
         }
+        
+        //Two of each special char
+        for (let i=0; i<2; i++) {
+            Array.from(specials).forEach((special) => {
+                this.magnets.push(new Magnet(
+                    Math.random() * (4000-radius*2) + radius,
+                    Math.random() * (2000-radius*2) + radius,
+                    radius,
+                    special
+                ));
+            })
+        }
+
+        //One of each canvas image
+        fs.readdir("./public/img/canvas", (err, files) => {
+            if (err) console.log(err);
+            else {
+                files.forEach((file) => {
+                    this.magnets.push(new Magnet(
+                        Math.random() * (4000-radius*2) + radius,
+                        Math.random() * (2000-radius*2) + radius,
+                        radius,
+                        "",
+                        path.basename(file)
+                    ));
+                })
+            }
+        })
     }
 
     generateCharacter(){
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         return characters.charAt(Math.floor(Math.random() * characters.length))
     }
+    
 }
 
 const fridge = new Fridge();
