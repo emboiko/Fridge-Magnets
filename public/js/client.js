@@ -19,7 +19,7 @@ class Magnet{
         fridge.c.strokeStyle = "#000000";
         fridge.c.fillStyle = "#333333";
         fridge.c.textBaseline = "middle";
-        fridge.c.font="40px Georgia";
+        fridge.c.font="40px Raleway";
         fridge.c.fillText(this.letter, this.x, this.y);
         fridge.c.stroke();
         
@@ -34,7 +34,7 @@ class Fridge{
         this.canvas = document.getElementById("fridge");
         this.c = this.canvas.getContext("2d");
         this.canvas.width = 4000;
-        this.canvas.height = 2000;
+        this.canvas.height = 4000;
 
         this.magnets = [];
     }
@@ -58,9 +58,8 @@ const mouse = new Mouse();
 const header_height = document.getElementById("header").offsetHeight;
 
 fridge.canvas.addEventListener("mousedown", (e) => {
-    mouse.x = e.clientX + document.documentElement.scrollLeft;
-    mouse.y = e.clientY + document.documentElement.scrollTop - header_height;
-
+    mouse.x = e.offsetX - document.documentElement.offsetLeft;
+    mouse.y = e.offsetY + document.documentElement.offsetTop;
     fridge.magnets.forEach((magnet, index) => {
     
         if ((mouse.x >= magnet.x - magnet.radius) && (mouse.x <= magnet.x + magnet.radius)) {
@@ -79,8 +78,8 @@ fridge.canvas.addEventListener("mousedown", (e) => {
 
 fridge.canvas.addEventListener("mousemove", (e) => {
     if (mouse.dragging){
-        const adjustedX = e.clientX + document.documentElement.scrollLeft;
-        const adjustedY = e.clientY + document.documentElement.scrollTop - header_height;
+        const adjustedX = e.offsetX + document.documentElement.offsetLeft;
+        const adjustedY = e.offsetY + document.documentElement.offsetTop;
         fridge.magnets[mouse.magnetIndex].x = adjustedX;
         fridge.magnets[mouse.magnetIndex].y = adjustedY;
 
@@ -101,19 +100,25 @@ fridge.canvas.addEventListener("mouseup", () => {
 });
 
 document.addEventListener("keydown", (e) => {
-    if (e.keyCode == 87) document.documentElement.scrollTop -=35; //w
-    if (e.keyCode == 83) document.documentElement.scrollTop +=35; //s
-    if (e.keyCode == 81) document.documentElement.scrollLeft -=35; //q
-    if (e.keyCode == 65) document.documentElement.scrollLeft -=35; //a
-    if (e.keyCode == 69) document.documentElement.scrollLeft +=35; //a
-    if (e.keyCode == 68) document.documentElement.scrollLeft +=35; //d
+    if (e.keyCode === 87) document.documentElement.scrollTop -=35; //w
+    if (e.keyCode === 83) document.documentElement.scrollTop +=35; //s
+    if (e.keyCode === 81) document.documentElement.scrollLeft -=35; //q
+    if (e.keyCode === 65) document.documentElement.scrollLeft -=35; //a
+    if (e.keyCode === 69) document.documentElement.scrollLeft +=35; //a
+    if (e.keyCode === 68) document.documentElement.scrollLeft +=35; //d
+
+    if (e.keyCode === 72) home(); //h
 });
+
+const home = () => {
+    document.documentElement.scrollTop = 0;
+    document.documentElement.scrollLeft = (fridge.canvas.offsetWidth / 2) -(window.innerWidth /2);
+}
 
 //////////////////////////////////////////////
 
 socket.on("welcome", (magnets) => {
-    document.documentElement.scrollTop = 0;
-    document.documentElement.scrollLeft = (fridge.canvas.offsetWidth / 2) -(window.innerWidth /2) ;
+    home();
 
     fridge.magnets = []; //Redundant, makes for a safe restart.
     magnets.forEach((magnet) => {

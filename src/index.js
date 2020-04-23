@@ -30,14 +30,14 @@ class Magnet{
 class Fridge{
     constructor(){
         const radius = 30;
-        const specials = "0123456789=#!?&♪↖↗↙↘↯";
+        const specials = "0123456789=#!?&♪↙↘↯";
         this.magnets = [];
         
         // Bulk random chars
         for (let i=0; i<300; i++) {
             this.magnets.push(new Magnet(
                 Math.random() * (4000-radius*2) + radius,
-                Math.random() * (2000-radius*2) + radius,
+                Math.random() * (4000-radius*2) + radius,
                 radius,
                 this.generateCharacter()
             ));
@@ -48,7 +48,7 @@ class Fridge{
             Array.from(specials).forEach((special) => {
                 this.magnets.push(new Magnet(
                     Math.random() * (4000-radius*2) + radius,
-                    Math.random() * (2000-radius*2) + radius,
+                    Math.random() * (4000-radius*2) + radius,
                     radius,
                     special
                 ));
@@ -62,7 +62,7 @@ class Fridge{
                 files.forEach((file) => {
                     this.magnets.push(new Magnet(
                         Math.random() * (4000-radius*2) + radius,
-                        Math.random() * (2000-radius*2) + radius,
+                        Math.random() * (4000-radius*2) + radius,
                         radius,
                         "",
                         path.basename(file)

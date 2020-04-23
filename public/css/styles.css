@@ -13,6 +13,9 @@
 body{
     display: grid;
 }
+body::-webkit-scrollbar{
+    display:none;
+}
 
 .blue{
     color:#0078D5;
@@ -23,29 +26,34 @@ body{
 
 canvas{
     vertical-align: bottom;
+    background-image: url("/img/refrigerator.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 10px;
+    background-size: contain;
+    margin:0 auto;
+    border: 4px solid var(--secondary-color);
 }
 
 #header{
     background: var(--secondary-color);
     color:var(--main-color);
     font-family: var(--main-font);
-    border-bottom: 4px solid black;
     display: flex;
     justify-content: center;
+    z-index: 1;
 }
 #main-title{
-    font-size: 2em;
+    font-size: 4em;
     padding-left: 20px;
+    margin: auto 0;
+
 }
 #magnet{
-    width:50px;
     margin-left:25px;
 }
 #sub-title{
     margin: auto 0 auto 25px;
-}
-#cone{
-    width:50px;
+    font-size: 2em;
 }
 #beta{
     color:yellow;
