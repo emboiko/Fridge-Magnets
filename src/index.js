@@ -5,7 +5,6 @@ const socketio = require("socket.io");
 const app = express();
 app.use(helmet());
 app.use(express.static("public"));
-
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
@@ -15,7 +14,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT;
 const expressServer = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 const io = socketio(expressServer);
-
 
 class Magnet{
     constructor(x,y,radius, letter){
@@ -60,5 +58,3 @@ io.on("connection", (socket) => {
     });
 
 });
-
-/////////////////////////////
