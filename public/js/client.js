@@ -26,8 +26,8 @@ class Fridge{
     constructor(){
         this.canvas = document.getElementById("fridge");
         this.c = this.canvas.getContext("2d");
-        this.canvas.width = 5000;
-        this.canvas.height = 4000;
+        this.canvas.width = 4000;
+        this.canvas.height = 2000;
 
         this.magnets = [];
     }

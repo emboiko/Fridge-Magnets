@@ -29,10 +29,10 @@ class Fridge{
         const radius = 30;
         this.magnets = [];
         
-        for (let i=0; i<500; i++) {
+        for (let i=0; i<300; i++) {
             this.magnets.push(new Magnet(
-                Math.random() * (5000-radius*2) + radius,
                 Math.random() * (4000-radius*2) + radius,
+                Math.random() * (2000-radius*2) + radius,
                 radius,
                 this.generateCharacter()
             ));
@@ -54,7 +54,10 @@ io.on("connection", (socket) => {
     socket.on("magnetMove", (data) => {
         fridge.magnets[data.i].x = data.x;
         fridge.magnets[data.i].y = data.y;
-        socket.broadcast.emit("update", fridge.magnets);
     });
-
+    
 });
+
+setInterval(() => {
+    io.emit("update", fridge.magnets);
+},33);
