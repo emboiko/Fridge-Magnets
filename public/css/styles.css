@@ -1,0 +1,40 @@
+:root{
+    --main-color: #cccccc;
+    --secondary-color: #333333;
+    --main-font: "Lalezar","Arial","Sans Serif";
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    display: grid;
+}
+
+canvas{
+    background-image: linear-gradient(to bottom, var(--main-color), var(--secondary-color));
+    vertical-align: bottom;
+}
+
+#header{
+    background: var(--secondary-color);
+    color:var(--main-color);
+    font-family: var(--main-font);
+    border-bottom: 4px solid black;
+    display: flex;
+    justify-content: center;
+}
+#main-title{
+    font-size: 2em;
+    padding-left: 20px;
+}
+#magnet{
+    width:50px;
+    margin-left:25px;
+}
+#sub-title{
+    margin: auto 0 auto 25px;
+}
