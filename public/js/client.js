@@ -12,17 +12,19 @@ class Magnet{
             this.image = new Image();
             this.image.src = `/img/canvas/${this.sprite}`;
         }
+
+        this.color = "#" + Math.floor(Math.random()*16777215).toString(16);
     }
     
     draw(){
         fridge.c.textAlign = "center";
-        fridge.c.strokeStyle = "#000000";
-        fridge.c.fillStyle = "#333333";
+        fridge.c.fillStyle = this.color;
         fridge.c.textBaseline = "middle";
-        fridge.c.font="40px Raleway";
+        fridge.c.font="55px Luckiest Guy";
+        
         fridge.c.fillText(this.letter, this.x, this.y);
         fridge.c.stroke();
-        
+
         if (this.sprite) {
             fridge.c.drawImage(this.image, this.x-this.image.width/2, this.y-this.image.width/2);
         }
@@ -95,6 +97,10 @@ fridge.canvas.addEventListener("mousemove", (e) => {
 });
 
 fridge.canvas.addEventListener("mouseup", () => {
+    mouse.dragging = false;
+    mouse.draggingBackground = false;
+});
+fridge.canvas.addEventListener("mouseout", () => {
     mouse.dragging = false;
     mouse.draggingBackground = false;
 });
