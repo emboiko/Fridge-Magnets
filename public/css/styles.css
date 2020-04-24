@@ -56,8 +56,11 @@ canvas{
 #magnet{
     margin-left:25px;
 }
+#cone{
+    margin-left:10px;
+}
 #sub-title{
-    margin: auto 75px auto 10px;
+    margin: auto 60px auto 10px;
     font-size: 2em;
 }
 #beta{
