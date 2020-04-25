@@ -143,8 +143,10 @@ socket.on("welcome", (magnets) => {
 
 socket.on("update", (magnets) => {
     fridge.magnets.forEach((magnet, i) => {
-        magnet.x = magnets[i].x;
-        magnet.y = magnets[i].y;
+        if (mouse.magnetIndex !== i) {
+            magnet.x = magnets[i].x;
+            magnet.y = magnets[i].y;
+        }
     });
 });
 
@@ -154,10 +156,8 @@ const animate = () => {
     requestAnimationFrame(animate);
     fridge.c.clearRect(0, 0, fridge.canvas.width, fridge.canvas.height);
 
-    fridge.magnets.forEach((magnet, i) => {
-        if (mouse.magnetIndex !== i) {
-            magnet.draw();
-        }
+    fridge.magnets.forEach((magnet) => {
+        magnet.draw();
     });
 }
 
