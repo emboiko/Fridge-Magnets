@@ -5,26 +5,17 @@
     --red:#E23225;
     --main-font: "Lalezar","Arial","Sans Serif";
 }
-
 *{
     margin:0;
     padding:0;
     box-sizing: border-box;
 }
-
 body{
     display: grid;
     background-color: var(--secondary-color);
 }
 body::-webkit-scrollbar{
     display:none;
-}
-
-.blue{
-    color:var(--blue);
-}
-.red{
-    color:var(--red);
 }
 
 canvas{
@@ -36,9 +27,11 @@ canvas{
                         url("/img/bin.png"),
                         url("/img/fan.png"),
                         url("/img/rope.png"),
+                        url("/img/dustpan.png"),
                         url("/img/tile.png"),
                         url("/img/tile.png");
     background-repeat: no-repeat,
+                        no-repeat,
                         no-repeat,
                         no-repeat,
                         no-repeat,
@@ -47,9 +40,10 @@ canvas{
                         repeat-y;
     background-position: 50% 10px,
                         0px 350px,
-                        0px 3300px,
+                        -250px 3400px,
                         3000px -120px,
                         455px 0px,
+                        3475px 3450px,
                         right,
                         left;
     background-size: contain,
@@ -57,10 +51,17 @@ canvas{
                         25%,
                         25%,
                         100px 800px,
+                        15%,
                         25%,
                         25%;
 }
 
+.blue{
+    color:var(--blue);
+}
+.red{
+    color:var(--red);
+}
 #header{
     background: var(--secondary-color);
     color:var(--main-color);
@@ -105,12 +106,43 @@ a:hover{
     float: right;
     margin-right: 80px;
 }
-
 .page{
     height:100vh;
     min-width: 1024px;
-    background-color: var(--main-color);
+    background-image: url("/img/tile.png");
+    background-repeat: repeat;
+    background-position: center;
+    background-size: contain;
 }
+
+#about {
+    font-size: 1.5em;
+    font-family: "Raleway", "Arial", "Sans-Serif";
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+    width: 70%;
+    margin: 75px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 10px 10px var(--secondary-color);
+}
+
+#about a {
+    color: var(--blue);
+}
+
+#about ul {
+    list-style: none;
+}
+
+#about h3 {
+    margin: 20px auto;
+}
+
+#about li {
+    margin-top: 10px;
+}
+
 
 #notfound{
     background: var(--secondary-color);

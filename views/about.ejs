@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,35 @@
     <link rel="stylesheet" href="/css/styles.css">
     <title>Fridge-Magnets</title>
 </head>
+
 <body>
     <div class="page">
         <%- include("partials/header.ejs")%>
-
+        <div id="about">
+            <h3 class="red">
+                Someone keeps stealing my magnets...
+            </h3>
+            <p>This app features an anonymous multiplayer fridge where anything goes. Click and drag magnets into clever
+                configurations, work with others to form sentences, or cause chaos. We won't judge.</p>
+            <h3 class="red">
+                Shortcuts, Keyboard & Mouse:
+            </h3>
+            <ul>
+                <li>Click and drag a magnet to place it somewhere else</li>
+                <li>Click and drag the background to pan the viewport</li>
+                <li>Arrow keys & QWEASD are bound to scroll / pan the viewport</li>
+                <li>Return to top-middle with the H key</li>
+                <li>Zoom in & out with ctrl + scroll | Reset zoom with ctrl + 0</li>
+                <li>Regular paging keys: Home, End, Page-up, Page-down, & Space</li>
+            </ul>
+            <h3 class="red">Contribute</h3>
+            <p>The repository for this app is on <a href="https://github.com/emboiko/Fridge-Magnets"
+                    target="_blank">Github</a>. If
+                you'd like to improve, extend, or debug Fridge-Magnets, feel free to submit a pull request. Otherwise,
+                we also have a <a href="/suggestions">suggestion box</a>. If you have a magnet you'd like to see on the
+                fridge, let us know!</p>
+        </div>
     </div>
 </body>
+
 </html>
