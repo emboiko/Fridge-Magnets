@@ -1,38 +1,38 @@
 const socket = io();
 
-class Magnet{
-    constructor(x,y,radius, letter, sprite){
+class Magnet {
+    constructor(x, y, radius, letter, color, sprite) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.letter = letter;
+        this.color = color;
         this.sprite = sprite;
-        
+
         if (this.sprite) {
             this.image = new Image();
             this.image.src = `/img/canvas/${this.sprite}`;
         }
 
-        this.color = "#" + Math.floor(Math.random()*16777215).toString(16);
     }
-    
-    draw(){
+
+    draw() {
         fridge.c.textAlign = "center";
         fridge.c.fillStyle = this.color;
         fridge.c.textBaseline = "middle";
-        fridge.c.font="55px Luckiest Guy";
-        
+        fridge.c.font = "55px Luckiest Guy";
+
         fridge.c.fillText(this.letter, this.x, this.y);
         fridge.c.stroke();
 
         if (this.sprite) {
-            fridge.c.drawImage(this.image, this.x-this.image.width/2, this.y-this.image.width/2);
+            fridge.c.drawImage(this.image, this.x - this.image.width / 2, this.y - this.image.width / 2);
         }
     }
 }
 
-class Fridge{
-    constructor(){
+class Fridge {
+    constructor() {
         this.canvas = document.getElementById("fridge");
         this.c = this.canvas.getContext("2d");
         this.canvas.width = 4000;
@@ -42,8 +42,8 @@ class Fridge{
     }
 }
 
-class Mouse{
-    constructor(){
+class Mouse {
+    constructor() {
         self.x = undefined;
         self.y = undefined;
         self.dragging = false;
@@ -63,9 +63,9 @@ fridge.canvas.addEventListener("mousedown", (e) => {
     mouse.x = e.offsetX - document.documentElement.offsetLeft;
     mouse.y = e.offsetY + document.documentElement.offsetTop;
     fridge.magnets.forEach((magnet, index) => {
-    
+
         if ((mouse.x >= magnet.x - magnet.radius) && (mouse.x <= magnet.x + magnet.radius)) {
-    
+
             if ((mouse.y >= magnet.y - magnet.radius) && (mouse.y <= magnet.y + magnet.radius)) {
                 mouse.dragging = true;
                 mouse.magnetIndex = index;
@@ -79,16 +79,16 @@ fridge.canvas.addEventListener("mousedown", (e) => {
 });
 
 fridge.canvas.addEventListener("mousemove", (e) => {
-    if (mouse.dragging){
+    if (mouse.dragging) {
         const adjustedX = e.offsetX + document.documentElement.offsetLeft;
         const adjustedY = e.offsetY + document.documentElement.offsetTop;
         fridge.magnets[mouse.magnetIndex].x = adjustedX;
         fridge.magnets[mouse.magnetIndex].y = adjustedY;
 
         socket.emit("magnetMove", {
-            x:adjustedX,
-            y:adjustedY,
-            i:mouse.magnetIndex
+            x: adjustedX,
+            y: adjustedY,
+            i: mouse.magnetIndex
         });
     } else if (mouse.draggingBackground) {
         document.documentElement.scrollLeft -= e.movementX;
@@ -99,26 +99,28 @@ fridge.canvas.addEventListener("mousemove", (e) => {
 fridge.canvas.addEventListener("mouseup", () => {
     mouse.dragging = false;
     mouse.draggingBackground = false;
+    mouse.magnetIndex = 0;
 });
 fridge.canvas.addEventListener("mouseout", () => {
     mouse.dragging = false;
     mouse.draggingBackground = false;
+    mouse.magnetIndex = 0;
 });
 
 document.addEventListener("keydown", (e) => {
-    if (e.keyCode === 87) document.documentElement.scrollTop -=35; //w
-    if (e.keyCode === 83) document.documentElement.scrollTop +=35; //s
-    if (e.keyCode === 81) document.documentElement.scrollLeft -=35; //q
-    if (e.keyCode === 65) document.documentElement.scrollLeft -=35; //a
-    if (e.keyCode === 69) document.documentElement.scrollLeft +=35; //a
-    if (e.keyCode === 68) document.documentElement.scrollLeft +=35; //d
+    if (e.keyCode === 87) document.documentElement.scrollTop -= 35; //w
+    if (e.keyCode === 83) document.documentElement.scrollTop += 35; //s
+    if (e.keyCode === 81) document.documentElement.scrollLeft -= 35; //q
+    if (e.keyCode === 65) document.documentElement.scrollLeft -= 35; //a
+    if (e.keyCode === 69) document.documentElement.scrollLeft += 35; //a
+    if (e.keyCode === 68) document.documentElement.scrollLeft += 35; //d
 
     if (e.keyCode === 72) home(); //h
 });
 
 const home = () => {
     document.documentElement.scrollTop = 0;
-    document.documentElement.scrollLeft = (fridge.canvas.offsetWidth / 2) -(window.innerWidth /2);
+    document.documentElement.scrollLeft = (fridge.canvas.offsetWidth / 2) - (window.innerWidth / 2);
 }
 
 //////////////////////////////////////////////
@@ -133,6 +135,7 @@ socket.on("welcome", (magnets) => {
             magnet.y,
             magnet.radius,
             magnet.letter,
+            magnet.color,
             magnet.sprite
         ));
     });
@@ -140,8 +143,10 @@ socket.on("welcome", (magnets) => {
 
 socket.on("update", (magnets) => {
     fridge.magnets.forEach((magnet, i) => {
-        magnet.x = magnets[i].x;
-        magnet.y = magnets[i].y;
+        if (mouse.magnetIndex !== i) {
+            magnet.x = magnets[i].x;
+            magnet.y = magnets[i].y;
+        }
     });
 });
 
