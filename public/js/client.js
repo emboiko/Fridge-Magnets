@@ -48,7 +48,7 @@ class Mouse {
         self.y = undefined;
         self.dragging = false;
         self.draggingBackground = false;
-        self.magnetIndex = 0;
+        self.magnetIndex = null;
     }
 }
 
@@ -99,12 +99,12 @@ fridge.canvas.addEventListener("mousemove", (e) => {
 fridge.canvas.addEventListener("mouseup", () => {
     mouse.dragging = false;
     mouse.draggingBackground = false;
-    mouse.magnetIndex = 0;
+    mouse.magnetIndex = null;
 });
 fridge.canvas.addEventListener("mouseout", () => {
     mouse.dragging = false;
     mouse.draggingBackground = false;
-    mouse.magnetIndex = 0;
+    mouse.magnetIndex = null;
 });
 
 document.addEventListener("keydown", (e) => {
@@ -143,10 +143,8 @@ socket.on("welcome", (magnets) => {
 
 socket.on("update", (magnets) => {
     fridge.magnets.forEach((magnet, i) => {
-        if (mouse.magnetIndex !== i) {
-            magnet.x = magnets[i].x;
-            magnet.y = magnets[i].y;
-        }
+        magnet.x = magnets[i].x;
+        magnet.y = magnets[i].y;
     });
 });
 
@@ -156,8 +154,10 @@ const animate = () => {
     requestAnimationFrame(animate);
     fridge.c.clearRect(0, 0, fridge.canvas.width, fridge.canvas.height);
 
-    fridge.magnets.forEach((magnet) => {
-        magnet.draw();
+    fridge.magnets.forEach((magnet, i) => {
+        if (mouse.magnetIndex !== i) {
+            magnet.draw();
+        }
     });
 }
 
