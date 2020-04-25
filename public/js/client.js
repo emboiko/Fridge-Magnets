@@ -21,9 +21,11 @@ class Magnet {
         fridge.c.fillStyle = this.color;
         fridge.c.textBaseline = "middle";
         fridge.c.font = "55px Luckiest Guy";
-
+        fridge.c.strokeStyle = "#000000"
         fridge.c.fillText(this.letter, this.x, this.y);
-        fridge.c.stroke();
+
+        fridge.c.lineWidth = 3;
+        fridge.c.strokeText(this.letter, this.x, this.y);
 
         if (this.sprite) {
             fridge.c.drawImage(this.image, this.x - this.image.width / 2, this.y - this.image.width / 2);

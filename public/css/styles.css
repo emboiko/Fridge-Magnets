@@ -28,14 +28,37 @@ body::-webkit-scrollbar{
 }
 
 canvas{
+    margin:0 auto;
     vertical-align: bottom;
     background-color: var(--main-color);
-    background-image: url("/img/refrigerator.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 10px;
-    background-size: contain;
-    margin:0 auto;
-    border: 2px solid var(--secondary-color);
+    background-image: url("/img/refrigerator.jpg"),
+                        url("/img/clipboard.png"),
+                        url("/img/bin.png"),
+                        url("/img/fan.png"),
+                        url("/img/rope.png"),
+                        url("/img/tile.png"),
+                        url("/img/tile.png");
+    background-repeat: no-repeat,
+                        no-repeat,
+                        no-repeat,
+                        no-repeat,
+                        no-repeat,
+                        repeat-y,
+                        repeat-y;
+    background-position: 50% 10px,
+                        0px 350px,
+                        0px 3300px,
+                        3000px -120px,
+                        455px 0px,
+                        right,
+                        left;
+    background-size: contain,
+                        25%,
+                        25%,
+                        25%,
+                        100px 800px,
+                        25%,
+                        25%;
 }
 
 #header{
