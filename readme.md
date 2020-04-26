@@ -1,3 +1,4 @@
+# Fridge-Magnets
 <div align="center">
     <img src="https://i.imgur.com/xNc3uci.png">
 </div>
@@ -5,3 +6,5 @@
 
 [http://refrigerator-magnets.herokuapp.com/]()
 </div>
+
+This app features an anonymous multiplayer fridge where anything goes. Click and drag magnets into clever configurations, work with others to form sentences, or cause chaos. We won't judge.
