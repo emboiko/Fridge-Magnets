@@ -14,6 +14,18 @@
 <body>
     <div class="page">
         <%- include("partials/header.ejs")%>
+        <div class="page-box">
+            <h3 class="centertext">Tell us how to improve.</h3>
+            <p id="subtext">Are we missing your favorite magnet? Send us a message, and we'll add it to the fridge!
+                Perhaps you've encountered some unexpected behavior, or a bug. Feel
+                free to leave a message anonymously, or include your email if you'd like a reply.</p>
+            <form id="suggestions" action="/suggestions" method="POST">
+                <input class="form-input" type="text" name="name" id="name" placeholder="Anonymous">
+                <input class="form-input" type="email" name="email" id="email" placeholder="Email">
+                <textarea class="form-input" name="suggestion" id="suggestion" required></textarea>
+                <button>Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 

@@ -72,25 +72,22 @@ canvas{
 }
 #main-title{
     font-size: 4em;
-    padding-left: 20px;
     margin: auto 0;
     display: block;
     color:var(--main-color);
 }
-#magnet{
-    margin-left:25px;
-}
 #cone{
     margin-left:10px;
-}
-#sub-title{
-    margin: auto 60px auto 10px;
-    font-size: 2em;
+    height: 100px;
+    margin-top: auto;
 }
 #beta{
     color:yellow;
     margin-top: 10px;
     transform: rotate(-20deg);
+}
+#header a:active{
+    display: inline;
 }
 a{
     text-decoration: none;
@@ -99,13 +96,16 @@ a{
 a:hover{
     color:var(--main-color);
 }
-.left{
-    margin-left: 120px;
+.links{
+    display: flex;
+    justify-content: space-between;
+    margin: auto 0;
 }
-.right{
-    float: right;
-    margin-right: 80px;
+#fridge-icon{
+    height:100px;
+    margin-top: auto;
 }
+
 .page{
     height:100vh;
     min-width: 1024px;
@@ -114,8 +114,7 @@ a:hover{
     background-position: center;
     background-size: contain;
 }
-
-#about {
+.page-box {
     font-size: 1.5em;
     font-family: "Raleway", "Arial", "Sans-Serif";
     background-color: var(--secondary-color);
@@ -126,23 +125,71 @@ a:hover{
     border-radius: 15px;
     box-shadow: 10px 10px 10px 10px var(--secondary-color);
 }
-
-#about a {
+.page-box a {
     color: var(--blue);
 }
-
-#about ul {
+.page-box ul {
     list-style: none;
 }
-
-#about h3 {
+.page-box h3 {
     margin: 20px auto;
 }
-
-#about li {
+.page-box li {
     margin-top: 10px;
 }
 
+#suggestions {
+    display: flex;
+    flex-direction: column;
+    padding: 0 25px;
+}
+#name{
+    font-size: 0.8em;
+}
+#name::placeholder{
+    color:var(--main-color);
+}
+#email{
+    font-size: 0.8em;
+}
+#email::placeholder{
+    color:var(--main-color);
+}
+textarea {
+    resize: none;
+    height: 35vh;
+    font-size: 1.1em;
+}
+.form-input{
+    background-color: var(--secondary-color);
+    color:var(--main-color);
+    border: 1px solid var(--main-color);
+}
+.centertext{
+    text-align: center;
+}
+.space-top{
+    margin-top: 20px;
+}
+#subtext{
+    font-size: 0.75em;
+    margin-bottom: 10px;
+    padding: 0 25px;
+}
+button{
+    font-family: "Raleway", "Arial", "Sans-Serif";
+    font-size: 1.1em;
+    width:25%;
+    margin:25px auto 0 auto;
+    background-color: var(--blue);
+    transition-duration: 0.4s;
+    border:none;
+    border-radius: 15px;
+}
+button:hover{
+    background-color: var(--main-color);
+    color: var(--secondary-color)
+}
 
 #notfound{
     background: var(--secondary-color);
@@ -155,14 +202,12 @@ a:hover{
     font-family: "Raleway", "Arial", "Sans-Serif";
     padding:10px;
 }
-
 .notfound{
     background-image: url("/img/notfound.jpg");
     background-size: contain;
     background-position: bottom;
     background-repeat: no-repeat;
 }
-
 #awkward{
     border-bottom: 2px solid var(--blue);
     font-size: 20px;

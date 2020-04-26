@@ -3,9 +3,11 @@ const helmet = require("helmet");
 const socketio = require("socket.io");
 const fs = require("fs");
 const path = require("path");
+const messageEmail = require("./email/email");
 
 const app = express();
 app.use(helmet());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
@@ -17,6 +19,17 @@ app.get("/about", (req, res) => {
 });
 app.get("/suggestions", (req, res) => {
     res.render("suggestions");
+});
+app.post("/suggestions", (req, res) => {
+    let name = "Anonymous";
+    let email = "Anonymous@refrigerator-magnets.com";
+
+    if (req.body.email) email = req.body.email;
+    if (req.body.name) name = req.body.name;
+
+    const suggestion = req.body.suggestion;
+    messageEmail(email, name, suggestion);
+    res.render("submitted", { message: "Message submitted." });
 });
 app.get("*", (req, res) => {
     res.render("notfound");
