@@ -46,11 +46,11 @@ class Fridge {
 
 class Mouse {
     constructor() {
-        self.x = undefined;
-        self.y = undefined;
-        self.dragging = false;
-        self.draggingBackground = false;
-        self.magnetIndex = null;
+        this.x = undefined;
+        this.y = undefined;
+        this.dragging = false;
+        this.draggingBackground = false;
+        this.magnetIndex = null;
     }
 }
 
