@@ -57,7 +57,7 @@ class Fridge {
         this.magnets = [];
 
         // Bulk random chars
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < 250; i++) {
             this.magnets.push(new Magnet(
                 Math.random() * (4000 - radius * 2) + radius,
                 Math.random() * (3600 - radius * 2) + radius + 50,
