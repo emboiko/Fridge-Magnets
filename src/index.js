@@ -59,7 +59,7 @@ class Fridge {
         // Bulk random chars
         for (let i = 0; i < 250; i++) {
             this.magnets.push(new Magnet(
-                Math.random() * (4000 - radius * 2) + radius,
+                Math.random() * (1800 - radius * 2) + radius + 1100,
                 Math.random() * (3600 - radius * 2) + radius + 50,
                 radius,
                 this.generateCharacter()
@@ -70,7 +70,7 @@ class Fridge {
         for (let i = 0; i < 2; i++) {
             Array.from(specials).forEach((special) => {
                 this.magnets.push(new Magnet(
-                    Math.random() * (4000 - radius * 2) + radius,
+                    Math.random() * (1800 - radius * 2) + radius + 1100,
                     Math.random() * (3600 - radius * 2) + radius + 50,
                     radius,
                     special
@@ -84,7 +84,7 @@ class Fridge {
             else {
                 files.forEach((file) => {
                     this.magnets.push(new Magnet(
-                        Math.random() * (1700 - radius * 2) + radius + 1200,
+                        Math.random() * (1800 - radius * 2) + radius + 1100,
                         Math.random() * (3600 - radius * 2) + radius + 50,
                         radius,
                         "",
