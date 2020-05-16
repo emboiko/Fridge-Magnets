@@ -87,11 +87,14 @@ fridge.canvas.addEventListener("mousemove", (e) => {
         fridge.magnets[mouse.magnetIndex].x = adjustedX;
         fridge.magnets[mouse.magnetIndex].y = adjustedY;
 
-        socket.emit("magnetMove", {
-            x: adjustedX,
-            y: adjustedY,
-            i: mouse.magnetIndex
-        });
+        setTimeout(() => {
+            socket.emit("magnetMove", {
+                x: adjustedX,
+                y: adjustedY,
+                i: mouse.magnetIndex
+            });
+        }, 50);
+
     } else if (mouse.draggingBackground) {
         document.documentElement.scrollLeft -= e.movementX;
         document.documentElement.scrollTop -= e.movementY;
