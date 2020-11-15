@@ -10,10 +10,11 @@
     "author": "emboiko",
     "license": "ISC",
     "dependencies": {
-        "@sendgrid/mail": "^7.0.1",
-        "ejs": "^3.0.2",
+        "@sendgrid/mail": "^7.4.0",
+        "ejs": "^3.1.5",
         "express": "^4.17.1",
-        "helmet": "^3.22.0",
+        "helmet": "^3.23.3",
+        "mongoose": "^5.10.14",
         "socket.io": "^2.3.0"
     },
     "devDependencies": {
