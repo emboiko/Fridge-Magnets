@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/header/fridge.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <title>Fridge-Magnets</title>
 </head>
@@ -14,19 +16,24 @@
 <body>
     <div class="page">
         <%- include("partials/header.ejs")%>
-        <div class="page-box">
-            <h3 class="centertext blue">Tell us how to improve.</h3>
-            <p class="subtext centertext">Are we missing your favorite magnet? Send us a message, and we'll add it
-                to the fridge!
-                Perhaps you've encountered some unexpected behavior or a bug. Feel
-                free to leave a message anonymously, or include your email if you'd like a reply.</p>
-            <form id="suggestions" action="/suggestions" method="POST">
-                <input class="form-input" type="text" name="name" id="name" placeholder="Anonymous">
-                <input class="form-input" type="email" name="email" id="email" placeholder="Email">
-                <textarea class="form-input" name="suggestion" id="suggestion" required></textarea>
-                <button>Submit</button>
-            </form>
-        </div>
+            <div class="page-box">
+                <h3 class="centertext blue">Tell us how to improve.</h3>
+                <p class="subtext centertext">Are we missing your favorite magnet? Send us
+                    a message, and we'll add it
+                    to the fridge!
+                    Perhaps you've encountered some unexpected behavior or a bug. Feel
+                    free to leave a message anonymously, or include your email if you'd
+                    like a reply.</p>
+                <form id="suggestions" action="/suggestions" method="POST">
+                    <input class="form-input" type="text" name="name" id="name"
+                        placeholder="Anonymous">
+                    <input class="form-input" type="email" name="email" id="email"
+                        placeholder="Email">
+                    <textarea class="form-input" name="suggestion" id="suggestion"
+                        required></textarea>
+                    <button>Submit</button>
+                </form>
+            </div>
     </div>
 </body>
 

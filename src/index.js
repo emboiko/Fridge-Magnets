@@ -24,14 +24,20 @@ app.get("/suggestions", (req, res) => {
 app.post("/suggestions", (req, res) => {
   let name = "Anonymous";
   let email = "Anonymous@refrigerator-magnets.com";
-
   if (req.body.email) email = req.body.email;
   if (req.body.name) name = req.body.name;
 
-  const suggestion = req.body.suggestion;
-  messageEmail(email, name, suggestion);
-  res.render("submitted", { message: "Message submitted." });
+  let error = "";
+  const suggestion = req.body.suggestion.trim();
+  if (!suggestion) error = "Message field must not be empty.";
+
+  if (error) res.render("suggestions", { error, email, name, suggestion });
+  else {
+    messageEmail(email, name, suggestion);
+    res.render("submitted", { message: "Message submitted." });
+  }
 });
+
 app.get("*", (req, res) => {
   res.render("notfound");
 });
