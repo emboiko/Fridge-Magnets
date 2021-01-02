@@ -25,12 +25,15 @@
                     free to leave a message anonymously, or include your email if you'd
                     like a reply.</p>
                 <form id="suggestions" action="/suggestions" method="POST">
+                    <p class="blue">
+                        <%=locals.error%>
+                    </p>
                     <input class="form-input" type="text" name="name" id="name"
-                        placeholder="Anonymous">
+                        placeholder="Anonymous" value="<%=locals.name%>">
                     <input class="form-input" type="email" name="email" id="email"
-                        placeholder="Email">
+                        placeholder="Email" value="<%=locals.email%>">
                     <textarea class="form-input" name="suggestion" id="suggestion"
-                        required></textarea>
+                        required><%=locals.suggestion%></textarea>
                     <button>Submit</button>
                 </form>
             </div>
