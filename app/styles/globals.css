@@ -1,0 +1,83 @@
+:root {
+  --main-color: #ffffff;
+  --secondary-color: #020808;
+  --portal-orange: #ff6d00;
+  --portal-blue: #4da6ff;
+  --portal-red: #ff4444;
+  /* Font variables are set by next/font/google in layout.tsx */
+  --main-font: var(--font-lalezar), "Arial", "Sans Serif";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--secondary-color);
+}
+
+.dark-mode body {
+  background-color: #000000;
+}
+
+html:not(.dark-mode) body {
+  background-color: #ffffff;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.dark-mode textarea {
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark-mode textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode textarea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.dark-mode textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.portal-orange {
+  color: var(--portal-orange);
+}
+
+.portal-blue {
+  color: var(--portal-blue);
+}
+
+button {
+  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  font-size: 1.1em;
+  margin: 25px auto 0 auto;
+  transition-duration: 0.4s;
+  border: none;
+  border-radius: 15px;
+}
+
+button:hover {
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+}

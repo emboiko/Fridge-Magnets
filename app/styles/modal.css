@@ -1,0 +1,91 @@
+/* Modal base styles */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  background-color: #ffffff;
+  color: #020808;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .modal-content {
+  background-color: #020808;
+  color: #ffffff;
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.modal-close-button {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  color: #020808;
+}
+
+.dark-mode .modal-close-button {
+  color: #ffffff;
+}
+
+.modal-close-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .modal-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+  padding-top: 0;
+}
+
+.modal-body.no-title {
+  padding-top: 8px;
+}
+
+.modal-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: var(--main-font);
+  padding-right: 40px;
+}

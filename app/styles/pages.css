@@ -1,0 +1,79 @@
+/* Page-specific styles (not-found, kicked, banned, already-connected) */
+
+.not-found-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.dark-mode .not-found-page {
+  background-color: #000000;
+}
+
+#notfound {
+  background: transparent;
+  color: var(--main-color);
+  font-size: 24px;
+  text-align: center;
+  margin: 33vh auto 0 auto;
+  width: 33%;
+  min-width: 300px;
+  max-width: 800px;
+  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dark-mode #notfound {
+  color: #ffffff;
+}
+
+html:not(.dark-mode) #notfound {
+  color: #000000;
+}
+
+.not-found-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding: 20px 20px 0 20px;
+  object-fit: contain;
+}
+
+#awkward {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.not-found-description,
+.kicked-description {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.kicked-message {
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  color: rgba(0, 0, 0, 0.7);
+  font-style: italic;
+}
+
+.dark-mode .kicked-message {
+  color: rgba(255, 255, 255, 0.7);
+}

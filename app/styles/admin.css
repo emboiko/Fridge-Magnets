@@ -1,0 +1,674 @@
+/* Admin panel and admin auth modal styles */
+
+.admin-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  min-width: 400px;
+  max-width: calc(100vw - 40px);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    width 0.3s ease,
+    height 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-panel.admin-panel-resizing {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease !important;
+  /* Width and height transitions disabled during resize for smooth dragging */
+}
+
+.dark-mode .admin-panel {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  gap: 12px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dark-mode .admin-panel-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-panel-title {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0;
+  color: var(--portal-red);
+  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+}
+
+.admin-panel-stats {
+  font-size: 0.9em;
+  color: var(--portal-blue);
+}
+
+.admin-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.dark-mode .admin-panel-content {
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.admin-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark-mode .admin-panel-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-panel-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dark-mode .admin-panel-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.admin-panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.dark-mode .admin-panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.admin-panel-content:not(:hover)::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .admin-panel-content:not(:hover)::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.admin-panel-section {
+  margin-bottom: 16px;
+}
+
+.admin-panel-section-title {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+}
+
+.admin-panel-section-title-blue {
+  color: var(--portal-blue);
+}
+
+.admin-panel-section-title-red {
+  color: var(--portal-red);
+}
+
+.admin-panel-section-title-orange {
+  color: var(--portal-orange);
+}
+
+.admin-panel-section-title-actions {
+  color: #000000;
+}
+
+.dark-mode .admin-panel-section-title-actions {
+  color: #ffffff;
+}
+
+.admin-panel-list-wrapper {
+  position: relative;
+}
+
+.admin-panel-list {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.dark-mode .admin-panel-list {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-list::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.admin-panel-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark-mode .admin-panel-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-panel-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dark-mode .admin-panel-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.admin-panel-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.dark-mode .admin-panel-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.admin-panel-list:not(:hover)::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .admin-panel-list:not(:hover)::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.admin-panel-empty {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  font-size: 0.9em;
+}
+
+.dark-mode .admin-panel-empty {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.admin-panel-user-item,
+.admin-panel-movement-item,
+.admin-panel-kicked-item,
+.admin-panel-banned-item {
+  padding: 8px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+}
+
+.dark-mode .admin-panel-user-item,
+.dark-mode .admin-panel-movement-item,
+.dark-mode .admin-panel-kicked-item,
+.dark-mode .admin-panel-banned-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-panel-user-item-current {
+  border: 2px solid var(--portal-blue);
+  background: rgba(0, 102, 204, 0.1) !important;
+}
+
+.dark-mode .admin-panel-user-item-current {
+  background: rgba(0, 102, 204, 0.2) !important;
+}
+
+.admin-panel-user-indicator {
+  color: var(--portal-blue);
+  margin-left: 6px;
+  font-size: 0.8em;
+}
+
+.admin-panel-username-number {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.admin-panel-user-info,
+.admin-panel-movement-info,
+.admin-panel-kicked-info,
+.admin-panel-banned-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+
+.admin-panel-user-id,
+.admin-panel-movement-user {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: var(--portal-blue);
+  line-height: 1.4;
+}
+
+.admin-panel-user-details {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .admin-panel-user-details {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-user-ip {
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .admin-panel-user-ip {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.admin-panel-movement-magnet {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+}
+
+.dark-mode .admin-panel-movement-magnet {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-movement-magnet span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.2;
+  font-size: 1.1em;
+}
+
+.admin-panel-kicked-ip {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: var(--portal-orange);
+}
+
+.admin-panel-kicked-message {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .admin-panel-kicked-message {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-kicked-time {
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .admin-panel-kicked-time {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.admin-panel-kicked-time-value {
+  font-weight: 600;
+  color: var(--portal-orange);
+}
+
+.admin-panel-banned-ip {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: var(--portal-red);
+}
+
+.admin-panel-banned-reason {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .admin-panel-banned-reason {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-banned-date {
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .admin-panel-banned-date {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.admin-panel-user-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-panel-action-button {
+  padding: 4px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.admin-panel-kick-button {
+  background-color: #ffaa00;
+  color: #000000;
+}
+
+.admin-panel-kick-button:hover {
+  background-color: #ff9900;
+}
+
+.admin-panel-ban-button {
+  background-color: var(--portal-red);
+  color: #ffffff;
+}
+
+.admin-panel-ban-button:hover {
+  background-color: #cc0000;
+  color: #ffffff;
+}
+
+.admin-panel-unban-button {
+  background-color: #44ff44;
+  color: #000000;
+}
+
+.admin-panel-unban-button:hover {
+  background-color: #00cc00;
+}
+
+.admin-panel-reset-button {
+  padding: 12px 24px;
+  background-color: var(--portal-orange);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.admin-panel-reset-button:hover:not(:disabled) {
+  background-color: #ff8800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-panel-reset-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-panel-resize-handle-width {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+  z-index: 10;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.admin-panel-resize-handle-width:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .admin-panel-resize-handle-width:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-resize-handle-width:active {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .admin-panel-resize-handle-width:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-panel-resize-handle-height {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  z-index: 10;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.admin-panel-resize-handle-height:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .admin-panel-resize-handle-height:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-resize-handle-height:active {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .admin-panel-resize-handle-height:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-panel-resize-handle-list {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  cursor: ns-resize;
+  z-index: 10;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.admin-panel-resize-handle-list:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .admin-panel-resize-handle-list:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-resize-handle-list:active {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .admin-panel-resize-handle-list:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-auth-field {
+  margin-bottom: 16px;
+}
+
+.admin-auth-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.admin-auth-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dark-mode .admin-auth-input {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.admin-auth-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.admin-auth-error {
+  color: #ff0000;
+  font-size: 14px;
+  flex: 1;
+}
+
+.dark-mode .admin-auth-error {
+  color: #ff6666;
+}
+
+.admin-auth-submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: var(--portal-orange);
+  color: #ffffff;
+  margin: 0;
+}
+
+.admin-auth-submit-button:hover:not(:disabled) {
+  background-color: #ff8800;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-auth-submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.admin-auth-submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dark-mode .admin-auth-submit-button {
+  background-color: var(--portal-blue);
+  color: #ffffff;
+}
+
+.dark-mode .admin-auth-submit-button:hover:not(:disabled) {
+  background-color: #3399ff;
+  box-shadow: 0 4px 8px rgba(77, 166, 255, 0.3);
+}
+
+.admin-panel-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-panel-metric-item {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dark-mode .admin-panel-metric-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-panel-metric-label {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .admin-panel-metric-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-metric-value {
+  font-size: 0.9em;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
+.dark-mode .admin-panel-metric-value {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.admin-panel-metric-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.dark-mode .admin-panel-metric-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-metric-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition:
+    width 0.3s ease,
+    background 0.3s ease;
+}
+
+.admin-panel-metric-bar-fill-low {
+  background: var(--portal-blue);
+}
+
+.admin-panel-metric-bar-fill-medium {
+  background: var(--portal-orange);
+}
+
+.admin-panel-metric-bar-fill-high {
+  background: var(--portal-red);
+}

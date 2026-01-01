@@ -1,23 +1,43 @@
 {
-    "name": "fridge-magnets",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "node ./src/index.js",
-        "dev": "env-cmd -f ./config/dev.env nodemon ./src/index.js"
-    },
-    "author": "emboiko",
-    "license": "ISC",
-    "dependencies": {
-        "@sendgrid/mail": "^7.4.0",
-        "ejs": "^3.1.5",
-        "express": "^4.17.1",
-        "helmet": "^3.23.3",
-        "mongoose": "^5.11.9",
-        "socket.io": "^2.3.0"
-    },
-    "devDependencies": {
-        "env-cmd": "^10.1.0"
-    }
+  "name": "fridge-magnets",
+  "version": "2.0.0",
+  "description": "Anonymous multiplayer refrigerator magnets",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "lint": "eslint app src --ext .js,.jsx --max-warnings=0",
+    "lint:next": "next lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "test:load": "node tests/load/socketLoadTest.js"
+  },
+  "author": "emboiko",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "mongoose": "^8.21.0",
+    "next": "^16.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "zod": "^3.25.76",
+    "zustand": "^4.5.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/eslint-parser": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@eslint/eslintrc": "^3.3.3",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^16.1.1",
+    "nodemon": "^3.0.0",
+    "prettier": "^3.2.0"
+  }
 }

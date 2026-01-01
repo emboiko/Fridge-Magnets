@@ -1,0 +1,27 @@
+/* About modal styles */
+
+.about-title {
+  color: var(--portal-orange);
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.about-section-title {
+  color: var(--portal-orange);
+  margin-bottom: 12px;
+}
+
+.about-paragraph {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.about-list {
+  font-size: 1em;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.about-link {
+  color: var(--portal-blue);
+}

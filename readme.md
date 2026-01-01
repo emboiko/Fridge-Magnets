@@ -1,19 +1,245 @@
-# Fridge-Magnets
-<div align="center">
-    <img src="https://i.imgur.com/xNc3uci.png" style="border-radius:15px">
-    <img src="https://i.imgur.com/Qpcwgbn.png" style="border-radius:15px">
-</div>
-<div align="center">
+# Fridge Magnets
 
-http://refrigerator-magnets.herokuapp.com/
-</div>
+An anonymous multiplayer refrigerator magnet canvas where users can drag and arrange "magnets" in real-time. Built with Next.js, Socket.IO, and MongoDB.
 
-This app features an anonymous multiplayer fridge where anything goes. Click and drag magnets into clever configurations, work with others to form sentences, or cause chaos. We won't judge.
+## Overview
 
----
+Fridge Magnets is a collaborative canvas application that simulates a shared refrigerator where anyone can place and move magnets. Users can:
 
-Made using:
-- Express
-- Socket.IO
-- HTML5 Canvas
-- MongoDB
+- Drag and drop magnets large canvas
+- Chat with other users in real-time
+- Create words, sentences, or artistic arrangements
+- Experience smooth animations and interpolated movement
+
+## Features
+
+### Core Functionality
+
+- **Real-time Multiplayer Canvas**: Synchronized magnet positions across all connected clients
+- **Interactive Magnets**: Letters, numbers, symbols, emojis, other special characters, and image sprites
+- **Chat System**: Real-time messaging with username support
+- **Persistent State**: Magnet positions saved to MongoDB and restored on server restart
+- **Rate Limiting**: Protection against spam and abuse
+- **Cloudflare Turnstile**: Bot protection for suggestion submissions
+
+### User Interface
+
+- **Responsive Canvas**: Pan and zoom with mouse or keyboard
+- **Keyboard Shortcuts**:
+  - `Arrow Keys` / `QWEASD`: Pan the viewport
+  - `H`: Return to center of canvas
+  - `Enter`: Open chat
+  - `Esc`: Close chat
+  - `Z`: Toggle header visibility
+  - `Ctrl+Shift+Alt+↑`: Open admin panel (if authenticated)
+- **Dark/Light Mode**: Toggle via fridge icon in header
+- **Resizable Panels**: Chat and admin panels can be resized
+
+### Admin Features
+
+- **User Management**: View active users, kick users, ban IPs
+- **Real-time Metrics**: Monitor server performance, active connections, and movement tracking
+- **Fridge Reset**: Reset all magnets to default positions
+- **Movement Tracking**: See which users are moving which magnets
+- **Kick/Ban Management**: Temporary kicks and permanent bans with custom messages
+
+## Technology Stack
+
+### Frontend
+
+- **Next.js 16** (App Router)
+- **React 18** with hooks
+- **Zustand** for state management
+- **Socket.IO Client** for real-time communication
+- **Canvas API** for rendering
+
+### Backend
+
+- **Node.js** with custom HTTP server
+- **Socket.IO 4** for WebSocket communication
+- **MongoDB** with Mongoose for data persistence
+- **Zod** for schema validation
+- **bcrypt** for admin password hashing
+
+### Infrastructure
+
+- **Cloudflare Turnstile** for bot protection
+- **SendGrid** for email notifications (suggestions)
+- **MongoDB** for data storage
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- MongoDB database (local or cloud)
+- (Optional) SendGrid API key for email functionality
+- (Optional) Cloudflare Turnstile keys for bot protection
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/emboiko/Fridge-Magnets.git
+cd Fridge-Magnets
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env.local` file in the root directory:
+
+```env
+# Database
+MONGODB_URI=mongodb://localhost:27017/fridge-magnets
+
+# Server Configuration
+PORT=3000
+HOSTNAME=localhost
+NODE_ENV=development
+
+# Next.js Public URL (for CORS)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Admin Authentication (bcrypt hash)
+ADMIN_PASSWORD_HASH=$2b$10$your-bcrypt-hash-here
+
+# SendGrid (Optional - for suggestion emails)
+SENDGRID_API_KEY=your-sendgrid-api-key
+SENDGRID_FROM_EMAIL=noreply@yourdomain.com
+
+# Cloudflare Turnstile (Optional - for bot protection)
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-site-key
+TURNSTILE_SECRET_KEY=your-secret-key
+```
+
+4. Generate admin password hash:
+
+```bash
+node -e "const bcrypt = require('bcrypt'); bcrypt.hash('your-password', 10).then(hash => console.log(hash))"
+```
+
+5. Start the development server:
+
+```bash
+npm run dev
+```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Production Build
+
+```bash
+npm run build
+npm start
+```
+
+## Project Structure
+
+```
+Fridge-Magnets/
+├── app/                    # Next.js App Router pages
+│   ├── api/              # API routes
+│   ├── styles/           # Global CSS files
+│   └── page.jsx          # Home page
+├── src/
+│   ├── components/       # React components
+│   │   ├── FridgeCanvas/ # Canvas component and hooks
+│   │   ├── modals/      # Modal components
+│   │   └── pages/       # Page components
+│   ├── entities/        # Domain entities (Magnet, Refrigerator)
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Server-side utilities and libraries
+│   │   ├── db/          # MongoDB models
+│   │   ├── socket/      # Socket.IO handlers
+│   │   ├── turnstile/   # Cloudflare Turnstile integration
+│   │   └── validation/  # Zod schemas
+│   └── stores/           # Zustand state stores
+├── public/              # Static assets
+│   └── img/            # Images and sprites
+├── server.js           # Custom Next.js server with Socket.IO
+└── package.json
+```
+
+## Development
+
+### Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+- `npm run test:load` - Run load tests
+
+### Code Style
+
+- Arrow functions by default (use `function` keyword only when needed)
+- Explicit syntax (curly braces for conditionals, avoid ternaries)
+- Descriptive variable names
+- Async/await preferred over promises
+- Minimal comments (code should be _reasonably_ self-documenting)
+
+## Architecture
+
+### Real-time Communication
+
+The application uses Socket.IO for bidirectional communication:
+
+- **Client → Server**: Magnet movements, chat messages, username changes
+- **Server → Client**: Magnet position updates, chat broadcasts, system messages
+
+### State Management
+
+- **Client**: Zustand stores for UI state, magnet state, and admin state
+- **Server**: In-memory Maps and Sets for active connections, rate limiting, and tracking
+
+### Data Persistence
+
+- **Magnets**: Saved to MongoDB every second (if changed)
+- **Banned IPs**: Persisted in database
+- **Kick Logs**: Tracked in database for audit purposes
+- **Suggestions**: Saved to database and emailed via SendGrid
+
+### Performance Optimizations
+
+- Viewport culling (only render visible magnets)
+- Interpolated movement for smooth animations
+- Throttled position updates (~60fps)
+- Sorted magnet cache for efficient z-index rendering
+- Direct DOM manipulation during resize operations
+
+## Security
+
+- **Rate Limiting**:
+  - Magnet moves: 60 per second per client
+  - Chat messages: 15 per 10 seconds per client
+  - API requests: 5 per 15 minutes per IP
+- **Input Validation**: Zod schemas for all socket events and API requests
+- **IP-based Controls**: One connection per IP, kick/ban functionality
+- **Admin Authentication**: bcrypt password hashing
+- **CORS Protection**: Origin validation for Socket.IO connections
+- **Bot Protection**: Cloudflare Turnstile for suggestion submissions
+
+## Known Issues
+
+- SendGrid is throwing a warning when sending emails, but it's not a critical issue. This is expected to be resolved in a later version of the library.
+- Browser zoom can cause canvas rendering issues (see TODO list)
+
+## TODO / Wishlist
+
+- Separate canvas from the document better (zooming the browser has weird side effects- this will probably involve a scaling rabbit-hole)
+- Chat logs persisted in DB (not sure why we'd need or want this but might be useful later on)
+- SMS alerts alongside the emails & DB persistence of suggestions
+- Support for additional fridge styles (stainless/black/eggshell/white/etc.) beyond dark/light mode
+- CSS architecture improvements (low priority)
+- Client queue system above a certain threshold once we have better baselines for performance metrics and latency
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request. If you'd like to suggest new magnets or features, use the suggestion box in the app.

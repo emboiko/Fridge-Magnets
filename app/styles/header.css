@@ -1,0 +1,240 @@
+/* Header-specific styles */
+
+#header {
+  position: fixed;
+  background: var(--secondary-color);
+  color: var(--main-color);
+  font-family: var(--main-font);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 12px 24px;
+  max-width: 90%;
+  width: fit-content;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.dark-mode #header {
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+html:not(.dark-mode) #header {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#header:hover {
+  transform: translateX(-50%);
+}
+
+.dark-mode #header:hover {
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.25),
+    0 0 60px rgba(255, 255, 255, 0.15),
+    0 12px 32px rgba(0, 0, 0, 0.7);
+}
+
+html:not(.dark-mode) #header:hover {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#main-title {
+  font-size: 2.5em;
+  margin: 0;
+  display: block;
+  color: var(--main-color);
+  line-height: 1.2;
+}
+
+.dark-mode #main-title {
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+html:not(.dark-mode) #main-title {
+  text-shadow: none;
+}
+
+#main-title-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#main-title-box a,
+.header-title-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+#main-title-box a:hover,
+.header-title-link:hover {
+  opacity: 0.8;
+}
+
+#cone {
+  margin-right: 12px;
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+#beta {
+  color: #ffd700;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin: 0;
+  transform: rotate(-15deg);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 24px;
+  top: 8px;
+}
+
+#fridge-icon {
+  height: 60px;
+  width: auto;
+  margin-left: 12px;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+#header a:active {
+  display: inline;
+}
+
+#header a,
+#header button {
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  line-height: inherit;
+  margin: 0;
+  vertical-align: baseline;
+}
+
+#header a.portal-blue,
+#header button.portal-blue {
+  color: var(--portal-blue);
+}
+
+#header a.portal-blue:hover,
+#header button.portal-blue:hover {
+  color: #66b3ff;
+  text-shadow: 0 0 8px rgba(77, 166, 255, 0.5);
+  opacity: 1;
+}
+
+#header a.portal-orange,
+#header button.portal-orange {
+  color: var(--portal-orange);
+}
+
+#header a.portal-orange:hover,
+#header button.portal-orange:hover {
+  color: #ff8533;
+  text-shadow: 0 0 8px rgba(255, 109, 0, 0.5);
+  opacity: 1;
+}
+
+#header a.admin-link-button:hover,
+#header button.admin-link-button:hover {
+  color: #ff6666;
+  text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
+  opacity: 1;
+}
+
+#header a:not(.portal-blue):not(.portal-orange):not(.admin-link-button):hover,
+#header button:not(.portal-blue):not(.portal-orange):not(.admin-link-button):hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 4px;
+  padding: 0px 4px 0px 4px;
+  font-size: 0.9em;
+}
+
+.header-link-button {
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.header-link-button:hover {
+  background: none !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.header-link-button.portal-blue {
+  color: var(--portal-blue);
+}
+
+.header-link-button.portal-orange {
+  color: var(--portal-orange);
+}
+
+.header-link-button.admin-link-button {
+  color: var(--portal-red);
+}
+
+.header-link-button:not(.portal-blue):not(.portal-orange):not(.admin-link-button) {
+  color: #ffffff;
+}
+
+/* Focus styles - match link colors and provide clear visual indication */
+.header-link-button:focus-visible {
+  outline: 2px solid;
+  outline-offset: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.header-link-button.portal-blue:focus-visible {
+  outline-color: var(--portal-blue);
+  color: #66b3ff;
+  text-shadow: 0 0 8px rgba(77, 166, 255, 0.6);
+}
+
+.header-link-button.portal-orange:focus-visible {
+  outline-color: var(--portal-orange);
+  color: #ff8533;
+  text-shadow: 0 0 8px rgba(255, 109, 0, 0.6);
+}
+
+.header-link-button.admin-link-button:focus-visible {
+  outline-color: var(--portal-red);
+  color: #ff6666;
+  text-shadow: 0 0 8px rgba(255, 68, 68, 0.6);
+}
+
+.header-link-button:not(.portal-blue):not(.portal-orange):not(.admin-link-button):focus-visible {
+  outline-color: #ffffff;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
