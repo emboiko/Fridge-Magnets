@@ -20,7 +20,7 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 - **Chat System**: Real-time messaging with username support
 - **Persistent State**: Magnet positions saved to MongoDB and restored on server restart
 - **Rate Limiting**: Protection against spam and abuse
-- **Cloudflare Turnstile**: Bot protection for suggestion submissions
+- **Cloudflare Turnstile**: Bot protection for contact form submissions
 
 ### User Interface
 
@@ -64,7 +64,7 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 ### Infrastructure
 
 - **Cloudflare Turnstile** for bot protection
-- **SendGrid** for email notifications (suggestions)
+- **Resend** for email notifications (contact messages)
 - **MongoDB** for data storage
 
 ## Getting Started
@@ -73,7 +73,7 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 
 - Node.js 18+
 - MongoDB database (local or cloud)
-- (Optional) SendGrid API key for email functionality
+- (Optional) Resend API key for email functionality
 - (Optional) Cloudflare Turnstile keys for bot protection
 
 ### Installation
@@ -108,9 +108,10 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 # Admin Authentication (bcrypt hash)
 ADMIN_PASSWORD_HASH=$2b$10$your-bcrypt-hash-here
 
-# SendGrid (Optional - for suggestion emails)
-SENDGRID_API_KEY=your-sendgrid-api-key
-SENDGRID_FROM_EMAIL=noreply@yourdomain.com
+# Resend (Optional - for contact emails)
+RESEND_API_KEY=your-resend-api-key
+RESEND_FROM_EMAIL=admin@mail.fridgemagnets.fun
+RESEND_TO_EMAIL=your-email@yourdomain.com
 
 # Cloudflare Turnstile (Optional - for bot protection)
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-site-key
@@ -204,7 +205,7 @@ The application uses Socket.IO for bidirectional communication:
 - **Magnets**: Saved to MongoDB every second (if changed)
 - **Banned IPs**: Persisted in database
 - **Kick Logs**: Tracked in database for audit purposes
-- **Suggestions**: Saved to database and emailed via SendGrid
+- **Contact Messages**: Saved to database and emailed via Resend
 
 ### Performance Optimizations
 
@@ -224,18 +225,17 @@ The application uses Socket.IO for bidirectional communication:
 - **IP-based Controls**: One connection per IP, kick/ban functionality
 - **Admin Authentication**: bcrypt password hashing
 - **CORS Protection**: Origin validation for Socket.IO connections
-- **Bot Protection**: Cloudflare Turnstile for suggestion submissions
+- **Bot Protection**: Cloudflare Turnstile for contact form submissions
 
 ## Known Issues
 
-- SendGrid is throwing a warning when sending emails, but it's not a critical issue. This is expected to be resolved in a later version of the library.
 - Browser zoom can cause canvas rendering issues (see TODO list)
 
 ## TODO / Wishlist
 
 - Separate canvas from the document better (zooming the browser has weird side effects- this will probably involve a scaling rabbit-hole)
 - Chat logs persisted in DB (not sure why we'd need or want this but might be useful later on)
-- SMS alerts alongside the emails & DB persistence of suggestions
+- SMS alerts alongside the emails & DB persistence of contact messages
 - Support for additional fridge styles (stainless/black/eggshell/white/etc.) beyond dark/light mode
 - CSS architecture improvements (low priority)
 - Client queue system above a certain threshold once we have better baselines for performance metrics and latency

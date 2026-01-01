@@ -8,7 +8,7 @@ import { useUIStore } from "@/src/stores/uiStore"
 import { useAdminStore } from "@/src/stores/adminStore"
 import Modal from "./Modal"
 import AboutModal from "./modals/AboutModal"
-import SuggestionsModal from "./modals/SuggestionsModal"
+import ContactModal from "./modals/ContactModal"
 
 export default function Header() {
   const isHeaderVisible = useUIStore((state) => state.isHeaderVisible)
@@ -17,7 +17,7 @@ export default function Header() {
   const toggleDarkMode = useUIStore((state) => state.toggleDarkMode)
   const toggleChat = useUIStore((state) => state.toggleChat)
   const [isAboutOpen, setIsAboutOpen] = useState(false)
-  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false)
+  const [isContactOpen, setIsContactOpen] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === "/"
 
@@ -54,7 +54,7 @@ export default function Header() {
             </button>
             <button
               className="portal-orange header-link-button"
-              onClick={() => setIsSuggestionsOpen(true)}
+              onClick={() => setIsContactOpen(true)}
             >
               Contact
             </button>
@@ -77,11 +77,16 @@ export default function Header() {
       </div>
 
       <Modal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)}>
-        <AboutModal />
+        <AboutModal
+          onOpenContact={() => {
+            setIsAboutOpen(false)
+            setIsContactOpen(true)
+          }}
+        />
       </Modal>
 
-      <Modal isOpen={isSuggestionsOpen} onClose={() => setIsSuggestionsOpen(false)}>
-        <SuggestionsModal onSuccess={() => {}} />
+      <Modal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)}>
+        <ContactModal onSuccess={() => {}} />
       </Modal>
     </>
   )

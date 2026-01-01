@@ -2,12 +2,16 @@
 
 import { useState, useRef, useCallback } from "react"
 import Turnstile from "@/src/components/Turnstile"
-import { MAX_SUGGESTION_LENGTH, MAX_NAME_LENGTH, MAX_EMAIL_LENGTH } from "@/src/lib/constants.js"
+import {
+  MAX_CONTACT_MESSAGE_LENGTH,
+  MAX_NAME_LENGTH,
+  MAX_EMAIL_LENGTH,
+} from "@/src/lib/constants.js"
 
-export default function SuggestionsModal({ onSuccess }) {
+export default function ContactModal({ onSuccess }) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [suggestion, setSuggestion] = useState("")
+  const [contactMessage, setContactMessage] = useState("")
   const [error, setError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -55,13 +59,13 @@ export default function SuggestionsModal({ onSuccess }) {
       return
     }
 
-    if (!suggestion.trim()) {
+    if (!contactMessage.trim()) {
       setError("Message field must not be empty.")
       return
     }
 
-    if (suggestion.length > MAX_SUGGESTION_LENGTH) {
-      setError(`Suggestion must be ${MAX_SUGGESTION_LENGTH} characters or less.`)
+    if (contactMessage.length > MAX_CONTACT_MESSAGE_LENGTH) {
+      setError(`Message must be ${MAX_CONTACT_MESSAGE_LENGTH} characters or less.`)
       return
     }
 
@@ -73,7 +77,7 @@ export default function SuggestionsModal({ onSuccess }) {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/suggestions", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +85,7 @@ export default function SuggestionsModal({ onSuccess }) {
         body: JSON.stringify({
           name,
           email,
-          suggestion,
+          message: contactMessage,
           turnstileToken,
         }),
       })
@@ -90,7 +94,7 @@ export default function SuggestionsModal({ onSuccess }) {
         setIsSubmitted(true)
         setName("")
         setEmail("")
-        setSuggestion("")
+        setContactMessage("")
         setTurnstileToken(null)
         setTurnstileReady(false)
         turnstileRef.current?.reset()
@@ -114,13 +118,13 @@ export default function SuggestionsModal({ onSuccess }) {
 
   return (
     <div>
-      <h3 className="suggestions-title">Tell us how to improve.</h3>
-      <p className="suggestions-description">
+      <h3 className="contact-title">Tell us how to improve.</h3>
+      <p className="contact-description">
         Are we missing your favorite magnet? Send us a message, and we&apos;ll add it to the fridge!
         Perhaps you&apos;ve encountered some unexpected behavior or a bug. Feel free to leave a
         message anonymously, or include your email if you&apos;d like a reply.
       </p>
-      <form onSubmit={handleSubmit} className="suggestions-form">
+      <form onSubmit={handleSubmit} className="contact-form">
         <input
           type="text"
           name="name"
@@ -134,7 +138,7 @@ export default function SuggestionsModal({ onSuccess }) {
           onKeyDown={(e) => e.stopPropagation()}
           onKeyUp={(e) => e.stopPropagation()}
           disabled={isSubmitted}
-          className="suggestions-input"
+          className="contact-input"
           maxLength={MAX_NAME_LENGTH}
         />
         <input
@@ -150,30 +154,30 @@ export default function SuggestionsModal({ onSuccess }) {
           onKeyDown={(e) => e.stopPropagation()}
           onKeyUp={(e) => e.stopPropagation()}
           disabled={isSubmitted}
-          className="suggestions-input"
+          className="contact-input"
           maxLength={MAX_EMAIL_LENGTH}
         />
         <textarea
-          name="suggestion"
+          name="message"
           required
-          value={suggestion}
+          value={contactMessage}
           onChange={(e) => {
-            if (e.target.value.length <= MAX_SUGGESTION_LENGTH) {
-              setSuggestion(e.target.value)
+            if (e.target.value.length <= MAX_CONTACT_MESSAGE_LENGTH) {
+              setContactMessage(e.target.value)
             }
           }}
           onKeyDown={(e) => e.stopPropagation()}
           onKeyUp={(e) => e.stopPropagation()}
-          placeholder="Your suggestion..."
+          placeholder="Your message..."
           rows={6}
-          maxLength={MAX_SUGGESTION_LENGTH}
+          maxLength={MAX_CONTACT_MESSAGE_LENGTH}
           disabled={isSubmitted}
-          className="suggestions-textarea"
+          className="contact-textarea"
         />
-        <p className={`suggestions-char-count ${suggestion.length > 0 ? "visible" : ""}`}>
-          {suggestion.length} / {MAX_SUGGESTION_LENGTH}
+        <p className={`contact-char-count ${contactMessage.length > 0 ? "visible" : ""}`}>
+          {contactMessage.length} / {MAX_CONTACT_MESSAGE_LENGTH}
         </p>
-        {error && <p className="suggestions-error">{error}</p>}
+        {error && <p className="contact-error">{error}</p>}
         {!isSubmitted && (
           <Turnstile
             ref={turnstileRef}
@@ -186,7 +190,7 @@ export default function SuggestionsModal({ onSuccess }) {
         <button
           type="submit"
           disabled={isButtonDisabled}
-          className={`suggestions-submit-button ${isSubmitted ? "submitted" : ""}`}
+          className={`contact-submit-button ${isSubmitted ? "submitted" : ""}`}
         >
           {isSubmitted
             ? "Submitted"

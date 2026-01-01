@@ -1,7 +1,7 @@
 // ============================================================================
 // Validation & Input Limits
 // ============================================================================
-export const MAX_SUGGESTION_LENGTH = 10000
+export const MAX_CONTACT_MESSAGE_LENGTH = 10000
 export const MAX_NAME_LENGTH = 100
 export const MAX_EMAIL_LENGTH = 100
 export const MAX_USERNAME_LENGTH = 20

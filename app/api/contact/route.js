@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server"
-import sendSuggestionEmail from "@/src/comms/email.js"
+import sendContactEmail from "@/src/comms/email.js"
 import { verifyTurnstileToken } from "@/src/lib/turnstile/verify.js"
 import { checkRateLimit } from "@/src/lib/rateLimit.js"
-import { MAX_SUGGESTION_LENGTH, MAX_NAME_LENGTH, MAX_EMAIL_LENGTH } from "@/src/lib/constants"
+import { MAX_CONTACT_MESSAGE_LENGTH, MAX_NAME_LENGTH, MAX_EMAIL_LENGTH } from "@/src/lib/constants"
 import connectDB from "@/src/lib/db/mongoose.js"
-import { Suggestion } from "@/src/lib/db/Suggestion.js"
+import { ContactMessage } from "@/src/lib/db/ContactMessage.js"
 
 export async function POST(request) {
   try {
     const body = await request.json()
-    const { name, email, suggestion, turnstileToken } = body
+    const { name, email, message, turnstileToken } = body
 
     const rateLimit = checkRateLimit(request)
     if (!rateLimit.allowed) {
@@ -40,13 +40,13 @@ export async function POST(request) {
       return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 })
     }
 
-    if (!suggestion || !suggestion.trim()) {
+    if (!message || !message.trim()) {
       return NextResponse.json({ error: "Message field must not be empty." }, { status: 400 })
     }
 
-    if (suggestion.length > MAX_SUGGESTION_LENGTH) {
+    if (message.length > MAX_CONTACT_MESSAGE_LENGTH) {
       return NextResponse.json(
-        { error: `Suggestion must be ${MAX_SUGGESTION_LENGTH} characters or less.` },
+        { error: `Message must be ${MAX_CONTACT_MESSAGE_LENGTH} characters or less.` },
         { status: 400 }
       )
     }
@@ -65,31 +65,31 @@ export async function POST(request) {
 
     const senderEmail = email || "Anonymous@refrigerator-magnets.com"
     const senderName = name || "Anonymous"
-    const senderMessage = suggestion.trim()
+    const senderMessage = message.trim()
 
     try {
       await connectDB()
 
-      const suggestionDoc = new Suggestion({
+      const contactMessageDoc = new ContactMessage({
         name: name || undefined,
         email: email || undefined,
-        suggestion: senderMessage,
+        message: senderMessage,
       })
 
-      await suggestionDoc.save()
+      await contactMessageDoc.save()
     } catch (error) {
-      console.error("Error saving suggestion to database:", error)
+      console.error("Error saving contact message to database:", error)
     }
 
     try {
-      await sendSuggestionEmail(senderEmail, senderName, senderMessage)
+      await sendContactEmail(senderEmail, senderName, senderMessage)
     } catch (error) {
       console.error("Error sending email:", error)
     }
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
-    console.error("Error processing suggestion:", error)
+    console.error("Error processing contact message:", error)
     return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 })
   }
 }

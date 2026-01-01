@@ -1,29 +1,29 @@
-import sgMail from "@sendgrid/mail"
+import { Resend } from "resend"
 
-if (!process.env.SENDGRID_API_KEY) {
-  console.warn("SENDGRID_API_KEY not set - email functionality disabled")
+if (!process.env.RESEND_API_KEY) {
+  console.warn("RESEND_API_KEY not set - email functionality disabled")
 }
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || "")
+const resend = new Resend(process.env.RESEND_API_KEY || "")
 
-async function sendSuggestionEmail(email, name, message) {
-  if (!process.env.SENDGRID_API_KEY) {
-    console.info("Email not sent - SENDGRID_API_KEY not configured")
+async function sendContactEmail(email, name, message) {
+  if (!process.env.RESEND_API_KEY) {
+    console.info("Email not sent - RESEND_API_KEY not configured")
     return
   }
 
-  if (!process.env.SENDGRID_FROM_EMAIL) {
-    throw new Error("SENDGRID_FROM_EMAIL environment variable is required")
+  if (!process.env.RESEND_FROM_EMAIL) {
+    throw new Error("RESEND_FROM_EMAIL environment variable is required")
   }
 
-  if (!process.env.SENDGRID_TO_EMAIL) {
-    throw new Error("SENDGRID_TO_EMAIL environment variable is required")
+  if (!process.env.RESEND_TO_EMAIL) {
+    throw new Error("RESEND_TO_EMAIL environment variable is required")
   }
 
   try {
-    await sgMail.send({
-      to: process.env.SENDGRID_TO_EMAIL,
-      from: process.env.SENDGRID_FROM_EMAIL,
+    await resend.emails.send({
+      to: process.env.RESEND_TO_EMAIL,
+      from: process.env.RESEND_FROM_EMAIL,
       replyTo: email && email !== "Anonymous@refrigerator-magnets.com" ? email : undefined,
       subject: `Fridge-Magnets message from ${name}`,
       text: message,
@@ -31,10 +31,10 @@ async function sendSuggestionEmail(email, name, message) {
   } catch (error) {
     console.error("Error sending email:", error.message)
     if (error.response) {
-      console.error("SendGrid response:", error.response.body)
+      console.error("Resend response:", error.response.body)
     }
     throw error
   }
 }
 
-export default sendSuggestionEmail
+export default sendContactEmail

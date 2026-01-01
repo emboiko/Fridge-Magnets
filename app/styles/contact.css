@@ -1,25 +1,25 @@
-/* Suggestions modal styles */
+/* Contact modal styles */
 
-.suggestions-title {
+.contact-title {
   text-align: center;
   color: var(--portal-blue);
   margin-top: 0;
   margin-bottom: 16px;
 }
 
-.suggestions-description {
+.contact-description {
   font-size: 1em;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.suggestions-form {
+.contact-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.suggestions-input {
+.contact-input {
   background-color: var(--secondary-color);
   color: var(--main-color);
   border: 1px solid var(--main-color);
@@ -29,11 +29,11 @@
   font-family: var(--font-raleway), Arial, Sans-Serif;
 }
 
-.suggestions-input:disabled {
+.contact-input:disabled {
   opacity: 0.6;
 }
 
-.suggestions-textarea {
+.contact-textarea {
   background-color: var(--secondary-color);
   color: var(--main-color);
   border: 1px solid var(--main-color);
@@ -44,11 +44,11 @@
   resize: vertical;
 }
 
-.suggestions-textarea:disabled {
+.contact-textarea:disabled {
   opacity: 0.6;
 }
 
-.suggestions-char-count {
+.contact-char-count {
   margin: 0;
   font-size: 0.8em;
   color: var(--main-color);
@@ -56,22 +56,22 @@
   min-height: 1.2em;
 }
 
-.suggestions-char-count.visible {
+.contact-char-count.visible {
   opacity: 0.7;
 }
 
-.suggestions-char-count:not(.visible) {
+.contact-char-count:not(.visible) {
   opacity: 0;
 }
 
-.suggestions-error {
+.contact-error {
   color: var(--portal-orange);
   margin: 0;
   font-size: 0.9em;
   margin-bottom: 50px;
 }
 
-.suggestions-submit-button {
+.contact-submit-button {
   font-family: var(--font-raleway), Arial, Sans-Serif;
   font-size: 1.1em;
   width: 100%;
@@ -83,20 +83,20 @@
   padding: 12px;
 }
 
-.suggestions-submit-button:not(.submitted) {
+.contact-submit-button:not(.submitted) {
   background-color: var(--portal-blue);
 }
 
-.suggestions-submit-button.submitted {
+.contact-submit-button.submitted {
   background-color: var(--portal-orange);
 }
 
-.suggestions-submit-button:disabled {
+.contact-submit-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.suggestions-submit-button:not(:disabled) {
+.contact-submit-button:not(:disabled) {
   cursor: pointer;
   opacity: 1;
 }

@@ -1,4 +1,10 @@
-export default function AboutModal() {
+export default function AboutModal({ onOpenContact }) {
+  const handleSuggestionBoxClick = () => {
+    if (onOpenContact) {
+      onOpenContact()
+    }
+  }
+
   return (
     <div>
       <h3 className="about-title">Someone keeps stealing my magnets...</h3>
@@ -29,8 +35,11 @@ export default function AboutModal() {
           Github
         </a>
         . If you&apos;d like to improve, extend, or debug Fridge-Magnets, feel free to submit a pull
-        request. Otherwise, we also have a suggestion box. If there&apos;s a magnet you&apos;d like
-        to see on the fridge, let us know!
+        request. Otherwise, we also have a{" "}
+        <button type="button" onClick={handleSuggestionBoxClick} className="about-link">
+          suggestion box
+        </button>
+        . If there&apos;s a magnet you&apos;d like to see on the fridge, let us know!
       </p>
     </div>
   )
