@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { CANONICAL_HOST } from "@/src/lib/constants.js"
 
-export function middleware(request) {
+export function proxy(request) {
   const host = request.headers.get("host") || ""
 
   if (process.env.NODE_ENV === "development" && host.includes("localhost")) {

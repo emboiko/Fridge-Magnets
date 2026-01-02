@@ -75,7 +75,7 @@ This application is deployed on **Heroku** due to its requirement for persistent
 
 The application enforces a canonical domain (`fridgemagnets.fun`) to ensure all traffic is routed through a single URL. This is implemented at two levels:
 
-1. **Next.js Middleware** (`middleware.js`): Redirects all non-canonical domain requests to the canonical domain for Next.js app routes
+1. **Next.js Proxy** (`proxy.js`): Redirects all non-canonical domain requests to the canonical domain for Next.js app routes
 2. **Custom Server** (`server.js`): Enforces domain restrictions for:
    - HTTP requests (including API routes)
    - Socket.IO WebSocket connections
