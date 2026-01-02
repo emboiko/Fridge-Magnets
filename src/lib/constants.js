@@ -32,6 +32,7 @@ export const EMOJIS = ["😭", "😂", "🤯", "😁", "🤩", "😎", "😡", "
 // ============================================================================
 export const MAGNET_LETTER_RADIUS = 30
 export const MAGNET_SPRITE_RADIUS = 30
+export const MAGNET_ENHANCED_SPRITE_RADIUS = 60
 export const BASE_LETTER_COUNT = 1200
 export const MIN_LETTERS_PER_CHAR = 3
 export const NUMBERS_PER_CHAR_COUNT = 2

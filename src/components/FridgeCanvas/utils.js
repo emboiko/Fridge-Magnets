@@ -48,7 +48,15 @@ export function calculateFontSize(ctx, text, maxRadius) {
   return Math.floor(minFontSize)
 }
 
-export function drawMagnet(ctx, magnet, imageCache, isDarkMode, showDebug = false) {
+export function drawMagnet(
+  ctx,
+  magnet,
+  imageCache,
+  animationState,
+  isDarkMode,
+  showDebug = false,
+  isVisible = true
+) {
   if (magnet.letter) {
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
@@ -63,18 +71,51 @@ export function drawMagnet(ctx, magnet, imageCache, isDarkMode, showDebug = fals
     ctx.strokeText(magnet.letter, magnet.x, magnet.y)
   }
 
-  if (magnet.sprite) {
-    const img = imageCache.get(magnet.sprite)
-    if (img && img.complete && img.naturalWidth > 0) {
-      // Find the biggest side of the image (width or height)
-      const maxDimension = Math.max(img.width, img.height)
-      // Calculate how much to shrink or grow the image to fit in the magnet circle
-      // If magnet is 60 pixels wide, and image is 100 pixels, we need to make it 60% smaller
-      const scale = (magnet.radius * 2) / maxDimension
-      const scaledWidth = img.width * scale
-      const scaledHeight = img.height * scale
+  if (magnet.sprite && magnet.spriteCategory) {
+    const cacheKey = `${magnet.spriteCategory}/${magnet.sprite}`
+    const imageData = imageCache.get(cacheKey)
 
-      // Draw image centered on the magnet (subtract half the image size from the center point)
+    if (imageData) {
+      let img
+      let width
+      let height
+
+      if (imageData.isAnimated) {
+        const state = animationState.get(cacheKey)
+        if (!state) {
+          return
+        }
+
+        // Only advance animation frames if the magnet is visible
+        // This saves CPU cycles for GIFs that are off-screen
+        if (isVisible) {
+          const now = Date.now()
+          const timeSinceLastFrame = now - state.lastFrameTime
+          const currentDelay = imageData.frameDelays[state.currentFrame] || 100
+
+          if (timeSinceLastFrame >= currentDelay) {
+            state.currentFrame = (state.currentFrame + 1) % imageData.numFrames
+            state.lastFrameTime = now
+          }
+        }
+
+        img = imageData.frames[state.currentFrame]
+        width = imageData.width
+        height = imageData.height
+      } else {
+        if (!imageData.complete || !imageData.naturalWidth) {
+          return
+        }
+        img = imageData
+        width = img.width
+        height = img.height
+      }
+
+      const maxDimension = Math.max(width, height)
+      const scale = (magnet.radius * 2) / maxDimension
+      const scaledWidth = width * scale
+      const scaledHeight = height * scale
+
       ctx.drawImage(
         img,
         magnet.x - scaledWidth / 2,
@@ -86,7 +127,7 @@ export function drawMagnet(ctx, magnet, imageCache, isDarkMode, showDebug = fals
   }
 
   if (showDebug) {
-    // Circles are way slower than rects
+    // Rects are way faster than circles for this
     ctx.strokeStyle = "#ff0000"
     ctx.lineWidth = 1
     ctx.strokeRect(
@@ -110,4 +151,12 @@ export function isMagnetVisible(magnet, viewport) {
 
 export function isEmoji(text) {
   return EMOJIS.includes(text)
+}
+
+export function isAnimatedImage(filename) {
+  if (!filename) {
+    return false
+  }
+  const lowerFilename = filename.toLowerCase()
+  return lowerFilename.endsWith(".gif")
 }

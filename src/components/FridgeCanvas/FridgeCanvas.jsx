@@ -76,7 +76,7 @@ export default function FridgeCanvas() {
     sortedMagnetsCacheRef.current = null
   }, [magnets])
 
-  const imageCacheRef = useImageLoading(magnets)
+  const { imageCacheRef, animationStateRef } = useImageLoading(magnets)
 
   const home = useCallback(() => {
     const container = containerRef.current
@@ -187,6 +187,7 @@ export default function FridgeCanvas() {
     getSortedMagnets,
     getViewportBounds,
     imageCacheRef,
+    animationStateRef,
     interpolatedPositionsRef,
     sortedMagnetsCacheRef,
     sortedMagnetsCacheTimeRef,

@@ -20,6 +20,7 @@ export function useCanvasAnimation(
   getSortedMagnets,
   getViewportBounds,
   imageCacheRef,
+  animationStateRef,
   interpolatedPositionsRef,
   sortedMagnetsCacheRef,
   sortedMagnetsCacheTimeRef,
@@ -70,6 +71,9 @@ export function useCanvasAnimation(
           return
         }
 
+        // All magnets in magnetsToDraw are visible (or being dragged)
+        const isVisible = true
+
         const interpolatedPos = interpolated.get(index)
         if (interpolatedPos) {
           // Calculate how far we need to move: difference between where we are and where we want to be
@@ -89,25 +93,52 @@ export function useCanvasAnimation(
               x: interpolatedPos.x,
               y: interpolatedPos.y,
             }
-            drawMagnet(ctx, interpolatedMagnet, imageCacheRef.current, isDarkMode, showDebug)
+            drawMagnet(
+              ctx,
+              interpolatedMagnet,
+              imageCacheRef.current,
+              animationStateRef.current,
+              isDarkMode,
+              showDebug,
+              isVisible
+            )
           } else {
             interpolatedPos.x = interpolatedPos.targetX
             interpolatedPos.y = interpolatedPos.targetY
             interpolated.delete(index)
-            drawMagnet(ctx, magnet, imageCacheRef.current, isDarkMode, showDebug)
+            drawMagnet(
+              ctx,
+              magnet,
+              imageCacheRef.current,
+              animationStateRef.current,
+              isDarkMode,
+              showDebug,
+              isVisible
+            )
           }
         } else {
-          drawMagnet(ctx, magnet, imageCacheRef.current, isDarkMode, showDebug)
+          drawMagnet(
+            ctx,
+            magnet,
+            imageCacheRef.current,
+            animationStateRef.current,
+            isDarkMode,
+            showDebug,
+            isVisible
+          )
         }
       })
 
       if (currentDraggingIndex !== null && currentMagnets[currentDraggingIndex]) {
+        // Dragged magnets are always visible
         drawMagnet(
           ctx,
           currentMagnets[currentDraggingIndex],
           imageCacheRef.current,
+          animationStateRef.current,
           isDarkMode,
-          showDebug
+          showDebug,
+          true
         )
       }
 
@@ -183,6 +214,7 @@ export function useCanvasAnimation(
     magnetsRef,
     draggingIndexRef,
     imageCacheRef,
+    animationStateRef,
     interpolatedPositionsRef,
     sortedMagnetsCacheRef,
     sortedMagnetsCacheTimeRef,

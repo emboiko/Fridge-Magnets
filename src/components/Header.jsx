@@ -35,7 +35,15 @@ export default function Header() {
   return (
     <>
       <div id="header">
-        <Image id="cone" src="/img/header/cone.png" alt="cone" width={60} height={60} priority />
+        <Image
+          id="cone"
+          src="/img/header/cone.png"
+          alt="cone"
+          width={60}
+          height={60}
+          priority
+          unoptimized
+        />
         <p id="beta">Beta</p>
         <div id="main-title-box">
           {isHomePage ? (
@@ -72,6 +80,7 @@ export default function Header() {
           width={60}
           height={60}
           priority
+          unoptimized
           onClick={toggleDarkMode}
         />
       </div>

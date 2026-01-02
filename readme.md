@@ -17,6 +17,7 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 
 - **Real-time Multiplayer Canvas**: Synchronized magnet positions across all connected clients
 - **Interactive Magnets**: Letters, numbers, symbols, emojis, other special characters, and image sprites
+- **Animated GIF Support**: Full support for animated GIFs as magnet sprites with optimized frame rendering
 - **Chat System**: Real-time messaging with username support
 - **Persistent State**: Magnet positions saved to MongoDB and restored on server restart
 - **Rate Limiting**: Protection against spam and abuse
@@ -52,6 +53,7 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 - **Zustand** for state management
 - **Socket.IO Client** for real-time communication
 - **Canvas API** for rendering
+- **omggif** for animated GIF frame decoding
 
 ### Backend
 
@@ -250,11 +252,12 @@ The application uses Socket.IO for bidirectional communication:
 
 ### Performance Optimizations
 
-- Viewport culling (only render visible magnets)
-- Interpolated movement for smooth animations
-- Throttled position updates (~60fps)
-- Sorted magnet cache for efficient z-index rendering
-- Direct DOM manipulation during resize operations
+- **Viewport Culling**: Only render visible magnets
+- **Interpolated Movement**: Smooth animations for magnet position updates
+- **Throttled Updates**: Position updates throttled to ~60fps
+- **Sorted Magnet Cache**: Efficient z-index rendering with TTL-based cache invalidation
+- **Direct DOM Manipulation**: Optimized resize operations
+- **Animated GIF Frame-Skipping**: GIF animations only advance frames when magnets are visible in the viewport, saving CPU cycles for off-screen animated sprites
 
 ## Security
 
@@ -277,6 +280,7 @@ The application uses Socket.IO for bidirectional communication:
 
 - Mobile support!
 - Rendering of 'screen' components could probably use some router guards
+- Convert PNGs to WebP for canvas images for performance (See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#supported_image_formats)
 - Separate canvas from the document better (zooming the browser has weird side effects- this will probably involve a scaling rabbit-hole)
 - Chat logs persisted in DB (not sure why we'd need or want this but might be useful later on)
 - SMS alerts alongside the emails & DB persistence of contact messages

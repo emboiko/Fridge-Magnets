@@ -22,6 +22,7 @@ import {
   EMOJIS,
   MAGNET_LETTER_RADIUS,
   MAGNET_SPRITE_RADIUS,
+  MAGNET_ENHANCED_SPRITE_RADIUS,
   BASE_LETTER_COUNT,
   MIN_LETTERS_PER_CHAR,
   NUMBERS_PER_CHAR_COUNT,
@@ -142,25 +143,19 @@ export class Refrigerator {
     const availableWidth = CANVAS_WIDTH - CANVAS_PADDING * 2
     const availableHeight = CANVAS_HEIGHT - CANVAS_PADDING * 2
 
-    // Base characters (letters)
-    for (let i = 0; i < BASE_LETTER_COUNT; i++) {
-      this.magnets.push(
-        new Magnet(
-          Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          MAGNET_LETTER_RADIUS,
-          this.generateCharacter()
-        )
-      )
-    }
+    // Quick flags for debugging:
+    const useMinimumLetterCounts = true
+    const useBaseCharacters = true
+    const useNumbers = true
+    const useSymbols = true
+    const useEmojis = true
+    const useSpecials = true
+    const useRegularSprites = true
+    const useEnhancedSprites = true
 
-    // Two of each number
-    for (let i = 0; i < NUMBERS_PER_CHAR_COUNT; i++) {
-      for (const number of NUMBERS) {
+    // Base characters (letters)
+    if (useBaseCharacters) {
+      for (let i = 0; i < BASE_LETTER_COUNT; i++) {
         this.magnets.push(
           new Magnet(
             Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
@@ -170,85 +165,144 @@ export class Refrigerator {
               MAGNET_LETTER_RADIUS +
               CANVAS_PADDING,
             MAGNET_LETTER_RADIUS,
-            number
+            this.generateCharacter()
           )
         )
+      }
+    }
+
+    // Two of each number
+    if (useNumbers) {
+      for (let i = 0; i < NUMBERS_PER_CHAR_COUNT; i++) {
+        for (const number of NUMBERS) {
+          this.magnets.push(
+            new Magnet(
+              Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
+                MAGNET_LETTER_RADIUS +
+                CANVAS_PADDING,
+              Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
+                MAGNET_LETTER_RADIUS +
+                CANVAS_PADDING,
+              MAGNET_LETTER_RADIUS,
+              number
+            )
+          )
+        }
       }
     }
 
     // One of each symbol
-    for (const symbol of SYMBOLS) {
-      this.magnets.push(
-        new Magnet(
-          Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          MAGNET_LETTER_RADIUS,
-          symbol
-        )
-      )
-    }
-
-    // One of each emoji
-    for (const emoji of EMOJIS) {
-      this.magnets.push(
-        new Magnet(
-          Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          MAGNET_LETTER_RADIUS,
-          emoji
-        )
-      )
-    }
-
-    // One of each special
-    for (const special of SPECIALS) {
-      this.magnets.push(
-        new Magnet(
-          Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-            MAGNET_LETTER_RADIUS +
-            CANVAS_PADDING,
-          MAGNET_LETTER_RADIUS,
-          special
-        )
-      )
-    }
-
-    // One of each standard (regular) canvas image
-    try {
-      const canvasDir = join(process.cwd(), "public", "img", "canvas", "regular")
-      const files = await readdir(canvasDir)
-
-      for (const file of files) {
+    if (useSymbols) {
+      for (const symbol of SYMBOLS) {
         this.magnets.push(
           new Magnet(
-            Math.random() * (availableWidth - MAGNET_SPRITE_RADIUS * 2) +
-              MAGNET_SPRITE_RADIUS +
+            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
+              MAGNET_LETTER_RADIUS +
               CANVAS_PADDING,
-            Math.random() * (availableHeight - MAGNET_SPRITE_RADIUS * 2) +
-              MAGNET_SPRITE_RADIUS +
+            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
+              MAGNET_LETTER_RADIUS +
               CANVAS_PADDING,
-            MAGNET_SPRITE_RADIUS,
-            undefined,
-            basename(file)
+            MAGNET_LETTER_RADIUS,
+            symbol
           )
         )
       }
-    } catch (error) {
-      console.error("Error reading canvas directory:", error)
     }
 
-    this.ensureMinimumLetterCounts(MIN_LETTERS_PER_CHAR)
+    // One of each emoji
+    if (useEmojis) {
+      for (const emoji of EMOJIS) {
+        this.magnets.push(
+          new Magnet(
+            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
+              MAGNET_LETTER_RADIUS +
+              CANVAS_PADDING,
+            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
+              MAGNET_LETTER_RADIUS +
+              CANVAS_PADDING,
+            MAGNET_LETTER_RADIUS,
+            emoji
+          )
+        )
+      }
+    }
+
+    // One of each special
+    if (useSpecials) {
+      for (const special of SPECIALS) {
+        this.magnets.push(
+          new Magnet(
+            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
+              MAGNET_LETTER_RADIUS +
+              CANVAS_PADDING,
+            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
+              MAGNET_LETTER_RADIUS +
+              CANVAS_PADDING,
+            MAGNET_LETTER_RADIUS,
+            special
+          )
+        )
+      }
+    }
+
+    // One of each standard (regular) canvas image
+    if (useRegularSprites) {
+      try {
+        const canvasDir = join(process.cwd(), "public", "img", "canvas", "regular")
+        const files = await readdir(canvasDir)
+
+        for (const file of files) {
+          this.magnets.push(
+            new Magnet(
+              Math.random() * (availableWidth - MAGNET_SPRITE_RADIUS * 2) +
+                MAGNET_SPRITE_RADIUS +
+                CANVAS_PADDING,
+              Math.random() * (availableHeight - MAGNET_SPRITE_RADIUS * 2) +
+                MAGNET_SPRITE_RADIUS +
+                CANVAS_PADDING,
+              MAGNET_SPRITE_RADIUS,
+              undefined,
+              basename(file)
+            )
+          )
+        }
+      } catch (error) {
+        console.error("Error reading canvas directory:", error)
+      }
+    }
+
+    // One of each enhanced canvas image (for now):
+    // Todo: Split this into imperative sections for special sprites
+    // like portals, stationary stuff, admin-only draggables, etc.
+    if (useEnhancedSprites) {
+      try {
+        const canvasDir = join(process.cwd(), "public", "img", "canvas", "enhanced")
+        const files = await readdir(canvasDir)
+
+        for (const file of files) {
+          this.magnets.push(
+            new Magnet(
+              Math.random() * (availableWidth - MAGNET_ENHANCED_SPRITE_RADIUS * 2) +
+                MAGNET_ENHANCED_SPRITE_RADIUS +
+                CANVAS_PADDING,
+              Math.random() * (availableHeight - MAGNET_ENHANCED_SPRITE_RADIUS * 2) +
+                MAGNET_ENHANCED_SPRITE_RADIUS +
+                CANVAS_PADDING,
+              MAGNET_ENHANCED_SPRITE_RADIUS,
+              undefined,
+              basename(file),
+              "enhanced"
+            )
+          )
+        }
+      } catch (error) {
+        console.error("Error reading canvas directory:", error)
+      }
+    }
+
+    if (useMinimumLetterCounts) {
+      this.ensureMinimumLetterCounts(MIN_LETTERS_PER_CHAR)
+    }
 
     const finalCounts = this.countLetters()
     const missingLetters = []
