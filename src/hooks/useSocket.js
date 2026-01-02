@@ -25,7 +25,11 @@ const getSocket = () => {
   }
 
   if (!socketInstance) {
-    const socketUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    // Use NEXT_PUBLIC_APP_URL if set, otherwise fall back to current origin
+    // Normalize URL (remove trailing slash, ensure protocol)
+    const envUrl = process.env.NEXT_PUBLIC_APP_URL
+    const fallbackUrl = window.location.origin
+    const socketUrl = envUrl || fallbackUrl
 
     // Get test IP from URL query parameter (development only)
     const urlParams = new URLSearchParams(window.location.search)
@@ -58,6 +62,9 @@ const getSocket = () => {
 
     socketInstance.on("connect_error", (error) => {
       console.error("Socket.IO connection error:", error)
+      console.error("Connection URL:", socketUrl)
+      console.error("Current origin:", window.location.origin)
+      console.error("NEXT_PUBLIC_APP_URL:", process.env.NEXT_PUBLIC_APP_URL || "not set")
     })
 
     // Handle error events (including already connected and kicked)

@@ -88,14 +88,17 @@ app.prepare().then(async () => {
   })
 
   // Set up Socket.IO
-  const allowedOrigin = dev
-    ? process.env.NEXT_PUBLIC_APP_URL || "*"
-    : process.env.NEXT_PUBLIC_APP_URL
+  let allowedOrigin = dev ? process.env.NEXT_PUBLIC_APP_URL || "*" : process.env.NEXT_PUBLIC_APP_URL
 
   if (!dev && !allowedOrigin) {
     throw new Error(
       "NEXT_PUBLIC_APP_URL environment variable is required in production for CORS security"
     )
+  }
+
+  // Normalize allowed origin (remove trailing slash if present)
+  if (allowedOrigin && allowedOrigin !== "*") {
+    allowedOrigin = allowedOrigin.replace(/\/$/, "")
   }
 
   const io = new SocketIOServer(httpServer, {
@@ -110,14 +113,51 @@ app.prepare().then(async () => {
       const host = req.headers.host?.split(":")[0] // Remove port if present
 
       // In production, enforce canonical domain for Socket.IO connections
-      if (!dev && host && host !== CANONICAL_HOST) {
-        callback("Host not allowed", false)
+      if (!dev) {
+        if (host && host !== CANONICAL_HOST) {
+          console.warn(`Socket.IO connection rejected: invalid host "${host}"`)
+          callback("Host not allowed", false)
+          return
+        }
+      }
+
+      // Allow if:
+      // 1. Development mode with wildcard allowed
+      // 2. No origin header (same-origin WebSocket connections may not send origin)
+      // 3. Origin matches allowed origin
+      // 4. In production, if host is canonical and origin is missing, allow (same-origin)
+      if (allowedOrigin === "*") {
+        callback(null, true)
         return
       }
 
-      if (allowedOrigin === "*" || !origin || origin === allowedOrigin) {
+      if (!origin) {
+        // Same-origin connections may not send origin header
+        // If we're in production and host is canonical, allow it
+        if (!dev && host === CANONICAL_HOST) {
+          callback(null, true)
+          return
+        }
+        // In development, allow missing origin
+        if (dev) {
+          callback(null, true)
+          return
+        }
+        console.warn("Socket.IO connection rejected: missing origin header")
+        callback("Origin not allowed", false)
+        return
+      }
+
+      // Normalize origins for comparison (remove trailing slashes)
+      const normalizedOrigin = origin.replace(/\/$/, "")
+      const normalizedAllowedOrigin = allowedOrigin?.replace(/\/$/, "")
+
+      if (normalizedOrigin === normalizedAllowedOrigin) {
         callback(null, true)
       } else {
+        console.warn(
+          `Socket.IO connection rejected: origin "${origin}" does not match allowed origin "${allowedOrigin}"`
+        )
         callback("Origin not allowed", false)
       }
     },
