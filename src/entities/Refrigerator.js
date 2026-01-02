@@ -379,17 +379,40 @@ export class Refrigerator {
 
   /**
    * Save magnets to database
+   * Uses findOneAndUpdate with retry logic to handle version conflicts
    */
   async save() {
-    const fridge = await Fridge.findOne()
-
     const magnetsData = this.magnets.map((magnet) => magnet.toObject())
+    const maxRetries = 5
+    let retryCount = 0
 
-    if (!fridge) {
-      await Fridge.create({ magnets: magnetsData })
-    } else {
-      fridge.magnets = magnetsData
-      await fridge.save()
+    while (retryCount < maxRetries) {
+      try {
+        const result = await Fridge.findOneAndUpdate(
+          {},
+          { $set: { magnets: magnetsData } },
+          {
+            upsert: true,
+            new: true,
+            runValidators: true,
+          }
+        )
+
+        if (result) {
+          return
+        }
+
+        throw new Error("Failed to save: findOneAndUpdate returned null")
+      } catch (error) {
+        if (error.name === "VersionError" && retryCount < maxRetries - 1) {
+          retryCount++
+          const delay = Math.min(50 * Math.pow(2, retryCount - 1), 500)
+          await new Promise((resolve) => setTimeout(resolve, delay))
+          continue
+        }
+
+        throw error
+      }
     }
   }
 
