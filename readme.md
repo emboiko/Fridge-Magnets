@@ -175,6 +175,50 @@ Fridge-Magnets/
 - `npm run format:check` - Check code formatting
 - `npm run test:load` - Run load tests
 
+### Load Testing
+
+The project includes a load testing script (`tests/load/socketLoadTest.js`) that simulates multiple concurrent users connecting to the server and performing various actions. This helps identify performance bottlenecks, rate limiting behavior, and server capacity under load.
+
+**How it works:**
+
+The load test creates virtual users that:
+
+- Connect to the server via Socket.IO
+- Set usernames and receive initial magnet state
+- Simulate dragging magnets at configurable intervals
+- Track moves sent, updates received, errors, and latency
+
+**Activity Modes:**
+
+- **`full`** (default): Maximum load - all users continuously drag magnets at high frequency (~60fps)
+- **`realistic`**: Simulates more natural user behavior with random drag sessions, pauses, and lower activity probability
+
+**Network Simulation:**
+
+The test can simulate different network conditions:
+
+- `none` (default): No latency simulation
+- `slow-3g`: 400-800ms latency
+- `fast-3g`: 150-250ms latency
+- `4g`: 20-30ms latency
+- `custom`: Configurable latency and jitter
+
+**Metrics Collected:**
+
+- Connection success/failure rates
+- Moves sent and updates received per second
+- Error rates and rate limit hits
+- Latency measurements (P50, P75, P90, P95, P99) with distribution histograms
+- Connection times
+
+**Usage:**
+
+```bash
+npm run test:load
+```
+
+Configure the test via environment variables (see `.env.example` for available options). The test will output real-time status updates and a comprehensive summary report at the end.
+
 ### Code Style
 
 - Arrow functions by default (use `function` keyword only when needed)
