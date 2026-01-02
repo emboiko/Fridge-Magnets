@@ -9,25 +9,23 @@ export function handleChatMessage(socket, io, context) {
 
   socket.on("chatMessage", (data) => {
     const chatRateLimit = chatRateLimitMap.get(socketId)
-    if (chatRateLimit) {
-      const now = Date.now()
-      if (now > chatRateLimit.resetTime) {
-        chatRateLimit.count = 0
-        chatRateLimit.resetTime = now + CHAT_RATE_LIMIT_WINDOW_MS
-      }
-
-      if (chatRateLimit.count >= CHAT_RATE_LIMIT_MAX_MESSAGES) {
-        if (chatRateLimit.count === CHAT_RATE_LIMIT_MAX_MESSAGES) {
-          console.warn(
-            `Chat rate limit exceeded for socket ${socketId} from ${clientIp} (${CHAT_RATE_LIMIT_MAX_MESSAGES} messages per ${CHAT_RATE_LIMIT_WINDOW_MS / 1000} seconds)`
-          )
-        }
-        socket.emit("error", { message: "Chat rate limit exceeded. Please slow down." })
-        return
-      }
-
-      chatRateLimit.count++
+    const now = Date.now()
+    if (now > chatRateLimit.resetTime) {
+      chatRateLimit.count = 0
+      chatRateLimit.resetTime = now + CHAT_RATE_LIMIT_WINDOW_MS
     }
+
+    if (chatRateLimit.count >= CHAT_RATE_LIMIT_MAX_MESSAGES) {
+      if (chatRateLimit.count === CHAT_RATE_LIMIT_MAX_MESSAGES) {
+        console.warn(
+          `Chat rate limit exceeded for socket ${socketId} from ${clientIp} (${CHAT_RATE_LIMIT_MAX_MESSAGES} messages per ${CHAT_RATE_LIMIT_WINDOW_MS / 1000} seconds)`
+        )
+      }
+      socket.emit("error", { message: "Chat rate limit exceeded. Please slow down." })
+      return
+    }
+
+    chatRateLimit.count++
 
     const validationResult = chatMessageSchema.safeParse(data)
     if (!validationResult.success) {

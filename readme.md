@@ -275,6 +275,8 @@ The application uses Socket.IO for bidirectional communication:
 ## Known Issues
 
 - Browser zoom can cause canvas rendering issues (see TODO list)
+- Magnet movement synchronization may be affected by high latency, network lag, or performance issues on client machines/browsers. The system doesn't handle these edge cases as gracefully as large-scale MMOs with sophisticated client-side prediction and server reconciliation. Under less-than-ideal conditions, magnets might not always move correctly or may appear to "jump" or desync. In some cases, clearing the Next.js cache has resolved odd local behaviors in development (rarely). This is something we'd like to improve in the future, but we're reasonably happy with current performance under normal conditions.
+- Hot reload behaves poorly in development. Unsure if this is related to HMR/custom server/socket.io/etc.
 
 ## TODO / Wishlist
 

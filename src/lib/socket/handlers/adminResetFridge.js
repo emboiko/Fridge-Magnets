@@ -15,6 +15,9 @@ export function handleAdminResetFridge(socket, io, context) {
 
     try {
       await refrigerator.initializeMagnets()
+      // Save immediately for safety - admin reset is a critical operation that completely
+      // replaces all magnets. The interval save is fine for incremental changes, but we
+      // want to ensure this major state change is persisted right away.
       await refrigerator.save()
 
       const magnetsData = refrigerator.getMagnetsAsObjects()
@@ -33,4 +36,3 @@ export function handleAdminResetFridge(socket, io, context) {
     }
   })
 }
-

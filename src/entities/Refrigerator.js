@@ -86,6 +86,7 @@ export class Refrigerator {
 
   /**
    * Count how many of each letter we have
+   * Only counts actual letters (A-Z), not emojis, symbols, numbers, or specials
    */
   countLetters() {
     const counts = new Map()
@@ -96,7 +97,7 @@ export class Refrigerator {
     }
 
     for (const magnet of this.magnets) {
-      if (magnet.letter) {
+      if (magnet.letter && alphabet.includes(magnet.letter)) {
         const count = counts.get(magnet.letter) || 0
         counts.set(magnet.letter, count + 1)
       }
@@ -153,7 +154,11 @@ export class Refrigerator {
     const useRegularSprites = true
     const useEnhancedSprites = true
 
-    // Base characters (letters)
+    /////////////////////////////////////////////////
+    ////////// BASE CHARACTERS (LETTERS) ////////////
+    /////////////////////////////////////////////////
+    // (A, B, C, ...)
+    // Frequency-weighted letters (varies by character frequency with some noise)
     if (useBaseCharacters) {
       for (let i = 0; i < BASE_LETTER_COUNT; i++) {
         this.magnets.push(
@@ -171,7 +176,11 @@ export class Refrigerator {
       }
     }
 
-    // Two of each number
+    /////////////////////////////////////////////////
+    /////////////////// NUMBERS /////////////////////
+    /////////////////////////////////////////////////
+    // (0, 1, 2, 3, ...)
+    // Two of each
     if (useNumbers) {
       for (let i = 0; i < NUMBERS_PER_CHAR_COUNT; i++) {
         for (const number of NUMBERS) {
@@ -191,7 +200,11 @@ export class Refrigerator {
       }
     }
 
-    // One of each symbol
+    /////////////////////////////////////////////////
+    /////////////////// SYMBOLS /////////////////////
+    /////////////////////////////////////////////////
+    // (!, @, #, ...)
+    // One of each
     if (useSymbols) {
       for (const symbol of SYMBOLS) {
         this.magnets.push(
@@ -209,7 +222,11 @@ export class Refrigerator {
       }
     }
 
-    // One of each emoji
+    /////////////////////////////////////////////////
+    /////////////////// EMOJIS //////////////////////
+    /////////////////////////////////////////////////
+    // (😭, 😂, 🤯, ...)
+    // One of each
     if (useEmojis) {
       for (const emoji of EMOJIS) {
         this.magnets.push(
@@ -227,24 +244,34 @@ export class Refrigerator {
       }
     }
 
-    // One of each special
+    /////////////////////////////////////////////////
+    /////////////////// SPECIALS ////////////////////
+    /////////////////////////////////////////////////
+    // (♪, ↙, ↘, ↯, ...)
+    // Two of each
     if (useSpecials) {
-      for (const special of SPECIALS) {
-        this.magnets.push(
-          new Magnet(
-            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
-              CANVAS_PADDING,
-            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
-              CANVAS_PADDING,
-            MAGNET_LETTER_RADIUS,
-            special
+      for (let i = 0; i < 2; i++) {
+        for (const special of SPECIALS) {
+          this.magnets.push(
+            new Magnet(
+              Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
+                MAGNET_LETTER_RADIUS +
+                CANVAS_PADDING,
+              Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
+                MAGNET_LETTER_RADIUS +
+                CANVAS_PADDING,
+              MAGNET_LETTER_RADIUS,
+              special
+            )
           )
-        )
+        }
       }
     }
 
+    /////////////////////////////////////////////////
+    /////////////////// REGULAR SPRITES /////////////
+    /////////////////////////////////////////////////
+    // (taco.png, cat.png, ...)
     // One of each standard (regular) canvas image
     if (useRegularSprites) {
       try {
@@ -271,9 +298,13 @@ export class Refrigerator {
       }
     }
 
-    // One of each enhanced canvas image (for now):
-    // Todo: Split this into imperative sections for special sprites
+    /////////////////////////////////////////////////
+    /////////////// ENHANCED SPRITES ////////////////
+    /////////////////////////////////////////////////
+    // (portal.png, stationary_boulder.png, ...)
+    // Todo/upcoming: Split this into imperative sections for special sprites
     // like portals, stationary stuff, admin-only draggables, etc.
+    // Some of these will be unique, others can be handled in dedicated groups
     if (useEnhancedSprites) {
       try {
         const canvasDir = join(process.cwd(), "public", "img", "canvas", "enhanced")

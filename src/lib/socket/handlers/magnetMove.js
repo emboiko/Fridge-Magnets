@@ -10,25 +10,23 @@ export function handleMagnetMove(socket, context) {
 
   socket.on("magnetMove", (data) => {
     const rateLimit = rateLimitMap.get(socketId)
-    if (rateLimit) {
-      const now = Date.now()
-      if (now > rateLimit.resetTime) {
-        rateLimit.count = 0
-        rateLimit.resetTime = now + RATE_LIMIT_WINDOW_MS
-      }
-
-      if (rateLimit.count >= RATE_LIMIT_MAX_MOVES) {
-        if (rateLimit.count === RATE_LIMIT_MAX_MOVES) {
-          console.warn(
-            `Rate limit exceeded for socket ${socketId} from ${clientIp} (${RATE_LIMIT_MAX_MOVES} moves/sec limit)`
-          )
-        }
-        socket.emit("error", { message: "Rate limit exceeded. Please slow down." })
-        return
-      }
-
-      rateLimit.count++
+    const now = Date.now()
+    if (now > rateLimit.resetTime) {
+      rateLimit.count = 0
+      rateLimit.resetTime = now + RATE_LIMIT_WINDOW_MS
     }
+
+    if (rateLimit.count >= RATE_LIMIT_MAX_MOVES) {
+      if (rateLimit.count === RATE_LIMIT_MAX_MOVES) {
+        console.warn(
+          `Rate limit exceeded for socket ${socketId} from ${clientIp} (${RATE_LIMIT_MAX_MOVES} moves/sec limit)`
+        )
+      }
+      socket.emit("error", { message: "Rate limit exceeded. Please slow down." })
+      return
+    }
+
+    rateLimit.count++
 
     const validationResult = magnetMoveSchema.safeParse(data)
     if (!validationResult.success) {
