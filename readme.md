@@ -91,32 +91,7 @@ cd Fridge-Magnets
 npm install
 ```
 
-3. Create a `.env.local` file in the root directory:
-
-```env
-# Database
-MONGODB_URI=mongodb://localhost:27017/fridge-magnets
-
-# Server Configuration
-PORT=3000
-HOSTNAME=localhost
-NODE_ENV=development
-
-# Next.js Public URL (for CORS)
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
-# Admin Authentication (bcrypt hash)
-ADMIN_PASSWORD_HASH=$2b$10$your-bcrypt-hash-here
-
-# Resend (Optional - for contact emails)
-RESEND_API_KEY=your-resend-api-key
-RESEND_FROM_EMAIL=admin@mail.fridgemagnets.fun
-RESEND_TO_EMAIL=your-email@yourdomain.com
-
-# Cloudflare Turnstile (Optional - for bot protection)
-NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-site-key
-TURNSTILE_SECRET_KEY=your-secret-key
-```
+3. Create a `.env.local` file in the root directory - See `.env.example` for the required variables.
 
 4. Generate admin password hash:
 
