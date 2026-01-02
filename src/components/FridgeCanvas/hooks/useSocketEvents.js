@@ -77,6 +77,8 @@ export function useSocketEvents(
         if (recentlyDraggedTime && now - recentlyDraggedTime < RECENTLY_DRAGGED_TIMEOUT_MS) {
           const lastSent = lastSentPositionRef.current.get(index)
           if (lastSent) {
+            // Calculate how far the magnet moved using distance formula (Pythagorean theorem)
+            // Like measuring the straight-line distance between two points on a map
             const distanceFromSent = Math.sqrt(
               Math.pow(magnet.x - lastSent.x, 2) + Math.pow(magnet.y - lastSent.y, 2)
             )
@@ -93,6 +95,9 @@ export function useSocketEvents(
           return
         }
 
+        // Calculate how far the new position is from where we currently see the magnet
+        // This tells us if the magnet actually moved enough to care about
+        // TODO: Unsure if we actually need this, but it's here for now. May deprecate later.
         const distanceFromCurrent = Math.sqrt(
           Math.pow(magnet.x - currentMagnet.x, 2) + Math.pow(magnet.y - currentMagnet.y, 2)
         )

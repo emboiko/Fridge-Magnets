@@ -16,7 +16,10 @@ export function calculateFontSize(ctx, text, maxRadius) {
   const sizeMultiplier = isEmoji(text) ? FONT_SIZE_EMOJI_MULTIPLIER : FONT_SIZE_TEXT_MULTIPLIER
   const targetSize = maxRadius * sizeMultiplier
 
+  // Binary search: keep guessing the middle between too big and too small until we find the right size
+  // Like playing "hot or cold" - if too big, try smaller; if too small, try bigger; keep narrowing down
   while (maxFontSize - minFontSize > 1) {
+    // Try the middle size between our smallest and largest guesses
     fontSize = (minFontSize + maxFontSize) / 2
     ctx.font = `${fontSize}px 'Luckiest Guy', cursive`
     const metrics = ctx.measureText(text)
@@ -63,11 +66,15 @@ export function drawMagnet(ctx, magnet, imageCache, isDarkMode, showDebug = fals
   if (magnet.sprite) {
     const img = imageCache.get(magnet.sprite)
     if (img && img.complete && img.naturalWidth > 0) {
+      // Find the biggest side of the image (width or height)
       const maxDimension = Math.max(img.width, img.height)
+      // Calculate how much to shrink or grow the image to fit in the magnet circle
+      // If magnet is 60 pixels wide, and image is 100 pixels, we need to make it 60% smaller
       const scale = (magnet.radius * 2) / maxDimension
       const scaledWidth = img.width * scale
       const scaledHeight = img.height * scale
 
+      // Draw image centered on the magnet (subtract half the image size from the center point)
       ctx.drawImage(
         img,
         magnet.x - scaledWidth / 2,

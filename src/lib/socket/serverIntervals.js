@@ -32,6 +32,7 @@ export function setupServerIntervals(io, context) {
   const scheduleBroadcast = () => {
     const now = Date.now()
     // Calculate delay based on when we SHOULD run next, not when we're running now
+    // Math.max(0, ...) ensures delay is never negative (if we're running late, don't wait, run immediately)
     const delay = Math.max(0, nextBroadcastTime - now)
     nextBroadcastTime += SERVER_UPDATE_INTERVAL_MS
 

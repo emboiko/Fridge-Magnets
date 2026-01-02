@@ -150,6 +150,9 @@ export default function FridgeCanvas() {
         const checkX = interpolatedPos ? interpolatedPos.x : magnet.x
         const checkY = interpolatedPos ? interpolatedPos.y : magnet.y
 
+        // Calculate distance between click point and magnet center using Pythagorean theorem
+        // Think of it like: if you walk 3 steps right and 4 steps up, you're 5 steps away diagonally
+        // Formula: distance = square root of (horizontal distance squared + vertical distance squared)
         const distance = Math.sqrt(Math.pow(x - checkX, 2) + Math.pow(y - checkY, 2))
         if (distance <= magnet.radius) {
           return index

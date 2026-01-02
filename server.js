@@ -51,7 +51,7 @@ app.prepare().then(async () => {
   const refrigerator = new Refrigerator()
   await refrigerator.loadMagnets()
 
-  // Load banned IPs from database
+  // Load banned IPs
   const bannedIPsSet = new Set()
   try {
     const bannedIPs = await BannedIP.find({})
@@ -70,7 +70,6 @@ app.prepare().then(async () => {
     console.warn("WARNING: ADMIN_PASSWORD_HASH not set. Admin features will be disabled.")
   }
 
-  // Create HTTP server
   const httpServer = createServer(async (req, res) => {
     // Enforce canonical domain (except in development with localhost)
     if (!dev || !req.headers.host?.includes("localhost")) {
@@ -87,7 +86,6 @@ app.prepare().then(async () => {
     await handle(req, res, parsedUrl)
   })
 
-  // Set up Socket.IO
   let allowedOrigin = dev ? process.env.NEXT_PUBLIC_APP_URL || "*" : process.env.NEXT_PUBLIC_APP_URL
 
   if (!dev && !allowedOrigin) {
@@ -190,12 +188,9 @@ app.prepare().then(async () => {
 
   // Flag to track if magnets have changed (for validation optimization)
   const magnetsChanged = { value: false }
-
-  // Socket.IO connection handling
   io.on("connection", async (socket) => {
     const socketId = socket.id
 
-    // Validate connection
     const validation = await validateConnection(socket, socketId, {
       bannedIPsSet,
       kickedIPs,
@@ -209,18 +204,14 @@ app.prepare().then(async () => {
 
     const clientIp = validation.clientIp
 
-    // Track socket IP mapping and active IP
     socketIPs.set(socketId, clientIp)
     activeIPs.set(clientIp, socketId)
-
-    // Initialize rate limiting for this socket
     rateLimitMap.set(socketId, { count: 0, resetTime: Date.now() + RATE_LIMIT_WINDOW_MS })
     chatRateLimitMap.set(socketId, {
       count: 0,
       resetTime: Date.now() + CHAT_RATE_LIMIT_WINDOW_MS,
     })
 
-    // Validate and send current state to new client
     const magnetsData = refrigerator.getMagnetsAsObjects()
     const validationResult = magnetsArraySchema.safeParse(magnetsData)
 
@@ -232,7 +223,6 @@ app.prepare().then(async () => {
 
     socket.emit("welcome", validationResult.data)
 
-    // Create context object for handlers
     const context = {
       socketId,
       clientIp,
@@ -254,7 +244,6 @@ app.prepare().then(async () => {
       magnetsChanged,
     }
 
-    // Register all socket handlers
     handleSetUsername(socket, io, context)
     handleMagnetMove(socket, context)
     handleChatMessage(socket, io, context)
@@ -271,7 +260,6 @@ app.prepare().then(async () => {
     handleDisconnect(socket, io, context)
   })
 
-  // Set up server intervals
   setupServerIntervals(io, {
     refrigerator,
     kickedSockets,
@@ -282,7 +270,6 @@ app.prepare().then(async () => {
     magnetsChanged,
   })
 
-  // Start HTTP server
   httpServer.listen(port, () => {
     console.info(`Ready on http://${hostname}:${port}`)
   })

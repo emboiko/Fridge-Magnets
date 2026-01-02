@@ -72,11 +72,16 @@ export function useCanvasAnimation(
 
         const interpolatedPos = interpolated.get(index)
         if (interpolatedPos) {
+          // Calculate how far we need to move: difference between where we are and where we want to be
           const dx = interpolatedPos.targetX - interpolatedPos.x
           const dy = interpolatedPos.targetY - interpolatedPos.y
+          // Check distance squared (faster than calculating actual distance - we just need to compare)
+          // Like asking "are we far enough away?" without doing the square root math
           const distanceSquared = dx * dx + dy * dy
 
           if (distanceSquared > INTERPOLATION_DISTANCE_THRESHOLD_SQUARED) {
+            // Move a little bit toward the target each frame (smooth animation)
+            // Instead of jumping instantly, we move 30% of the way there each time
             interpolatedPos.x += dx * INTERPOLATION_SPEED
             interpolatedPos.y += dy * INTERPOLATION_SPEED
             const interpolatedMagnet = {

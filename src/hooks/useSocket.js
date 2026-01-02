@@ -1,14 +1,11 @@
 /**
  * Socket.IO Hook
  *
- * Learning Notes:
- * - Custom hook for managing Socket.IO connection
- * - Uses singleton pattern to ensure only ONE socket connection exists
- * - All components share the same socket instance
- * - Automatically cleans up on page unload
- * - Handles "already connected" errors and redirects
- * - Supports test IP override in development mode via query parameter
- * - Returns socket instance for use in components
+ * Custom hook for managing Socket.IO connection using a singleton pattern.
+ * All components share the same socket instance, which is automatically
+ * cleaned up on page unload. Handles connection errors, redirects for
+ * "already connected" and "kicked" states, and supports test IP override
+ * in development mode via query parameter.
  */
 
 "use client"

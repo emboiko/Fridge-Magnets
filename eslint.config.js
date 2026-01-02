@@ -1,6 +1,5 @@
 // ESLint flat config (ESLint 9+) for npm run lint
-// Note: We also have .eslintrc.json for Next.js compatibility (though next lint is currently broken)
-// This flat config is the primary linting configuration used by npm run lint
+// Note: .eslintrc.json exists for Next.js compatibility, but this flat config is the primary linting configuration
 import babelParser from "@babel/eslint-parser"
 
 export default [
