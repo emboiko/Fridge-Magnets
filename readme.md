@@ -237,6 +237,7 @@ The application uses Socket.IO for bidirectional communication:
 - Support for additional fridge styles (stainless/black/eggshell/white/etc.) beyond dark/light mode
 - CSS architecture improvements (low priority)
 - Client queue system above a certain threshold once we have better baselines for performance metrics and latency
+- Hardware metrics in admin panel are a bit crude and could benefit from better strategies (maybe using a library like `systeminformation`)
 
 ## Contributing
 
