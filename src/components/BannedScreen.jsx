@@ -12,15 +12,14 @@ export default function BannedScreen() {
       const reason = sessionStorage.getItem("banReason")
       if (reason) {
         setBanReason(reason)
-        // Clear it after reading
         sessionStorage.removeItem("banReason")
       }
     }
   }, [])
 
   return (
-    <div className="not-found-page">
-      <div id="notfound">
+    <div className="status-screen-page">
+      <div id="status-screen-content">
         <p id="awkward">Due to your misbehavior, you've been</p>
         <p className="portal-blue">Banned</p>
         <p className="portal-orange">Permanently</p>
@@ -29,15 +28,23 @@ export default function BannedScreen() {
           You have been permanently banned from the server. This ban will remain in effect until an
           administrator removes it.
         </p>
+        <img
+          src="/img/banned_1.svg"
+          alt="Banned"
+          className="banned-man-svg-1"
+          style={{
+            filter: isDarkMode ? "invert(1)" : "invert(0)",
+          }}
+        />
+        <img
+          src="/img/banned_2.svg"
+          alt="Banned"
+          className="banned-man-svg-2"
+          style={{
+            filter: isDarkMode ? "invert(1)" : "invert(0)",
+          }}
+        />
       </div>
-      <img
-        src="/img/not_found.svg"
-        alt="Banned"
-        className="not-found-svg"
-        style={{
-          filter: isDarkMode ? "invert(1)" : "invert(0)",
-        }}
-      />
     </div>
   )
 }

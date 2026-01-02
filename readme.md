@@ -275,6 +275,8 @@ The application uses Socket.IO for bidirectional communication:
 
 ## TODO / Wishlist
 
+- Mobile support!
+- Rendering of 'screen' components could probably use some router guards
 - Separate canvas from the document better (zooming the browser has weird side effects- this will probably involve a scaling rabbit-hole)
 - Chat logs persisted in DB (not sure why we'd need or want this but might be useful later on)
 - SMS alerts alongside the emails & DB persistence of contact messages

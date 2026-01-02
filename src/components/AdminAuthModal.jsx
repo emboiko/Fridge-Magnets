@@ -88,6 +88,7 @@ export default function AdminAuthModal() {
           <input
             ref={passwordInputRef}
             id="admin-password"
+            name="admin-password"
             type="password"
             value={password}
             onChange={(e) => {
@@ -101,7 +102,7 @@ export default function AdminAuthModal() {
             }}
             disabled={isLoading}
             className="admin-auth-input"
-            autoComplete="off"
+            autoComplete="current-password"
           />
         </div>
         <div className="admin-auth-actions">

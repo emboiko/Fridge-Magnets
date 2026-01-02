@@ -6,8 +6,8 @@ export default function NotFound() {
   const isDarkMode = useUIStore((state) => state.isDarkMode)
 
   return (
-    <div className="not-found-page">
-      <div id="notfound">
+    <div className="status-screen-page">
+      <div id="status-screen-content">
         <p id="awkward">This is awkward for all of us.</p>
         <p className="portal-blue">404</p>
         <p className="portal-orange">Not Found</p>

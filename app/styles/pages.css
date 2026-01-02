@@ -1,6 +1,6 @@
 /* Page-specific styles (not-found, kicked, banned, already-connected) */
 
-.not-found-page {
+.status-screen-page {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,11 +13,11 @@
   overflow-y: auto;
 }
 
-.dark-mode .not-found-page {
+.dark-mode .status-screen-page {
   background-color: #000000;
 }
 
-#notfound {
+#status-screen-content {
   background: transparent;
   color: var(--main-color);
   font-size: 24px;
@@ -27,17 +27,18 @@
   min-width: 300px;
   max-width: 800px;
   font-family: var(--font-raleway), "Arial", "Sans-Serif";
-  padding: 0;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
-.dark-mode #notfound {
+.dark-mode #status-screen-content {
   color: #ffffff;
 }
 
-html:not(.dark-mode) #notfound {
+html:not(.dark-mode) #status-screen-content {
   color: #000000;
 }
 
@@ -49,6 +50,29 @@ html:not(.dark-mode) #notfound {
   margin-bottom: 0;
   padding: 20px 20px 0 20px;
   object-fit: contain;
+}
+
+.already-connected-man-1-svg,
+.already-connected-man-2-svg {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  max-width: min(30vw, 300px);
+  object-fit: contain;
+}
+
+.already-connected-man-1-svg {
+  left: 0;
+  transform: translate(-100%, -50%);
+  height: clamp(240px, 44vh, 440px);
+  margin-left: -20px;
+}
+
+.already-connected-man-2-svg {
+  right: 0;
+  transform: translate(100%, -50%);
+  height: clamp(260px, 46vh, 460px);
+  margin-right: -20px;
 }
 
 #awkward {
@@ -76,4 +100,50 @@ html:not(.dark-mode) #notfound {
 
 .dark-mode .kicked-message {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.kicked-man-1-svg,
+.kicked-man-2-svg {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  max-width: min(30vw, 300px);
+  object-fit: contain;
+}
+
+.kicked-man-1-svg {
+  left: 0;
+  transform: translate(-100%, -50%);
+  height: clamp(240px, 44vh, 440px);
+  margin-left: -20px;
+}
+
+.kicked-man-2-svg {
+  right: 0;
+  transform: translate(100%, -50%);
+  height: clamp(260px, 46vh, 460px);
+  margin-right: -20px;
+}
+
+.banned-man-svg-1,
+.banned-man-svg-2 {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  max-width: min(30vw, 300px);
+  object-fit: contain;
+}
+
+.banned-man-svg-1 {
+  right: 0;
+  transform: translate(100%, -50%);
+  height: clamp(240px, 44vh, 440px);
+  margin-right: -20px;
+}
+
+.banned-man-svg-2 {
+  left: 0;
+  transform: translate(-100%, -50%);
+  height: clamp(260px, 46vh, 460px);
+  margin-left: -20px;
 }
