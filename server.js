@@ -73,7 +73,16 @@ app.prepare().then(async () => {
   })
 
   // Set up Socket.IO
-  const allowedOrigin = process.env.NEXT_PUBLIC_APP_URL || "*"
+  const allowedOrigin = dev
+    ? process.env.NEXT_PUBLIC_APP_URL || "*"
+    : process.env.NEXT_PUBLIC_APP_URL
+
+  if (!dev && !allowedOrigin) {
+    throw new Error(
+      "NEXT_PUBLIC_APP_URL environment variable is required in production for CORS security"
+    )
+  }
+
   const io = new SocketIOServer(httpServer, {
     cors: {
       origin: allowedOrigin,

@@ -67,6 +67,10 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 - **Resend** for email notifications (contact messages)
 - **MongoDB** for data storage
 
+## Deployment
+
+This application is deployed on **Heroku** due to its requirement for persistent WebSocket connections via Socket.IO. The custom server (`server.js`) runs a long-running Node.js process that maintains WebSocket connections, which is incompatible with serverless platforms like Vercel that use ephemeral function-based architecture. Heroku's traditional dyno model provides the persistent process environment needed for real-time multiplayer functionality.
+
 ## Getting Started
 
 ### Prerequisites
@@ -118,26 +122,26 @@ npm start
 
 ```
 Fridge-Magnets/
-├── app/                    # Next.js App Router pages
+├── app/                  # Next.js App Router pages
 │   ├── api/              # API routes
 │   ├── styles/           # Global CSS files
 │   └── page.jsx          # Home page
 ├── src/
 │   ├── components/       # React components
 │   │   ├── FridgeCanvas/ # Canvas component and hooks
-│   │   ├── modals/      # Modal components
-│   │   └── pages/       # Page components
-│   ├── entities/        # Domain entities (Magnet, Refrigerator)
-│   ├── hooks/           # Custom React hooks
-│   ├── lib/             # Server-side utilities and libraries
-│   │   ├── db/          # MongoDB models
-│   │   ├── socket/      # Socket.IO handlers
-│   │   ├── turnstile/   # Cloudflare Turnstile integration
-│   │   └── validation/  # Zod schemas
+│   │   ├── modals/       # Modal components
+│   │   └── pages/        # Page components
+│   ├── entities/         # Domain entities (Magnet, Refrigerator)
+│   ├── hooks/            # Custom React hooks
+│   ├── lib/              # Server-side utilities and libraries
+│   │   ├── db/           # MongoDB models
+│   │   ├── socket/       # Socket.IO handlers
+│   │   ├── turnstile/    # Cloudflare Turnstile integration
+│   │   └── validation/   # Zod schemas
 │   └── stores/           # Zustand state stores
-├── public/              # Static assets
-│   └── img/            # Images and sprites
-├── server.js           # Custom Next.js server with Socket.IO
+├── public/               # Static assets
+│   └── img/              # Images and sprites
+├── server.js             # Custom Next.js server with Socket.IO
 └── package.json
 ```
 
