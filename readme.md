@@ -71,6 +71,24 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 
 This application is deployed on **Heroku** due to its requirement for persistent WebSocket connections via Socket.IO. The custom server (`server.js`) runs a long-running Node.js process that maintains WebSocket connections, which is incompatible with serverless platforms like Vercel that use ephemeral function-based architecture. Heroku's traditional dyno model provides the persistent process environment needed for real-time multiplayer functionality.
 
+### Domain Configuration
+
+The application enforces a canonical domain (`fridgemagnets.fun`) to ensure all traffic is routed through a single URL. This is implemented at two levels:
+
+1. **Next.js Middleware** (`middleware.js`): Redirects all non-canonical domain requests to the canonical domain for Next.js app routes
+2. **Custom Server** (`server.js`): Enforces domain restrictions for:
+   - HTTP requests (including API routes)
+   - Socket.IO WebSocket connections
+
+**Supported Domains:**
+
+- `fridgemagnets.fun` (canonical - only domain that serves the application)
+- `www.fridgemagnets.fun` → redirects to canonical
+- `🧲💩.ws` (xn--ls8hr8f.ws) → redirects to canonical
+- `💩🧲.ws` (xn--ls8hs8f.ws) → redirects to canonical
+
+The emoji domains are configured via DNS to redirect to the canonical domain, but even if someone attempts to access them directly, they will be automatically redirected. Socket.IO connections from non-canonical domains are rejected at the connection level, ensuring the emoji domains act as "doors only" and cannot be used to access the application directly.
+
 ## Getting Started
 
 ### Prerequisites
@@ -204,6 +222,7 @@ The application uses Socket.IO for bidirectional communication:
 - **IP-based Controls**: One connection per IP, kick/ban functionality
 - **Admin Authentication**: bcrypt password hashing
 - **CORS Protection**: Origin validation for Socket.IO connections
+- **Domain Enforcement**: Canonical domain restriction ensures all traffic routes through `fridgemagnets.fun` (see [Domain Configuration](#domain-configuration))
 - **Bot Protection**: Cloudflare Turnstile for contact form submissions
 
 ## Known Issues

@@ -14,7 +14,11 @@ import connectDB from "./src/lib/db/mongoose.js"
 import { Refrigerator } from "./src/entities/Refrigerator.js"
 import { magnetsArraySchema } from "./src/lib/validation/socketSchemas.js"
 import { BannedIP } from "./src/lib/db/BannedIP.js"
-import { RATE_LIMIT_WINDOW_MS, CHAT_RATE_LIMIT_WINDOW_MS } from "./src/lib/constants.js"
+import {
+  RATE_LIMIT_WINDOW_MS,
+  CHAT_RATE_LIMIT_WINDOW_MS,
+  CANONICAL_HOST,
+} from "./src/lib/constants.js"
 import { validateConnection } from "./src/lib/socket/connectionValidation.js"
 import { setupServerIntervals } from "./src/lib/socket/serverIntervals.js"
 
@@ -68,6 +72,17 @@ app.prepare().then(async () => {
 
   // Create HTTP server
   const httpServer = createServer(async (req, res) => {
+    // Enforce canonical domain (except in development with localhost)
+    if (!dev || !req.headers.host?.includes("localhost")) {
+      const host = req.headers.host?.split(":")[0] // Remove port if present
+      if (host && host !== CANONICAL_HOST) {
+        const url = `https://${CANONICAL_HOST}${req.url}`
+        res.writeHead(301, { Location: url })
+        res.end()
+        return
+      }
+    }
+
     const parsedUrl = parse(req.url, true)
     await handle(req, res, parsedUrl)
   })
@@ -92,6 +107,14 @@ app.prepare().then(async () => {
     // Additional security: only allow connections from allowed origin
     allowRequest: (req, callback) => {
       const origin = req.headers.origin
+      const host = req.headers.host?.split(":")[0] // Remove port if present
+
+      // In production, enforce canonical domain for Socket.IO connections
+      if (!dev && host && host !== CANONICAL_HOST) {
+        callback("Host not allowed", false)
+        return
+      }
+
       if (allowedOrigin === "*" || !origin || origin === allowedOrigin) {
         callback(null, true)
       } else {

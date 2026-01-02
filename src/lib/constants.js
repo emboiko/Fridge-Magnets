@@ -126,3 +126,8 @@ export const TURNSTILE_CHECK_INTERVAL_MS = 100
 // Storage Keys
 // ============================================================================
 export const DARK_MODE_STORAGE_KEY = "fridge-magnets-dark-mode"
+
+// ============================================================================
+// Domain Constants
+// ============================================================================
+export const CANONICAL_HOST = "fridgemagnets.fun"
