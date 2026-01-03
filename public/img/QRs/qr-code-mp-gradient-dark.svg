@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+width="1160px" height="1160px" viewBox="0 0 1160 1160" enable-background="new 0 0 1160 1160" xml:space="preserve">
+<rect x="0" y="0" width="1160" height="1160" fill="rgb(0,0,0)" /><g transform="translate(80,80)"><g><defs>
+    <linearGradient gradientTransform="rotate(90)" id="grad">
+    <stop offset="5%" stop-color="rgb(255,93,0)" />
+    <stop offset="95%" stop-color="rgb(0,101,255)" />
+    </linearGradient>
+<mask id="gmask"><g>
+<g transform="translate(360,0) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(440,0) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(480,0) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(600,0) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(320,40) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(400,40) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(560,40) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(600,40) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(480,80) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(600,80) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(360,120) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(400,120) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(560,120) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(320,160) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(360,160) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(400,160) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(440,160) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(600,160) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(640,160) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(480,200) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(600,200) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(640,200) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(320,240) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(400,240) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(480,240) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(560,240) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(640,240) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(360,280) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(440,280) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(520,280) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(560,280) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(600,280) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(0,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(80,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(160,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(240,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(360,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(440,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(480,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(560,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(600,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(640,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(800,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(920,320) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(40,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(120,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(160,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(280,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(360,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(440,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(760,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(800,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(960,360) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(40,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(80,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(120,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(240,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(280,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(320,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(360,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(400,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(480,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(520,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(600,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(640,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(680,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(800,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(880,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(920,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(960,400) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(40,440) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(200,440) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(360,440) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(720,440) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(760,440) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(920,440) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(80,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(120,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(160,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(240,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(440,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(480,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(760,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(840,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(920,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(960,480) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(80,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(120,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(200,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(320,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(440,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(480,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(520,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(600,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(680,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(720,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(800,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(840,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(960,520) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(0,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(240,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(280,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(320,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(400,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(440,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(480,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(560,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(600,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(680,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(720,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(760,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(880,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(920,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(960,560) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(40,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(160,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(280,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(320,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(480,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(520,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(560,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(640,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(720,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(920,600) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(0,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(80,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(160,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(200,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(240,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(280,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(320,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(440,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(560,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(600,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(640,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(680,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(720,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(760,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(840,640) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(320,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(440,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(560,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(640,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(840,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(920,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(960,680) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="22,0 0,78 78,100 100,22"/>
+</g>
+</g></g><g transform="translate(360,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(520,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(640,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(720,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(800,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(840,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(920,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(960,720) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(400,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(440,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(600,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(640,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(840,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(960,760) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(320,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(360,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(400,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(480,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(600,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(640,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(680,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(720,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(760,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(840,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(960,800) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(440,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(480,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(520,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(600,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,10 90,0 100,90 10,100"/>
+</g>
+</g></g><g transform="translate(680,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(720,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(760,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(840,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(880,840) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(320,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(400,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(440,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(480,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(560,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(640,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,12 88,0 100,88 12,100"/>
+</g>
+</g></g><g transform="translate(680,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(800,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(960,880) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(360,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(480,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(520,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(560,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(640,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(680,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,17 83,0 100,83 17,100"/>
+</g>
+</g></g><g transform="translate(800,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(840,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(920,920) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,5 95,0 100,95 5,100"/>
+</g>
+</g></g><g transform="translate(320,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="5,25 75,5 95,75 25,95"/>
+</g>
+</g></g><g transform="translate(360,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(400,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="8,4 4,92 92,96 96,8"/>
+</g></g><g transform="translate(440,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(560,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(600,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g><g transform="translate(760,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="0,15 85,0 100,85 15,100"/>
+</g>
+</g></g><g transform="translate(920,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="13,0 0,87 87,100 100,13"/>
+</g>
+</g></g><g transform="translate(960,960) scale(0.4,0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<polygon points="15,5 5,85 85,95 95,15"/>
+</g>
+</g></g></g></mask></defs></g><rect x="0" y="0" width="1000" height="1000" fill="url(#grad)" mask="url(#gmask)" /><g transform="translate(0,0) scale(0.4, 0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+
+
+	<polygon points="13,0 0,87 87,100 100,13"/>
+	<polygon points="100,17 183,0 200,83 117,100"/>
+	<polygon points="200,10 290,0 300,90 200,100"/>
+	<polygon points="300,15 385,0 400,85 315,100"/>
+	<polygon points="400,12 488,0 500,88 412,100"/>
+	<polygon points="522,0 500,78 578,100 600,22"/>
+	<polygon points="615,5 605,85 685,95 695,15"/>
+
+	<polygon points="0,115 85,100 100,185 15,200"/>
+	<polygon points="600,112 688,100 700,188 612,200"/>
+
+	<polygon points="22,200 0,278 78,300 100,222"/>
+	<polygon points="615,205 605,285 685,295 695,215"/>
+
+	<polygon points="0,310 90,300 100,390 0,400"/>
+	<polygon points="600,315 685,300 700,385 615,400"/>
+
+	<polygon points="0,412 88,400 100,488 12,500"/>
+	<polygon points="622,400 600,478 678,500 700,422"/>
+
+	<polygon points="0,515 85,500 100,585 15,600"/>
+	<polygon points="600,512 688,500 700,588 612,600"/>
+
+
+	<polygon points="13,600 0,687 87,700 100,613"/>
+	<polygon points="100,617 183,600 200,683 117,700"/>
+	<polygon points="200,610 290,600 300,690 200,700"/>
+	<polygon points="300,615 385,600 400,685 315,700"/>
+	<polygon points="400,612 488,600 500,688 412,700"/>
+	<polygon points="522,600 500,678 578,700 600,622"/>
+	<polygon points="615,605 605,685 685,695 695,615"/>
+
+</g>
+</g></g><g transform="translate(720,0) scale(0.4, 0.4)"><g transform=" translate(700, 0) scale(-1,1) " style="fill: rgb(255, 255, 255);">
+<g>
+
+
+	<polygon points="13,0 0,87 87,100 100,13"/>
+	<polygon points="100,17 183,0 200,83 117,100"/>
+	<polygon points="200,10 290,0 300,90 200,100"/>
+	<polygon points="300,15 385,0 400,85 315,100"/>
+	<polygon points="400,12 488,0 500,88 412,100"/>
+	<polygon points="522,0 500,78 578,100 600,22"/>
+	<polygon points="615,5 605,85 685,95 695,15"/>
+
+	<polygon points="0,115 85,100 100,185 15,200"/>
+	<polygon points="600,112 688,100 700,188 612,200"/>
+
+	<polygon points="22,200 0,278 78,300 100,222"/>
+	<polygon points="615,205 605,285 685,295 695,215"/>
+
+	<polygon points="0,310 90,300 100,390 0,400"/>
+	<polygon points="600,315 685,300 700,385 615,400"/>
+
+	<polygon points="0,412 88,400 100,488 12,500"/>
+	<polygon points="622,400 600,478 678,500 700,422"/>
+
+	<polygon points="0,515 85,500 100,585 15,600"/>
+	<polygon points="600,512 688,500 700,588 612,600"/>
+
+
+	<polygon points="13,600 0,687 87,700 100,613"/>
+	<polygon points="100,617 183,600 200,683 117,700"/>
+	<polygon points="200,610 290,600 300,690 200,700"/>
+	<polygon points="300,615 385,600 400,685 315,700"/>
+	<polygon points="400,612 488,600 500,688 412,700"/>
+	<polygon points="522,600 500,678 578,700 600,622"/>
+	<polygon points="615,605 605,685 685,695 695,615"/>
+
+</g>
+</g></g><g transform="translate(0,720) scale(0.4, 0.4)"><g transform=" translate(0,700) scale(1,-1) " style="fill: rgb(255, 255, 255);">
+<g>
+
+
+	<polygon points="13,0 0,87 87,100 100,13"/>
+	<polygon points="100,17 183,0 200,83 117,100"/>
+	<polygon points="200,10 290,0 300,90 200,100"/>
+	<polygon points="300,15 385,0 400,85 315,100"/>
+	<polygon points="400,12 488,0 500,88 412,100"/>
+	<polygon points="522,0 500,78 578,100 600,22"/>
+	<polygon points="615,5 605,85 685,95 695,15"/>
+
+	<polygon points="0,115 85,100 100,185 15,200"/>
+	<polygon points="600,112 688,100 700,188 612,200"/>
+
+	<polygon points="22,200 0,278 78,300 100,222"/>
+	<polygon points="615,205 605,285 685,295 695,215"/>
+
+	<polygon points="0,310 90,300 100,390 0,400"/>
+	<polygon points="600,315 685,300 700,385 615,400"/>
+
+	<polygon points="0,412 88,400 100,488 12,500"/>
+	<polygon points="622,400 600,478 678,500 700,422"/>
+
+	<polygon points="0,515 85,500 100,585 15,600"/>
+	<polygon points="600,512 688,500 700,588 612,600"/>
+
+
+	<polygon points="13,600 0,687 87,700 100,613"/>
+	<polygon points="100,617 183,600 200,683 117,700"/>
+	<polygon points="200,610 290,600 300,690 200,700"/>
+	<polygon points="300,615 385,600 400,685 315,700"/>
+	<polygon points="400,612 488,600 500,688 412,700"/>
+	<polygon points="522,600 500,678 578,700 600,622"/>
+	<polygon points="615,605 605,685 685,695 695,615"/>
+
+</g>
+</g></g><g transform="translate(80,80) scale(0.4, 0.4)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+
+	<polygon points="13,0 0,87 87,100 100,13"/>
+	<polygon points="100,17 183,0 200,83 117,100"/>
+	<polygon points="200,10 290,0 300,90 200,100"/>
+
+	<polygon points="5,125 75,105 195,175 25,195"/>
+	<polygon points="65,63 62,232 228,238 236,68"/>
+	<polygon points="215,105 205,185 285,195 295,115"/>
+
+	<polygon points="0,215 85,200 100,285 15,300"/>
+	<polygon points="100,212 188,200 200,288 112,300"/>
+	<polygon points="222,200 200,278 278,300 300,222"/>
+
+
+</g>
+</g></g><g transform="translate(800,80) scale(0.4, 0.4)"><g transform=" translate(300, 0) scale(-1,1) " style="fill: rgb(255, 255, 255);">
+<g>
+
+	<polygon points="13,0 0,87 87,100 100,13"/>
+	<polygon points="100,17 183,0 200,83 117,100"/>
+	<polygon points="200,10 290,0 300,90 200,100"/>
+
+	<polygon points="5,125 75,105 195,175 25,195"/>
+	<polygon points="65,63 62,232 228,238 236,68"/>
+	<polygon points="215,105 205,185 285,195 295,115"/>
+
+	<polygon points="0,215 85,200 100,285 15,300"/>
+	<polygon points="100,212 188,200 200,288 112,300"/>
+	<polygon points="222,200 200,278 278,300 300,222"/>
+
+
+</g>
+</g></g><g transform="translate(80,800) scale(0.4, 0.4)"><g transform=" translate(0,300) scale(1,-1) " style="fill: rgb(255, 255, 255);">
+<g>
+
+	<polygon points="13,0 0,87 87,100 100,13"/>
+	<polygon points="100,17 183,0 200,83 117,100"/>
+	<polygon points="200,10 290,0 300,90 200,100"/>
+
+	<polygon points="5,125 75,105 195,175 25,195"/>
+	<polygon points="65,63 62,232 228,238 236,68"/>
+	<polygon points="215,105 205,185 285,195 295,115"/>
+
+	<polygon points="0,215 85,200 100,285 15,300"/>
+	<polygon points="100,212 188,200 200,288 112,300"/>
+	<polygon points="222,200 200,278 278,300 300,222"/>
+
+
+</g>
+</g></g></g></svg>

@@ -4,7 +4,9 @@ An anonymous multiplayer refrigerator magnet canvas where users can drag, arrang
 
 <div style="display: flex; justify-content: space-around; margin-top: 30px;">
 <img width="175px" src="https://i.imgur.com/sJvxTjn.png" alt="Fridge Magnets QR 1" />
-<img width="175px" src="https://i.imgur.com/w3kryhO.png" alt="Fridge Magnets QR 2" />
+<img width="175px" src="https://i.imgur.com/Z91gx2o.png" alt="Fridge Magnets QR 2" />
+<img width="175px" src="https://i.imgur.com/w3kryhO.png" alt="Fridge Magnets QR 3" />
+<img width="175px" src="https://i.imgur.com/QWlBtT6.png" alt="Fridge Magnets QR 4" />
 </div>
 <div style="text-align:center; margin-top:30px;"><a href="https://fridgemagnets.fun">fridgemagnets.fun</a></div>
 
