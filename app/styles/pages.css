@@ -26,7 +26,7 @@
   width: 33%;
   min-width: 300px;
   max-width: 800px;
-  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  font-family: var(--body-font);
   padding: 0 20px;
   display: flex;
   flex-direction: column;
@@ -50,6 +50,11 @@ html:not(.dark-mode) #status-screen-content {
   margin-bottom: 0;
   padding: 20px 20px 0 20px;
   object-fit: contain;
+  filter: invert(0);
+}
+
+.dark-mode .not-found-svg {
+  filter: invert(1);
 }
 
 .already-connected-man-1-svg,
@@ -59,6 +64,12 @@ html:not(.dark-mode) #status-screen-content {
   width: auto;
   max-width: min(30vw, 300px);
   object-fit: contain;
+  filter: invert(0);
+}
+
+.dark-mode .already-connected-man-1-svg,
+.dark-mode .already-connected-man-2-svg {
+  filter: invert(1);
 }
 
 .already-connected-man-1-svg {
@@ -109,6 +120,12 @@ html:not(.dark-mode) #status-screen-content {
   width: auto;
   max-width: min(30vw, 300px);
   object-fit: contain;
+  filter: invert(0);
+}
+
+.dark-mode .kicked-man-1-svg,
+.dark-mode .kicked-man-2-svg {
+  filter: invert(1);
 }
 
 .kicked-man-1-svg {
@@ -132,6 +149,12 @@ html:not(.dark-mode) #status-screen-content {
   width: auto;
   max-width: min(30vw, 300px);
   object-fit: contain;
+  filter: invert(0);
+}
+
+.dark-mode .banned-man-svg-1,
+.dark-mode .banned-man-svg-2 {
+  filter: invert(1);
 }
 
 .banned-man-svg-1 {

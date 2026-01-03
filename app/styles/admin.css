@@ -54,7 +54,7 @@
   font-weight: 600;
   margin: 0;
   color: var(--portal-red);
-  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  font-family: var(--body-font);
 }
 
 .admin-panel-stats {
@@ -124,7 +124,7 @@
   font-size: 1em;
   font-weight: 600;
   margin: 0 0 8px 0;
-  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  font-family: var(--body-font);
 }
 
 .admin-panel-section-title-blue {
@@ -565,6 +565,10 @@
   color: #ff0000;
   font-size: 14px;
   flex: 1;
+}
+
+.admin-auth-error.hidden {
+  visibility: hidden;
 }
 
 .dark-mode .admin-auth-error {

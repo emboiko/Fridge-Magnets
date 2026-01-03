@@ -1,10 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useUIStore } from "@/src/stores/uiStore"
 
 export default function BannedScreen() {
-  const isDarkMode = useUIStore((state) => state.isDarkMode)
   const [banReason, setBanReason] = useState(null)
 
   useEffect(() => {
@@ -28,22 +26,8 @@ export default function BannedScreen() {
           You have been permanently banned from the server. This ban will remain in effect until an
           administrator removes it.
         </p>
-        <img
-          src="/img/banned_1.svg"
-          alt="Banned"
-          className="banned-man-svg-1"
-          style={{
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-          }}
-        />
-        <img
-          src="/img/banned_2.svg"
-          alt="Banned"
-          className="banned-man-svg-2"
-          style={{
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-          }}
-        />
+        <img src="/img/banned_1.svg" alt="Banned" className="banned-man-svg-1" />
+        <img src="/img/banned_2.svg" alt="Banned" className="banned-man-svg-2" />
       </div>
     </div>
   )

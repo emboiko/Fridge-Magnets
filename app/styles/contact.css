@@ -26,7 +26,7 @@
   border-radius: 8px;
   padding: 8px 12px;
   font-size: 0.9em;
-  font-family: var(--font-raleway), Arial, Sans-Serif;
+  font-family: var(--body-font);
 }
 
 .contact-input:disabled {
@@ -40,7 +40,7 @@
   border-radius: 8px;
   padding: 8px 12px;
   font-size: 1em;
-  font-family: var(--font-raleway), Arial, Sans-Serif;
+  font-family: var(--body-font);
   resize: vertical;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .contact-submit-button {
-  font-family: var(--font-raleway), Arial, Sans-Serif;
+  font-family: var(--body-font);
   font-size: 1.1em;
   width: 100%;
   margin: 15px 0 0 0;

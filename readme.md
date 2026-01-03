@@ -232,6 +232,79 @@ Configure the test via environment variables (see `.env.example` for available o
 - Async/await preferred over promises
 - Minimal comments (code should be _reasonably_ self-documenting)
 
+**Inline Styles:**
+
+- Avoid inline styles unless required by JavaScript logic
+- **Warranted uses**: Dynamic values that change based on state/props (e.g., user-resizable panel dimensions, progress bar percentages, CSS custom properties for dynamic sizing)
+- **Unwarranted uses**: Static styles, conditional styles based on simple booleans (use CSS classes with `.dark-mode` or conditional classNames instead)
+- Examples of warranted inline styles:
+  - Resizable panel dimensions: `style={{ width: `${panelWidth}px`, height: `${panelHeight}px` }}`
+  - Dynamic progress bars: `style={{ width: `${percentage}%` }}`
+  - CSS custom properties for dynamic values: `style={{ "--chat-width": `${width}px` }}`
+- Examples that should use CSS classes instead:
+  - Dark mode filters: Use `.dark-mode` selector in CSS
+  - Visibility toggles: Use conditional `className` with CSS classes
+  - Static dimensions: Define in CSS files
+
+### Dark/Light Mode
+
+The application implements a class-based dark/light mode system with the following approach:
+
+**State Management:**
+
+- Dark mode state is managed in the Zustand `uiStore`
+- Default mode is **dark mode** (ensures SSR/client match before hydration)
+- Preference is persisted to `localStorage` with key `fridge-magnets-dark-mode`
+- State is initialized client-side via `DarkModeInitializer` component to prevent hydration mismatches
+
+**CSS Implementation:**
+
+- Dark mode is toggled by adding/removing the `dark-mode` class on the `<html>` element
+- CSS uses the `.dark-mode` selector for dark mode styles
+- Some styles use `html:not(.dark-mode)` to explicitly set light mode styles (valid pattern)
+- All dark mode styles are defined in CSS files, not inline styles
+
+**Toggle Mechanism:**
+
+- Toggle is triggered by clicking the fridge icon in the header
+- The `toggleDarkMode` action updates both the Zustand state and the DOM class
+- Changes are immediately reflected via CSS selectors
+
+**Canvas Rendering:**
+
+- Canvas API cannot use CSS classes, so `isDarkMode` is passed as a prop to canvas rendering functions
+- Canvas text stroke colors and line widths adapt based on the `isDarkMode` prop
+- This is the only place where dark mode logic exists outside of CSS
+
+### Font Strategy
+
+The application uses three fonts, each with a specific role:
+
+**Raleway** (Primary UI Font)
+
+- **Purpose**: Default body font (prevents Times New Roman fallback)
+- **Used for**: Buttons, forms, chat, admin panel, contact forms, status pages, ping display
+- **CSS Variable**: `--body-font`
+- **Implementation**: Set as default `font-family` on `body` element
+
+**Lalezar** (Display Font)
+
+- **Purpose**: Decorative headings and titles
+- **Used for**: Header title, modal titles
+- **CSS Variable**: `--main-font`
+
+**Luckiest Guy** (Canvas Font)
+
+- **Purpose**: Magnet text rendering on canvas
+- **Used for**: Letter/number/symbol text on magnets only
+- **Implementation**: Hardcoded in canvas rendering (canvas API cannot use CSS variables directly)
+- **Note**: This font is intentionally isolated to canvas rendering and should not be used elsewhere
+
+**Guidelines:**
+
+- Always use `var(--body-font)` for UI elements (buttons, inputs, text, etc.)
+- Use `var(--main-font)` for decorative headings and titles
+
 ## Architecture
 
 ### Real-time Communication

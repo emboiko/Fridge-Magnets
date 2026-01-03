@@ -5,7 +5,8 @@
   --portal-blue: #4da6ff;
   --portal-red: #ff4444;
   /* Font variables are set by next/font/google in layout.tsx */
-  --main-font: var(--font-lalezar), "Arial", "Sans Serif";
+  --main-font: var(--font-lalezar), Arial, sans-serif;
+  --body-font: var(--font-raleway), Arial, sans-serif;
 }
 
 * {
@@ -24,6 +25,7 @@ body {
 
 body {
   background-color: var(--secondary-color);
+  font-family: var(--font-raleway), Arial, sans-serif;
 }
 
 .dark-mode body {
@@ -69,7 +71,7 @@ body::-webkit-scrollbar {
 }
 
 button {
-  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  font-family: var(--body-font);
   font-size: 1.1em;
   margin: 0;
   transition-duration: 0.4s;
@@ -87,7 +89,7 @@ button:hover {
   top: 8px;
   left: 8px;
   z-index: 1000;
-  font-family: var(--font-raleway), "Arial", "Sans-Serif";
+  font-family: var(--body-font);
   font-size: 0.9em;
   color: var(--portal-blue);
   background: rgba(255, 255, 255, 0.85);

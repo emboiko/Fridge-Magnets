@@ -156,7 +156,7 @@ export function useCanvasAnimation(
             const labelText = movement.username || socketId
 
             ctx.save()
-            ctx.font = `${ADMIN_MOVEMENT_LABEL_FONT_SIZE}px Arial, sans-serif`
+            ctx.font = `${ADMIN_MOVEMENT_LABEL_FONT_SIZE}px Raleway, sans-serif`
             ctx.textAlign = "center"
             ctx.textBaseline = "bottom"
 

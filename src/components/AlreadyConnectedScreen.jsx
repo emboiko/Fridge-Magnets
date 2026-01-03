@@ -1,9 +1,6 @@
 "use client"
 
-import { useUIStore } from "@/src/stores/uiStore"
-
 export default function AlreadyConnectedScreen() {
-  const isDarkMode = useUIStore((state) => state.isDarkMode)
 
   return (
     <div className="status-screen-page">
@@ -19,17 +16,11 @@ export default function AlreadyConnectedScreen() {
           src="/img/already_connected_1.svg"
           alt="Already Connected Man 1"
           className="already-connected-man-1-svg"
-          style={{
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-          }}
         />
         <img
           src="/img/already_connected_2.svg"
           alt="Already Connected Man 2"
           className="already-connected-man-2-svg"
-          style={{
-            filter: isDarkMode ? "invert(1)" : "invert(0)",
-          }}
         />
       </div>
     </div>

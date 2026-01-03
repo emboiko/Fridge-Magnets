@@ -106,12 +106,7 @@ export default function AdminAuthModal() {
           />
         </div>
         <div className="admin-auth-actions">
-          <div
-            className="admin-auth-error"
-            style={{
-              visibility: error ? "visible" : "hidden",
-            }}
-          >
+          <div className={`admin-auth-error ${error ? "" : "hidden"}`}>
             {error || "\u00A0"}
           </div>
           <button
