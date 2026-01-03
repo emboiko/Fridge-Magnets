@@ -614,7 +614,7 @@ export default function AdminPanel() {
     }
 
     const missingItems = []
-    const foundItems = [] // { index, radius }
+    const foundItems = [] // { index, radius, isSpacer? }
     const usedCountPerLetter = new Map()
     const usedCountPerSprite = new Map()
 
@@ -622,21 +622,30 @@ export default function AdminPanel() {
       if (part.type === "text") {
         // Process each character in the text
         for (const char of part.value) {
-          const normalizedChar = char.toUpperCase()
-          const letterMagnets = letterLookup.get(normalizedChar)
-          if (!letterMagnets || letterMagnets.length === 0) {
-            missingItems.push(char)
+          if (char === " ") {
+            foundItems.push({
+              index: null,
+              radius: MAGNET_STANDARD_SPRITE_RADIUS,
+              isSpacer: true,
+            })
           } else {
-            const usedCount = usedCountPerLetter.get(normalizedChar) || 0
-            if (usedCount >= letterMagnets.length) {
+            const normalizedChar = char.toUpperCase()
+            const letterMagnets = letterLookup.get(normalizedChar)
+            if (!letterMagnets || letterMagnets.length === 0) {
               missingItems.push(char)
             } else {
-              const magnetData = letterMagnets[usedCount]
-              foundItems.push({
-                index: magnetData.index,
-                radius: MAGNET_STANDARD_SPRITE_RADIUS,
-              })
-              usedCountPerLetter.set(normalizedChar, usedCount + 1)
+              const usedCount = usedCountPerLetter.get(normalizedChar) || 0
+              if (usedCount >= letterMagnets.length) {
+                missingItems.push(char)
+              } else {
+                const magnetData = letterMagnets[usedCount]
+                foundItems.push({
+                  index: magnetData.index,
+                  radius: MAGNET_STANDARD_SPRITE_RADIUS,
+                  isSpacer: false,
+                })
+                usedCountPerLetter.set(normalizedChar, usedCount + 1)
+              }
             }
           }
         }
@@ -655,6 +664,7 @@ export default function AdminPanel() {
             foundItems.push({
               index: magnetData.index,
               radius: magnetData.radius,
+              isSpacer: false,
             })
             usedCountPerSprite.set(spriteName, usedCount + 1)
           }
@@ -679,13 +689,18 @@ export default function AdminPanel() {
     let currentX = summonCoordinates.x
     for (let i = 0; i < foundItems.length; i++) {
       const item = foundItems[i]
-      const spacing = item.radius + 10 // 10 = padding between magnets
-      socket.emit("magnetMove", {
-        x: currentX,
-        y: summonCoordinates.y,
-        magnetIndex: item.index,
-      })
-      currentX += spacing
+      if (item.isSpacer) {
+        const spacing = item.radius + 10 // 10 = padding between magnets
+        currentX += spacing
+      } else {
+        const spacing = item.radius + 10 // 10 = padding between magnets
+        socket.emit("magnetMove", {
+          x: currentX,
+          y: summonCoordinates.y,
+          magnetIndex: item.index,
+        })
+        currentX += spacing
+      }
     }
 
     setMagnetsToSummon("")
@@ -761,7 +776,15 @@ export default function AdminPanel() {
                               displayUsername
                             )}
                           </div>
-                          <div className="admin-panel-user-ip">{user.ipAddress}</div>
+                          <div className="admin-panel-user-ip">
+                            {user.ipAddress}
+                            {user.ping !== null && user.ping !== undefined && (
+                              <span className="admin-panel-user-ping">
+                                {" "}
+                                • {Math.round(user.ping)}ms
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                       {!isCurrentUser && (

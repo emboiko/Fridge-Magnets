@@ -39,6 +39,7 @@ export default function FridgeCanvas() {
   const closeChat = useUIStore((state) => state.closeChat)
   const toggleHeader = useUIStore((state) => state.toggleHeader)
   const setShouldFocusChat = useUIStore((state) => state.setShouldFocusChat)
+  const togglePingDisplay = useUIStore((state) => state.togglePingDisplay)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
 
@@ -215,7 +216,8 @@ export default function FridgeCanvas() {
     isAdminAuthModalOpen,
     openAdminAuthModal,
     openAdminPanel,
-    closeAdminPanel
+    closeAdminPanel,
+    togglePingDisplay
   )
 
   const {

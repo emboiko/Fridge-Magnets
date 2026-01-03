@@ -4,7 +4,8 @@ import { isAdmin, normalizeIP } from "../utils.js"
  * Handles admin get users request
  */
 export function handleAdminGetUsers(socket, context) {
-  const { socketId, socketIPs, adminIPs, socketUsernames, attemptedUsernames } = context
+  const { socketId, socketIPs, adminIPs, socketUsernames, attemptedUsernames, socketPings } =
+    context
 
   socket.on("adminGetUsers", () => {
     if (!isAdmin(socketId, socketIPs, adminIPs)) {
@@ -49,11 +50,14 @@ export function handleAdminGetUsers(socket, context) {
         username = `${attemptedUsername} ${count + 1}`
       }
 
+      const ping = socketPings.get(id) || null
+
       users.push({
         socketId: id,
         username: username,
         attemptedUsername: attemptedUsername || null,
         ipAddress: ipAddress ? normalizeIP(ipAddress) : "unknown",
+        ping: ping,
       })
     }
 

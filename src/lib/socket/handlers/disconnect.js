@@ -14,6 +14,7 @@ export function handleDisconnect(socket, context) {
     kickedSockets,
     attemptedUsernames,
     activeIPs,
+    socketPings,
     io,
   } = context
 
@@ -43,6 +44,7 @@ export function handleDisconnect(socket, context) {
     socketIPs.delete(socketId)
     kickedSockets.delete(socketId)
     attemptedUsernames.delete(socketId)
+    socketPings.delete(socketId)
 
     // Clean up active IP tracking
     if (disconnectedIP && activeIPs) {

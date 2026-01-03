@@ -27,6 +27,9 @@ export const useUIStore = create((set) => ({
   // Header state
   isHeaderVisible: true,
 
+  // Ping display state
+  isPingDisplayVisible: false,
+
   // Dark mode actions
   initialize: () => {
     if (typeof window === "undefined") {
@@ -74,5 +77,10 @@ export const useUIStore = create((set) => ({
   // Header actions
   toggleHeader: () => {
     set((state) => ({ isHeaderVisible: !state.isHeaderVisible }))
+  },
+
+  // Ping display actions
+  togglePingDisplay: () => {
+    set((state) => ({ isPingDisplayVisible: !state.isPingDisplayVisible }))
   },
 }))

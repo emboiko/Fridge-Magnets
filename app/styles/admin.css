@@ -297,6 +297,15 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+.admin-panel-user-ping {
+  color: var(--portal-blue);
+  font-weight: 500;
+}
+
+.dark-mode .admin-panel-user-ping {
+  color: var(--portal-blue);
+}
+
 .admin-panel-movement-magnet {
   font-size: 0.85em;
   color: rgba(0, 0, 0, 0.7);

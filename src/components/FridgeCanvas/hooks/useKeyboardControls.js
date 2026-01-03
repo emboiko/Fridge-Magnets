@@ -14,7 +14,8 @@ export function useKeyboardControls(
   isAdminAuthModalOpen,
   openAdminAuthModal,
   openAdminPanel,
-  closeAdminPanel
+  closeAdminPanel,
+  togglePingDisplay
 ) {
   useEffect(() => {
     const isAdminKeyCombo = (event) => {
@@ -144,6 +145,13 @@ export function useKeyboardControls(
         setShowDebug((prev) => !prev)
         return
       }
+
+      // Ping display toggle
+      if (key === "p") {
+        e.preventDefault()
+        togglePingDisplay()
+        return
+      }
     }
 
     window.addEventListener("keydown", handleKeyDown)
@@ -162,5 +170,6 @@ export function useKeyboardControls(
     openAdminAuthModal,
     openAdminPanel,
     closeAdminPanel,
+    togglePingDisplay,
   ])
 }

@@ -38,6 +38,7 @@ import { handleAdminResetFridge } from "./src/lib/socket/handlers/adminResetFrid
 import { handleAdminGetMovements } from "./src/lib/socket/handlers/adminGetMovements.js"
 import { handleAdminGetMetrics } from "./src/lib/socket/handlers/adminGetMetrics.js"
 import { handleDisconnect } from "./src/lib/socket/handlers/disconnect.js"
+import { handlePing } from "./src/lib/socket/handlers/ping.js"
 
 const dev = process.env.NODE_ENV !== "production"
 const hostname = process.env.HOSTNAME || "localhost"
@@ -180,6 +181,7 @@ app.prepare().then(async () => {
   const kickedIPs = new Map() // ipAddress -> { kickUntil: timestamp, message: string }
   const socketIPs = new Map() // socketId -> ipAddress (for tracking)
   const activeIPs = new Map() // ipAddress -> socketId (for preventing duplicate connections)
+  const socketPings = new Map() // socketId -> latency in ms
 
   // For showing conflicts in admin panel - This will only happen in development,
   // But it's an easy way to test the app with multiple tabs/windows at once.
@@ -249,6 +251,7 @@ app.prepare().then(async () => {
       activeIPs,
       magnetsChanged,
       changedMagnetIndices,
+      socketPings,
       scheduleSave: saveFunctions.scheduleSave,
       clearPendingSave: saveFunctions.clearPendingSave,
     }
@@ -266,6 +269,7 @@ app.prepare().then(async () => {
     handleAdminResetFridge(socket, context)
     handleAdminGetMovements(socket, context)
     handleAdminGetMetrics(socket, context)
+    handlePing(socket, context)
     handleDisconnect(socket, context)
   })
 
