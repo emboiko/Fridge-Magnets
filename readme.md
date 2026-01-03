@@ -247,7 +247,7 @@ The application uses Socket.IO for bidirectional communication:
 
 ### Data Persistence
 
-- **Magnets**: Saved to MongoDB every second (if changed)
+- **Magnets**: Saved to MongoDB using a debounced save mechanism - saves 3 seconds after the last change. This prevents blocking the event loop during active dragging, ensuring smooth real-time updates. New users always receive the current in-memory state on connection, so unsaved changes are visible to all connected clients. The server implements graceful shutdown handlers (SIGTERM/SIGINT) that perform a final save before termination, ensuring no data loss even during Heroku dyno restarts or manual shutdowns. Only unexpected crashes would lose unsaved changes being held up by the debounce.
 - **Banned IPs**: Persisted in database
 - **Kick Logs**: Tracked in database for audit purposes
 - **Contact Messages**: Saved to database and emailed via Resend

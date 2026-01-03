@@ -5,7 +5,7 @@ import { isAdmin } from "../utils.js"
  * Handles admin reset fridge request
  */
 export function handleAdminResetFridge(socket, context) {
-  const { socketId, socketIPs, adminIPs, refrigerator, io } = context
+  const { socketId, socketIPs, adminIPs, refrigerator, io, clearPendingSave } = context
 
   socket.on("adminResetFridge", async () => {
     if (!isAdmin(socketId, socketIPs, adminIPs)) {
@@ -19,6 +19,10 @@ export function handleAdminResetFridge(socket, context) {
       // replaces all magnets. The interval save is fine for incremental changes, but we
       // want to ensure this major state change is persisted right away.
       await refrigerator.save()
+      // Clear the changed flag since we just saved - prevents debounced save from running
+      context.magnetsChanged.value = false
+      // Clear any pending debounced save
+      clearPendingSave()
 
       const magnetsData = refrigerator.getMagnetsAsObjects()
       const validationResult = magnetsArraySchema.safeParse(magnetsData)

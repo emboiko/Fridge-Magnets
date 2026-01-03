@@ -30,6 +30,21 @@ export const magnetMoveSchema = z.object({
 // Schema for magnet arrays (used for welcome and update events)
 export const magnetsArraySchema = z.array(magnetSchema)
 
+// Schema for differential updates (server -> client)
+// Contains only changed magnets with their indices
+export const magnetUpdateSchema = z.object({
+  type: z.literal("differential"),
+  changes: z.array(
+    z.object({
+      index: z.number().int().min(0),
+      magnet: magnetSchema,
+    })
+  ),
+})
+
+// Update events are always differential
+export const magnetUpdateEventSchema = magnetUpdateSchema
+
 // Schema for chatMessage event (client -> server)
 // Note: username is validated server-side from socketUsernames map
 export const chatMessageSchema = z.object({

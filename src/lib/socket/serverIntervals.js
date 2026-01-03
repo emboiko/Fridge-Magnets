@@ -1,7 +1,7 @@
-import { magnetsArraySchema } from "../validation/socketSchemas.js"
+import { magnetUpdateEventSchema } from "../validation/socketSchemas.js"
 import {
   SERVER_UPDATE_INTERVAL_MS,
-  SERVER_SAVE_INTERVAL_MS,
+  SERVER_SAVE_DEBOUNCE_MS,
   SERVER_CLEANUP_INTERVAL_MS,
   SERVER_ADMIN_MOVEMENT_BROADCAST_INTERVAL_MS,
   SERVER_MOVEMENT_STALE_TIMEOUT_MS,
@@ -19,69 +19,117 @@ export function setupServerIntervals(io, context) {
     adminIPs,
     socketIPs,
     magnetsChanged,
+    changedMagnetIndices,
   } = context
 
-  // Track last broadcast hash for validation optimization
-  let lastBroadcastMagnetsHash = null
+  // Update loop - broadcast differential updates
+  setInterval(() => {
+    if (changedMagnetIndices.size === 0) {
+      return
+    }
 
-  // Update loop using setTimeout recursion to reduce drift
-  // This pattern compensates for event loop blocking by calculating the next
-  // execution time based on when it SHOULD run, not when it actually runs
-  let nextBroadcastTime = Date.now() + SERVER_UPDATE_INTERVAL_MS
+    // Atomically capture changed indices (snapshot the set)
+    const changedIndices = Array.from(changedMagnetIndices)
 
-  const scheduleBroadcast = () => {
-    const now = Date.now()
-    // Calculate delay based on when we SHOULD run next, not when we're running now
-    // Math.max(0, ...) ensures delay is never negative (if we're running late, don't wait, run immediately)
-    const delay = Math.max(0, nextBroadcastTime - now)
-    nextBroadcastTime += SERVER_UPDATE_INTERVAL_MS
+    // Build differential update with only changed magnets
+    const changes = []
+    for (const index of changedIndices) {
+      if (index >= 0 && index < refrigerator.magnets.length) {
+        const magnet = refrigerator.magnets[index]
+        changes.push({
+          index: index,
+          magnet: magnet.toObject(),
+        })
+      }
+    }
 
-    setTimeout(() => {
-      // Check if magnets changed before doing any expensive operations
-      const magnetsDidChange = magnetsChanged.value
+    if (changes.length === 0) {
+      changedMagnetIndices.clear()
+      return
+    }
 
-      if (!magnetsDidChange && lastBroadcastMagnetsHash !== null) {
-        // Nothing changed - skip entire broadcast (no need to serialize/send 1409 magnets to 25 clients)
-        // This saves significant CPU and network bandwidth
-        scheduleBroadcast()
+    // Validate and broadcast differential update
+    const updateData = {
+      type: "differential",
+      changes: changes,
+    }
+
+    const validationResult = magnetUpdateEventSchema.safeParse(updateData)
+    if (validationResult.success) {
+      io.emit("update", validationResult.data)
+      // Only clear tracking AFTER successful broadcast
+      for (const index of changedIndices) {
+        changedMagnetIndices.delete(index)
+      }
+    } else {
+      console.error("Invalid update data structure, skipping broadcast:", validationResult.error)
+      for (const index of changedIndices) {
+        changedMagnetIndices.delete(index)
+      }
+    }
+  }, SERVER_UPDATE_INTERVAL_MS)
+
+  // Debounced save - save a few seconds after the last change
+  // This prevents saves during active dragging, only saving after activity stops
+  // No fallback interval - we rely solely on debounce to avoid blocking during dragging
+  let saveTimeout = null
+
+  const scheduleSave = () => {
+    // Clear any pending save
+    if (saveTimeout !== null) {
+      clearTimeout(saveTimeout)
+      saveTimeout = null
+    }
+
+    if (!magnetsChanged.value) {
+      return
+    }
+
+    saveTimeout = setTimeout(async () => {
+      saveTimeout = null
+
+      // Double-check magnets still changed (may have been saved by admin reset or other operation)
+      if (!magnetsChanged.value) {
         return
       }
 
-      // Magnets changed or first broadcast - need to get data and broadcast
-      const magnetsData = refrigerator.getMagnetsAsObjects()
-
-      // Calculate hash once (used for tracking changes)
-      const hash = magnetsData.map((m) => `${m.x.toFixed(1)},${m.y.toFixed(1)}`).join("|")
-      lastBroadcastMagnetsHash = hash
-
-      if (magnetsDidChange) {
-        magnetsChanged.value = false // Reset flag after processing
+      try {
+        await refrigerator.save()
+        magnetsChanged.value = false
+      } catch (error) {
+        console.error("Error saving to database:", error)
       }
-
-      // Validate and broadcast
-      const validationResult = magnetsArraySchema.safeParse(magnetsData)
-      if (validationResult.success) {
-        io.emit("update", validationResult.data)
-      } else {
-        console.error("Invalid magnet data structure, skipping broadcast:", validationResult.error)
-      }
-
-      // Schedule next broadcast
-      scheduleBroadcast()
-    }, delay)
+    }, SERVER_SAVE_DEBOUNCE_MS)
   }
 
-  // Start the broadcast loop
-  scheduleBroadcast()
+  // Expose scheduleSave and clearPendingSave to context
+  // clearPendingSave allows admin reset to cancel pending debounced saves
+  const clearPendingSave = () => {
+    if (saveTimeout !== null) {
+      clearTimeout(saveTimeout)
+      saveTimeout = null
+    }
+  }
 
-  // Save loop
-  setInterval(async () => {
+  // Force save immediately - bypasses debounce for graceful shutdown
+  // Used when server is being terminated to ensure no data loss
+  const forceSave = async () => {
+    clearPendingSave()
+    if (!magnetsChanged.value) {
+      return
+    }
     try {
       await refrigerator.save()
+      magnetsChanged.value = false
     } catch (error) {
-      console.error("Error saving to database:", error)
+      console.error("Error force-saving to database during shutdown:", error)
+      throw error
     }
-  }, SERVER_SAVE_INTERVAL_MS)
+  }
+
+  context.scheduleSave = scheduleSave
+  context.clearPendingSave = clearPendingSave
+  context.forceSave = forceSave
 
   // Cleanup expired kicks and stale movements
   setInterval(() => {
@@ -96,7 +144,6 @@ export function setupServerIntervals(io, context) {
         kickedIPs.delete(ipAddress)
       }
     }
-    // Clean up movements that haven't been updated in the timeout period
     for (const [socketId, movement] of activeMagnetMovements.entries()) {
       if (now - movement.lastUpdate > SERVER_MOVEMENT_STALE_TIMEOUT_MS) {
         activeMagnetMovements.delete(socketId)

@@ -190,6 +190,10 @@ app.prepare().then(async () => {
 
   // Flag to track if magnets have changed (for validation optimization)
   const magnetsChanged = { value: false }
+  // Track which magnet indices have changed (for differential updates)
+  const changedMagnetIndices = new Set()
+  // Shared save functions - will be set by setupServerIntervals
+  const saveFunctions = { scheduleSave: null, clearPendingSave: null }
   io.on("connection", async (socket) => {
     const socketId = socket.id
 
@@ -244,6 +248,9 @@ app.prepare().then(async () => {
       bannedIPsSet,
       activeIPs,
       magnetsChanged,
+      changedMagnetIndices,
+      scheduleSave: saveFunctions.scheduleSave,
+      clearPendingSave: saveFunctions.clearPendingSave,
     }
 
     handleSetUsername(socket, context)
@@ -262,7 +269,7 @@ app.prepare().then(async () => {
     handleDisconnect(socket, context)
   })
 
-  setupServerIntervals(io, {
+  const intervalsContext = {
     refrigerator,
     kickedSockets,
     kickedIPs,
@@ -270,9 +277,57 @@ app.prepare().then(async () => {
     adminIPs,
     socketIPs,
     magnetsChanged,
-  })
+    changedMagnetIndices,
+  }
+  setupServerIntervals(io, intervalsContext)
+  // Store save functions in shared location for per-connection contexts
+  saveFunctions.scheduleSave = intervalsContext.scheduleSave
+  saveFunctions.clearPendingSave = intervalsContext.clearPendingSave
+  const forceSave = intervalsContext.forceSave
 
   httpServer.listen(port, () => {
     console.info(`Ready on http://${hostname}:${port}`)
   })
+
+  // Graceful shutdown handlers - ensure final save before termination
+  // Handles SIGTERM (Heroku dyno restarts) and SIGINT (Ctrl+C)
+  let isShuttingDown = false
+
+  const gracefulShutdown = async (signal) => {
+    if (isShuttingDown) {
+      console.warn(`Received ${signal} during shutdown, forcing exit`)
+      process.exit(1)
+    }
+
+    isShuttingDown = true
+    console.info(`Received ${signal}, starting graceful shutdown...`)
+
+    try {
+      // Stop accepting new connections
+      httpServer.close(() => {
+        console.info("HTTP server closed")
+      })
+
+      // Disconnect all Socket.IO clients
+      io.close(() => {
+        console.info("Socket.IO server closed")
+      })
+
+      // Force a final save if magnets have changed
+      if (forceSave) {
+        console.info("Performing final save before shutdown...")
+        await forceSave()
+        console.info("Final save completed")
+      }
+
+      console.info("Graceful shutdown complete")
+      process.exit(0)
+    } catch (error) {
+      console.error("Error during graceful shutdown:", error)
+      process.exit(1)
+    }
+  }
+
+  process.on("SIGTERM", () => gracefulShutdown("SIGTERM"))
+  process.on("SIGINT", () => gracefulShutdown("SIGINT"))
 })

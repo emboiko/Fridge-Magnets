@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { magnetsArraySchema } from "@/src/lib/validation/socketSchemas.js"
+import { magnetsArraySchema, magnetUpdateEventSchema } from "@/src/lib/validation/socketSchemas.js"
 import { RECENTLY_DRAGGED_TIMEOUT_MS, POSITION_MATCH_THRESHOLD } from "@/src/lib/constants.js"
 
 /**
@@ -56,19 +56,25 @@ export function useSocketEvents(
     }
 
     const handleUpdate = (data) => {
-      const validationResult = magnetsArraySchema.safeParse(data)
+      // All update events are now differential
+      const validationResult = magnetUpdateEventSchema.safeParse(data)
       if (!validationResult.success) {
         console.error("Invalid update data received:", validationResult.error)
         return
       }
 
-      const currentDraggingIndex = draggingIndexRef.current
-      const updatedMagnets = validationResult.data
-      const now = Date.now()
+      if (validationResult.data.type !== "differential") {
+        console.error("Unexpected update type:", validationResult.data.type)
+        return
+      }
 
+      const changes = validationResult.data.changes
+
+      const currentDraggingIndex = draggingIndexRef.current
+      const now = Date.now()
       const updatesToApply = []
 
-      updatedMagnets.forEach((magnet, index) => {
+      changes.forEach(({ index, magnet }) => {
         if (currentDraggingIndex === index) {
           return
         }

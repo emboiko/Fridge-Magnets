@@ -101,7 +101,7 @@ export const ADMIN_MOVEMENT_LABEL_PADDING = 8
 // Server Constants
 // ============================================================================
 export const SERVER_UPDATE_INTERVAL_MS = 16.67 // ~60fps
-export const SERVER_SAVE_INTERVAL_MS = 1000
+export const SERVER_SAVE_DEBOUNCE_MS = 3000 // Save 3 seconds after last change
 export const SERVER_CLEANUP_INTERVAL_MS = 1000
 export const SERVER_ADMIN_MOVEMENT_BROADCAST_INTERVAL_MS = 100
 export const SERVER_MOVEMENT_STALE_TIMEOUT_MS = 1000
