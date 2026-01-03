@@ -21,6 +21,7 @@ export default function AboutModal({ onOpenContact }) {
         <li>Return to center of canvas with &lt;H&gt;</li>
         <li>Open the chat with &lt;Enter&gt; / Close with &lt;Esc&gt;</li>
         <li>Toggle the header with &lt;Z&gt;</li>
+        <li>Toggle ping/latency display with &lt;P&gt;</li>
         <li>Toggle dark/light mode with the fridge icon in the header</li>
       </ul>
       <h3 className="about-section-title">Contribute</h3>

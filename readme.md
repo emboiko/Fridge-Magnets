@@ -32,6 +32,7 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
   - `Enter`: Open chat
   - `Esc`: Close chat
   - `Z`: Toggle header visibility
+  - `P`: Toggle ping/latency display
   - `Ctrl+Shift+Alt+↑`: Open admin panel (if authenticated)
 - **Dark/Light Mode**: Toggle via fridge icon in header
 - **Resizable Panels**: Chat and admin panels can be resized
