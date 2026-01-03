@@ -1,6 +1,12 @@
 # Fridge Magnets
 
-An anonymous multiplayer refrigerator magnet canvas where users can drag and arrange "magnets" in real-time. Built with Next.js, Socket.IO, and MongoDB.
+An anonymous multiplayer refrigerator magnet canvas where users can drag, arrange, and interact with "magnets" in real-time. Built with Next.js, Socket.IO, and MongoDB.
+
+<div style="display: flex; justify-content: space-around; margin-top: 30px;">
+<img width="175px" src="https://i.imgur.com/sJvxTjn.png" alt="Fridge Magnets QR 1" />
+<img width="175px" src="https://i.imgur.com/w3kryhO.png" alt="Fridge Magnets QR 2" />
+</div>
+<div style="text-align:center; margin-top:30px;"><a href="https://fridgemagnets.fun">fridgemagnets.fun</a></div>
 
 ## Overview
 
