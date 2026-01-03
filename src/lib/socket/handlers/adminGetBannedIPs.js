@@ -1,5 +1,5 @@
 import { BannedIP } from "../../db/BannedIP.js"
-import { isAdmin } from "../utils.js"
+import { isAdmin, normalizeIP } from "../utils.js"
 
 /**
  * Handles admin get banned IPs request
@@ -17,7 +17,7 @@ export function handleAdminGetBannedIPs(socket, context) {
       const bannedIPs = await BannedIP.find({}).sort({ bannedAt: -1 })
       socket.emit("adminBannedIPsList", {
         bannedIPs: bannedIPs.map((doc) => ({
-          ipAddress: doc.ipAddress,
+          ipAddress: normalizeIP(doc.ipAddress),
           bannedAt: doc.bannedAt,
           reason: doc.reason || null,
         })),

@@ -1,5 +1,6 @@
 import { adminAuthSchema } from "../../validation/socketSchemas.js"
 import bcrypt from "bcrypt"
+import { normalizeIP } from "../utils.js"
 
 /**
  * Handles admin authentication
@@ -24,7 +25,8 @@ export function handleAdminAuth(socket, context) {
       const hashToCheck = adminPasswordHash.trim()
       const isMatch = await bcrypt.compare(passwordToCheck, hashToCheck)
       if (isMatch) {
-        adminIPs.add(clientIp)
+        const normalizedIP = normalizeIP(clientIp)
+        adminIPs.add(normalizedIP)
         socket.emit("adminAuthResult", { success: true })
         console.info(`Admin authenticated: ${socketId} from ${clientIp}`)
       } else {

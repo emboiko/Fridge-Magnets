@@ -1,6 +1,6 @@
 import { adminKickUserSchema } from "../../validation/socketSchemas.js"
 import { KickLog } from "../../db/KickLog.js"
-import { isAdmin } from "../utils.js"
+import { isAdmin, normalizeIP } from "../utils.js"
 
 /**
  * Handles admin kick user request
@@ -22,17 +22,19 @@ export function handleAdminKickUser(socket, io, context) {
 
     const { socketId: targetSocketId, timeoutSeconds, message } = validationResult.data
     const targetSocket = io.sockets.sockets.get(targetSocketId)
-    const targetIP = socketIPs.get(targetSocketId)
+    const rawTargetIP = socketIPs.get(targetSocketId)
 
     if (!targetSocket) {
       socket.emit("error", { message: "User not found" })
       return
     }
 
+    const targetIP = rawTargetIP ? normalizeIP(rawTargetIP) : null
     const kickUntil = Date.now() + timeoutSeconds * 1000
     const kickUntilDate = new Date(kickUntil)
     const targetUsername = socketUsernames.get(targetSocketId) || null
-    const adminIP = socketIPs.get(socketId) || null
+    const rawAdminIP = socketIPs.get(socketId) || null
+    const adminIP = rawAdminIP ? normalizeIP(rawAdminIP) : null
 
     // Add to kicked sockets and IPs (message can be null/undefined if not provided)
     kickedSockets.set(targetSocketId, { kickUntil, message: message || null })

@@ -1,4 +1,4 @@
-import { isAdmin } from "../utils.js"
+import { isAdmin, normalizeIP } from "../utils.js"
 
 /**
  * Handles admin get users request
@@ -53,7 +53,7 @@ export function handleAdminGetUsers(socket, context) {
         socketId: id,
         username: username,
         attemptedUsername: attemptedUsername || null,
-        ipAddress: ipAddress || "unknown",
+        ipAddress: ipAddress ? normalizeIP(ipAddress) : "unknown",
       })
     }
 

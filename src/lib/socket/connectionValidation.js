@@ -1,4 +1,5 @@
 import { BannedIP } from "../db/BannedIP.js"
+import { normalizeIP } from "./utils.js"
 
 /**
  * Validates a new socket connection
@@ -17,13 +18,33 @@ export async function validateConnection(socket, socketId, context) {
     console.info(
       `[DEV] Using test IP ${clientIp} for socket ${socketId} (real IP: ${socket.handshake.address})`
     )
+  } else {
+    // Extract real client IP from headers (important for Heroku/proxies)
+    // X-Forwarded-For contains the original client IP when behind a proxy
+    const xForwardedFor = socket.handshake.headers["x-forwarded-for"]
+    if (xForwardedFor) {
+      const forwardedIps = xForwardedFor.split(",").map((ip) => ip.trim())
+      if (forwardedIps.length > 0) {
+        clientIp = forwardedIps[0]
+      }
+    } else {
+      // Fallback to X-Real-IP if X-Forwarded-For is not present
+      const xRealIP = socket.handshake.headers["x-real-ip"]
+      if (xRealIP) {
+        clientIp = xRealIP.trim()
+      }
+    }
   }
+
+  clientIp = normalizeIP(clientIp)
 
   // Check if IP is banned
   if (bannedIPsSet.has(clientIp)) {
     console.warn(`Rejected connection from banned IP: ${clientIp}`)
     try {
-      const bannedIP = await BannedIP.findOne({ ipAddress: clientIp })
+      const bannedIP = await BannedIP.findOne({
+        $or: [{ ipAddress: clientIp }, { ipAddress: `::ffff:${clientIp}` }],
+      })
       socket.emit("error", {
         message: bannedIP?.reason || null,
         code: "BANNED",

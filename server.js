@@ -21,6 +21,7 @@ import {
 } from "./src/lib/constants.js"
 import { validateConnection } from "./src/lib/socket/connectionValidation.js"
 import { setupServerIntervals } from "./src/lib/socket/serverIntervals.js"
+import { normalizeIP } from "./src/lib/socket/utils.js"
 
 // Socket handlers:
 import { handleSetUsername } from "./src/lib/socket/handlers/setUsername.js"
@@ -56,7 +57,8 @@ app.prepare().then(async () => {
   try {
     const bannedIPs = await BannedIP.find({})
     bannedIPs.forEach((doc) => {
-      bannedIPsSet.add(doc.ipAddress)
+      const normalizedIP = normalizeIP(doc.ipAddress)
+      bannedIPsSet.add(normalizedIP)
     })
     console.info(`Loaded ${bannedIPsSet.size} banned IP(s) from database`)
   } catch (error) {

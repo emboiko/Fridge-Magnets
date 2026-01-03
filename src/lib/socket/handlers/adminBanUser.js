@@ -1,6 +1,6 @@
 import { adminBanUserSchema } from "../../validation/socketSchemas.js"
 import { BannedIP } from "../../db/BannedIP.js"
-import { isAdmin } from "../utils.js"
+import { isAdmin, normalizeIP } from "../utils.js"
 
 /**
  * Handles admin ban user request
@@ -22,12 +22,14 @@ export function handleAdminBanUser(socket, io, context) {
 
     const { socketId: targetSocketId, reason } = validationResult.data
     const targetSocket = io.sockets.sockets.get(targetSocketId)
-    const targetIP = socketIPs.get(targetSocketId)
+    const rawTargetIP = socketIPs.get(targetSocketId)
 
-    if (!targetSocket || !targetIP) {
+    if (!targetSocket || !rawTargetIP) {
       socket.emit("error", { message: "User not found" })
       return
     }
+
+    const targetIP = normalizeIP(rawTargetIP)
 
     try {
       // Add to database
@@ -56,4 +58,3 @@ export function handleAdminBanUser(socket, io, context) {
     }
   })
 }
-

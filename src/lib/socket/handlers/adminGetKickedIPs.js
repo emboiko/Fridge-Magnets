@@ -1,4 +1,4 @@
-import { isAdmin } from "../utils.js"
+import { isAdmin, normalizeIP } from "../utils.js"
 
 /**
  * Handles admin get kicked IPs request
@@ -19,7 +19,7 @@ export function handleAdminGetKickedIPs(socket, context) {
       if (now < kick.kickUntil) {
         const remainingSeconds = Math.ceil((kick.kickUntil - now) / 1000)
         kickedIPsList.push({
-          ipAddress: ipAddress,
+          ipAddress: normalizeIP(ipAddress),
           kickUntil: kick.kickUntil,
           remainingSeconds: remainingSeconds,
           message: kick.message || null,
