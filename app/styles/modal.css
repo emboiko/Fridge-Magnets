@@ -61,6 +61,7 @@
   justify-content: center;
   z-index: 1;
   color: #020808;
+  margin-top: 25px;
 }
 
 .dark-mode .modal-close-button {
