@@ -1,7 +1,7 @@
 /**
  * Handles socket disconnect events
  */
-export function handleDisconnect(socket, io, context) {
+export function handleDisconnect(socket, context) {
   const {
     socketId,
     clientIp,
@@ -14,6 +14,7 @@ export function handleDisconnect(socket, io, context) {
     kickedSockets,
     attemptedUsernames,
     activeIPs,
+    io,
   } = context
 
   socket.on("disconnect", () => {

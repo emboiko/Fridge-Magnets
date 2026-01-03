@@ -83,6 +83,10 @@
   cursor: grabbing;
 }
 
-.fridge-canvas:not(.dragging):not(.panning) {
+.fridge-canvas.selecting-coordinates {
+  cursor: crosshair;
+}
+
+.fridge-canvas:not(.dragging):not(.panning):not(.selecting-coordinates) {
   cursor: default;
 }

@@ -5,8 +5,8 @@ import { isAdmin, normalizeIP } from "../utils.js"
 /**
  * Handles admin kick user request
  */
-export function handleAdminKickUser(socket, io, context) {
-  const { socketId, socketIPs, adminIPs, kickedSockets, kickedIPs, socketUsernames } = context
+export function handleAdminKickUser(socket, context) {
+  const { socketId, socketIPs, adminIPs, kickedSockets, kickedIPs, socketUsernames, io } = context
 
   socket.on("adminKickUser", async (data) => {
     if (!isAdmin(socketId, socketIPs, adminIPs)) {

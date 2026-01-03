@@ -20,8 +20,7 @@ import {
   SYMBOLS,
   SPECIALS,
   EMOJIS,
-  MAGNET_LETTER_RADIUS,
-  MAGNET_SPRITE_RADIUS,
+  MAGNET_STANDARD_SPRITE_RADIUS,
   MAGNET_ENHANCED_SPRITE_RADIUS,
   BASE_LETTER_COUNT,
   MIN_LETTERS_PER_CHAR,
@@ -119,13 +118,15 @@ export class Refrigerator {
         for (let i = 0; i < needed; i++) {
           this.magnets.push(
             new Magnet(
-              Math.random() * (CANVAS_WIDTH - CANVAS_PADDING * 2 - MAGNET_LETTER_RADIUS * 2) +
-                MAGNET_LETTER_RADIUS +
+              Math.random() *
+                (CANVAS_WIDTH - CANVAS_PADDING * 2 - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              Math.random() * (CANVAS_HEIGHT - CANVAS_PADDING * 2 - MAGNET_LETTER_RADIUS * 2) +
-                MAGNET_LETTER_RADIUS +
+              Math.random() *
+                (CANVAS_HEIGHT - CANVAS_PADDING * 2 - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              MAGNET_LETTER_RADIUS,
+              MAGNET_STANDARD_SPRITE_RADIUS,
               letter
             )
           )
@@ -163,13 +164,13 @@ export class Refrigerator {
       for (let i = 0; i < BASE_LETTER_COUNT; i++) {
         this.magnets.push(
           new Magnet(
-            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
+            Math.random() * (availableWidth - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+              MAGNET_STANDARD_SPRITE_RADIUS +
               CANVAS_PADDING,
-            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
+            Math.random() * (availableHeight - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+              MAGNET_STANDARD_SPRITE_RADIUS +
               CANVAS_PADDING,
-            MAGNET_LETTER_RADIUS,
+            MAGNET_STANDARD_SPRITE_RADIUS,
             this.generateCharacter()
           )
         )
@@ -186,13 +187,13 @@ export class Refrigerator {
         for (const number of NUMBERS) {
           this.magnets.push(
             new Magnet(
-              Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-                MAGNET_LETTER_RADIUS +
+              Math.random() * (availableWidth - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-                MAGNET_LETTER_RADIUS +
+              Math.random() * (availableHeight - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              MAGNET_LETTER_RADIUS,
+              MAGNET_STANDARD_SPRITE_RADIUS,
               number
             )
           )
@@ -209,13 +210,13 @@ export class Refrigerator {
       for (const symbol of SYMBOLS) {
         this.magnets.push(
           new Magnet(
-            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
+            Math.random() * (availableWidth - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+              MAGNET_STANDARD_SPRITE_RADIUS +
               CANVAS_PADDING,
-            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
+            Math.random() * (availableHeight - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+              MAGNET_STANDARD_SPRITE_RADIUS +
               CANVAS_PADDING,
-            MAGNET_LETTER_RADIUS,
+            MAGNET_STANDARD_SPRITE_RADIUS,
             symbol
           )
         )
@@ -231,13 +232,13 @@ export class Refrigerator {
       for (const emoji of EMOJIS) {
         this.magnets.push(
           new Magnet(
-            Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
+            Math.random() * (availableWidth - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+              MAGNET_STANDARD_SPRITE_RADIUS +
               CANVAS_PADDING,
-            Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-              MAGNET_LETTER_RADIUS +
+            Math.random() * (availableHeight - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+              MAGNET_STANDARD_SPRITE_RADIUS +
               CANVAS_PADDING,
-            MAGNET_LETTER_RADIUS,
+            MAGNET_STANDARD_SPRITE_RADIUS,
             emoji
           )
         )
@@ -254,13 +255,13 @@ export class Refrigerator {
         for (const special of SPECIALS) {
           this.magnets.push(
             new Magnet(
-              Math.random() * (availableWidth - MAGNET_LETTER_RADIUS * 2) +
-                MAGNET_LETTER_RADIUS +
+              Math.random() * (availableWidth - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              Math.random() * (availableHeight - MAGNET_LETTER_RADIUS * 2) +
-                MAGNET_LETTER_RADIUS +
+              Math.random() * (availableHeight - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              MAGNET_LETTER_RADIUS,
+              MAGNET_STANDARD_SPRITE_RADIUS,
               special
             )
           )
@@ -281,13 +282,13 @@ export class Refrigerator {
         for (const file of files) {
           this.magnets.push(
             new Magnet(
-              Math.random() * (availableWidth - MAGNET_SPRITE_RADIUS * 2) +
-                MAGNET_SPRITE_RADIUS +
+              Math.random() * (availableWidth - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              Math.random() * (availableHeight - MAGNET_SPRITE_RADIUS * 2) +
-                MAGNET_SPRITE_RADIUS +
+              Math.random() * (availableHeight - MAGNET_STANDARD_SPRITE_RADIUS * 2) +
+                MAGNET_STANDARD_SPRITE_RADIUS +
                 CANVAS_PADDING,
-              MAGNET_SPRITE_RADIUS,
+              MAGNET_STANDARD_SPRITE_RADIUS,
               undefined,
               basename(file)
             )

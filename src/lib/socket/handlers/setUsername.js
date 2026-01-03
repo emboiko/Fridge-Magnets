@@ -3,8 +3,8 @@ import { MAX_USERNAME_LENGTH } from "../../constants.js"
 /**
  * Handles username setting
  */
-export function handleSetUsername(socket, io, context) {
-  const { socketId, socketUsernames, activeUsernames, attemptedUsernames } = context
+export function handleSetUsername(socket, context) {
+  const { socketId, socketUsernames, activeUsernames, attemptedUsernames, io } = context
 
   socket.on("setUsername", (data) => {
     const trimmedUsername = data.username?.trim()

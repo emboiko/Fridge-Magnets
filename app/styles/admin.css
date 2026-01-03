@@ -672,3 +672,308 @@
 .admin-panel-metric-bar-fill-high {
   background: var(--portal-red);
 }
+
+.admin-panel-actions-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.admin-panel-action-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-panel-summon-group {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.dark-mode .admin-panel-summon-group {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-panel-summon-coordinates {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.admin-panel-summon-magnets {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-panel-summon-label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 2px;
+}
+
+.dark-mode .admin-panel-summon-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-summon-coordinates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.admin-panel-summon-coordinates-display {
+  font-size: 0.9em;
+  color: var(--portal-blue);
+  font-weight: 600;
+  font-family: monospace;
+  background: rgba(0, 102, 204, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.dark-mode .admin-panel-summon-coordinates-display {
+  background: rgba(0, 102, 204, 0.2);
+}
+
+.admin-panel-summon-coordinates-placeholder {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.4);
+  font-style: italic;
+}
+
+.dark-mode .admin-panel-summon-coordinates-placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.admin-panel-summon-coordinate-button {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.85em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dark-mode .admin-panel-summon-coordinate-button {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.admin-panel-summon-coordinate-button:hover {
+  background: rgba(0, 102, 204, 0.1);
+  border-color: var(--portal-blue);
+  transform: translateY(-1px);
+}
+
+.dark-mode .admin-panel-summon-coordinate-button:hover {
+  background: rgba(0, 102, 204, 0.2);
+}
+
+.admin-panel-summon-coordinate-button-active {
+  background: var(--portal-orange);
+  color: #ffffff;
+  border-color: var(--portal-orange);
+}
+
+.admin-panel-summon-coordinate-button-active:hover {
+  background: #ff8800;
+  border-color: #ff8800;
+}
+
+.admin-panel-summon-magnets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.admin-panel-summon-controls-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.admin-panel-sprite-list-button {
+  padding: 3px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.75em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.dark-mode .admin-panel-sprite-list-button {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-panel-sprite-list-button:hover {
+  background: rgba(0, 102, 204, 0.1);
+  border-color: var(--portal-blue);
+}
+
+.dark-mode .admin-panel-sprite-list-button:hover {
+  background: rgba(0, 102, 204, 0.2);
+}
+
+.admin-panel-sprite-list {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.dark-mode .admin-panel-sprite-list {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.admin-panel-sprite-list-label {
+  font-size: 0.75em;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 6px;
+}
+
+.dark-mode .admin-panel-sprite-list-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.admin-panel-sprite-list-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.admin-panel-sprite-item {
+  padding: 4px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.75em;
+  font-family: monospace;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dark-mode .admin-panel-sprite-item {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.admin-panel-sprite-item:hover {
+  background: rgba(0, 102, 204, 0.15);
+  border-color: var(--portal-blue);
+  transform: translateY(-1px);
+}
+
+.dark-mode .admin-panel-sprite-item:hover {
+  background: rgba(0, 102, 204, 0.25);
+}
+
+.admin-panel-summon-letter-mode {
+  display: flex;
+  align-items: center;
+}
+
+.admin-panel-summon-letter-mode-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dark-mode .admin-panel-summon-letter-mode-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.admin-panel-summon-letter-mode-label input[type="checkbox"] {
+  cursor: pointer;
+  margin: 0;
+}
+
+.admin-panel-summon-magnets-controls {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.admin-panel-summon-input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-size: 0.85em;
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.8);
+  transition: all 0.2s;
+}
+
+.dark-mode .admin-panel-summon-input {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.admin-panel-summon-input:focus {
+  outline: none;
+  border-color: var(--portal-blue);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.dark-mode .admin-panel-summon-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.admin-panel-summon-button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--portal-blue);
+  color: #ffffff;
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.admin-panel-summon-button:hover {
+  background-color: #3399ff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+}
+
+.admin-panel-summon-button:active {
+  transform: translateY(0);
+}

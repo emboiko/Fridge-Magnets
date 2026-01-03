@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useSocket } from "@/src/hooks/useSocket"
 import { useAdminStore } from "@/src/stores/adminStore"
+import { useMagnetStore } from "@/src/stores/magnetStore"
 import {
   ADMIN_PANEL_MIN_WIDTH,
   ADMIN_PANEL_DEFAULT_WIDTH,
@@ -18,6 +19,8 @@ import {
   ADMIN_RESET_FEEDBACK_DELAY_MS,
   MIN_ADMIN_KICK_TIMEOUT_SECONDS,
   MAX_ADMIN_KICK_TIMEOUT_SECONDS,
+  MAGNET_STANDARD_SPRITE_RADIUS,
+  MAGNET_ENHANCED_SPRITE_RADIUS,
 } from "@/src/lib/constants.js"
 
 const getAdminPanelMaxWidth = () => {
@@ -34,12 +37,77 @@ const getAdminPanelMaxHeight = () => {
   return window.innerHeight - ADMIN_PANEL_VIEWPORT_PADDING_VERTICAL
 }
 
+const formatTime = (seconds) => {
+  if (seconds < 60) {
+    return `${seconds}s`
+  } else if (seconds < 3600) {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return secs > 0 ? `${mins}m ${secs}s` : `${mins}m`
+  } else {
+    const hours = Math.floor(seconds / 3600)
+    const mins = Math.floor((seconds % 3600) / 60)
+    const secs = seconds % 60
+    if (mins === 0 && secs === 0) {
+      return `${hours}h`
+    } else if (secs === 0) {
+      return `${hours}h ${mins}m`
+    } else {
+      return `${hours}h ${mins}m ${secs}s`
+    }
+  }
+}
+
+const formatBytes = (bytes) => {
+  const gb = bytes / (1024 * 1024 * 1024)
+  if (gb >= 1) {
+    return `${gb.toFixed(2)} GB`
+  }
+  const mb = bytes / (1024 * 1024)
+  return `${mb.toFixed(2)} MB`
+}
+
+const formatUptime = (seconds) => {
+  const days = Math.floor(seconds / 86400)
+  const hours = Math.floor((seconds % 86400) / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const secs = Math.floor(seconds % 60)
+
+  if (days > 0) {
+    return `${days}d ${hours}h ${minutes}m`
+  }
+  if (hours > 0) {
+    return `${hours}h ${minutes}m ${secs}s`
+  }
+  return `${minutes}m ${secs}s`
+}
+
+const getMetricBarClass = (usagePercent) => {
+  if (usagePercent >= 75) {
+    return "admin-panel-metric-bar-fill-high"
+  }
+  if (usagePercent >= 50) {
+    return "admin-panel-metric-bar-fill-medium"
+  }
+  return "admin-panel-metric-bar-fill-low"
+}
+
 export default function AdminPanel() {
   const socket = useSocket()
   const currentSocketId = socket?.id || null
   const isAdminAuthenticated = useAdminStore((state) => state.isAdminAuthenticated)
   const isAdminPanelOpen = useAdminStore((state) => state.isAdminPanelOpen)
   const closeAdminPanel = useAdminStore((state) => state.closeAdminPanel)
+  const isSelectingSummonCoordinates = useAdminStore((state) => state.isSelectingSummonCoordinates)
+  const summonCoordinates = useAdminStore((state) => state.summonCoordinates)
+  const setSelectingSummonCoordinates = useAdminStore(
+    (state) => state.setSelectingSummonCoordinates
+  )
+  const getLetterLookup = useMagnetStore((state) => state.getLetterLookup)
+  const getSpriteLookup = useMagnetStore((state) => state.getSpriteLookup)
+  const getAvailableSprites = useMagnetStore((state) => state.getAvailableSprites)
+  const [useClosestLetters, setUseClosestLetters] = useState(true)
+  const [showSpriteList, setShowSpriteList] = useState(false)
   const [users, setUsers] = useState([])
   const [totalCount, setTotalCount] = useState(0)
   const [movements, setMovements] = useState([])
@@ -59,6 +127,7 @@ export default function AdminPanel() {
   const [isResizingMovementsList, setIsResizingMovementsList] = useState(false)
   const [isResizingKickedIPsList, setIsResizingKickedIPsList] = useState(false)
   const [isResizingBannedIPsList, setIsResizingBannedIPsList] = useState(false)
+  const [magnetsToSummon, setMagnetsToSummon] = useState("")
   const panelRef = useRef(null)
   const usersListRef = useRef(null)
   const movementsListRef = useRef(null)
@@ -396,6 +465,10 @@ export default function AdminPanel() {
     return null
   }
 
+  if (!socket) {
+    return null
+  }
+
   const handleResizeWidthStart = (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -436,9 +509,7 @@ export default function AdminPanel() {
 
     const message = prompt("Enter kick message (optional):") || undefined
 
-    if (socket) {
-      socket.emit("adminKickUser", { socketId, timeoutSeconds, message })
-    }
+    socket.emit("adminKickUser", { socketId, timeoutSeconds, message })
   }
 
   const handleBan = (socketId) => {
@@ -448,9 +519,7 @@ export default function AdminPanel() {
 
     const reason = prompt("Enter ban reason (optional):") || undefined
 
-    if (socket) {
-      socket.emit("adminBanUser", { socketId, reason })
-    }
+    socket.emit("adminBanUser", { socketId, reason })
   }
 
   const handleUnban = (ipAddress) => {
@@ -458,9 +527,7 @@ export default function AdminPanel() {
       return
     }
 
-    if (socket) {
-      socket.emit("adminUnbanIP", { ipAddress })
-    }
+    socket.emit("adminUnbanIP", { ipAddress })
   }
 
   const handleResetFridge = () => {
@@ -471,56 +538,157 @@ export default function AdminPanel() {
     }
 
     setIsResetting(true)
-    if (socket) {
-      socket.emit("adminResetFridge")
-      setTimeout(() => {
-        setIsResetting(false)
-      }, ADMIN_RESET_FEEDBACK_DELAY_MS)
-    }
+    socket.emit("adminResetFridge")
+    setTimeout(() => {
+      setIsResetting(false)
+    }, ADMIN_RESET_FEEDBACK_DELAY_MS)
   }
 
-  const formatBytes = (bytes) => {
-    const gb = bytes / (1024 * 1024 * 1024)
-    if (gb >= 1) {
-      return `${gb.toFixed(2)} GB`
-    }
-    const mb = bytes / (1024 * 1024)
-    return `${mb.toFixed(2)} MB`
+  const handleStartCoordinateSelection = () => {
+    setSelectingSummonCoordinates(true)
   }
 
-  const formatUptime = (seconds) => {
-    const days = Math.floor(seconds / 86400)
-    const hours = Math.floor((seconds % 86400) / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const secs = Math.floor(seconds % 60)
-
-    if (days > 0) {
-      return `${days}d ${hours}h ${minutes}m`
-    }
-    if (hours > 0) {
-      return `${hours}h ${minutes}m ${secs}s`
-    }
-    return `${minutes}m ${secs}s`
+  const handleStopCoordinateSelection = () => {
+    setSelectingSummonCoordinates(false)
   }
 
-  const getMemoryBarClass = (usagePercent) => {
-    if (usagePercent >= 75) {
-      return "admin-panel-metric-bar-fill-high"
+  const handleSummonMagnets = async () => {
+    if (summonCoordinates.x === null || summonCoordinates.y === null) {
+      alert("Please set coordinates first by clicking on the canvas")
+      return
     }
-    if (usagePercent >= 50) {
-      return "admin-panel-metric-bar-fill-medium"
-    }
-    return "admin-panel-metric-bar-fill-low"
-  }
 
-  const getCPUBarClass = (usagePercent) => {
-    if (usagePercent >= 75) {
-      return "admin-panel-metric-bar-fill-high"
+    if (!magnetsToSummon.trim()) {
+      alert("Please enter text to summon (e.g., hello or hello'yoshi_running'😁)")
+      return
     }
-    if (usagePercent >= 50) {
-      return "admin-panel-metric-bar-fill-medium"
+
+    const input = magnetsToSummon.trim()
+    const letterLookup = getLetterLookup(
+      summonCoordinates.x,
+      summonCoordinates.y,
+      useClosestLetters
+    )
+    const spriteLookup = getSpriteLookup(
+      summonCoordinates.x,
+      summonCoordinates.y,
+      useClosestLetters
+    )
+
+    // Parse input: split by single quotes to separate sprites from letters
+    // Format: "hello'yoshi_running'😁" -> ["hello", "yoshi_running", "😁"]
+    const parts = []
+    let currentPart = ""
+    let inQuotes = false
+
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i]
+      if (char === "'") {
+        if (inQuotes) {
+          // End of sprite name
+          if (currentPart) {
+            parts.push({ type: "sprite", value: currentPart.toLowerCase() })
+            currentPart = ""
+          }
+          inQuotes = false
+        } else {
+          // Start of sprite name - save any accumulated letters first
+          if (currentPart) {
+            parts.push({ type: "text", value: currentPart })
+            currentPart = ""
+          }
+          inQuotes = true
+        }
+      } else {
+        currentPart += char
+      }
     }
-    return "admin-panel-metric-bar-fill-low"
+
+    // Add remaining part
+    if (currentPart) {
+      if (inQuotes) {
+        parts.push({ type: "sprite", value: currentPart.toLowerCase() })
+      } else {
+        parts.push({ type: "text", value: currentPart })
+      }
+    }
+
+    const missingItems = []
+    const foundItems = [] // { index, radius }
+    const usedCountPerLetter = new Map()
+    const usedCountPerSprite = new Map()
+
+    for (const part of parts) {
+      if (part.type === "text") {
+        // Process each character in the text
+        for (const char of part.value) {
+          const normalizedChar = char.toUpperCase()
+          const letterMagnets = letterLookup.get(normalizedChar)
+          if (!letterMagnets || letterMagnets.length === 0) {
+            missingItems.push(char)
+          } else {
+            const usedCount = usedCountPerLetter.get(normalizedChar) || 0
+            if (usedCount >= letterMagnets.length) {
+              missingItems.push(char)
+            } else {
+              const magnetData = letterMagnets[usedCount]
+              foundItems.push({
+                index: magnetData.index,
+                radius: MAGNET_STANDARD_SPRITE_RADIUS,
+              })
+              usedCountPerLetter.set(normalizedChar, usedCount + 1)
+            }
+          }
+        }
+      } else {
+        // Process sprite
+        const spriteName = part.value
+        const spriteMagnets = spriteLookup.get(spriteName)
+        if (!spriteMagnets || spriteMagnets.length === 0) {
+          missingItems.push(`'${spriteName}'`)
+        } else {
+          const usedCount = usedCountPerSprite.get(spriteName) || 0
+          if (usedCount >= spriteMagnets.length) {
+            missingItems.push(`'${spriteName}'`)
+          } else {
+            const magnetData = spriteMagnets[usedCount]
+            foundItems.push({
+              index: magnetData.index,
+              radius: magnetData.radius,
+            })
+            usedCountPerSprite.set(spriteName, usedCount + 1)
+          }
+        }
+      }
+    }
+
+    if (missingItems.length > 0) {
+      const uniqueMissing = [...new Set(missingItems)]
+      alert(
+        `Cannot summon: the following items are not available on the canvas: ${uniqueMissing.join(", ")}`
+      )
+      return
+    }
+
+    if (foundItems.length === 0) {
+      alert("No magnets found for the entered text")
+      return
+    }
+
+    // Calculate positions with proper spacing based on radius
+    let currentX = summonCoordinates.x
+    for (let i = 0; i < foundItems.length; i++) {
+      const item = foundItems[i]
+      const spacing = item.radius + 10 // 10 = padding between magnets
+      socket.emit("magnetMove", {
+        x: currentX,
+        y: summonCoordinates.y,
+        magnetIndex: item.index,
+      })
+      currentX += spacing
+    }
+
+    setMagnetsToSummon("")
   }
 
   if (!isAdminPanelOpen) {
@@ -673,27 +841,6 @@ export default function AdminPanel() {
                 <div className="admin-panel-empty">No kicked IPs</div>
               ) : (
                 kickedIPs.map((kicked) => {
-                  const formatTime = (seconds) => {
-                    if (seconds < 60) {
-                      return `${seconds}s`
-                    } else if (seconds < 3600) {
-                      const mins = Math.floor(seconds / 60)
-                      const secs = seconds % 60
-                      return secs > 0 ? `${mins}m ${secs}s` : `${mins}m`
-                    } else {
-                      const hours = Math.floor(seconds / 3600)
-                      const mins = Math.floor((seconds % 3600) / 60)
-                      const secs = seconds % 60
-                      if (mins === 0 && secs === 0) {
-                        return `${hours}h`
-                      } else if (secs === 0) {
-                        return `${hours}h ${mins}m`
-                      } else {
-                        return `${hours}h ${mins}m ${secs}s`
-                      }
-                    }
-                  }
-
                   return (
                     <div key={kicked.ipAddress} className="admin-panel-kicked-item">
                       <div className="admin-panel-kicked-info">
@@ -765,13 +912,119 @@ export default function AdminPanel() {
 
         <div className="admin-panel-section">
           <h3 className="admin-panel-section-title admin-panel-section-title-actions">Actions</h3>
-          <button
-            className="admin-panel-reset-button"
-            onClick={handleResetFridge}
-            disabled={isResetting}
-          >
-            {isResetting ? "Resetting..." : "Reset Fridge"}
-          </button>
+          <div className="admin-panel-actions-content">
+            <div className="admin-panel-action-group">
+              <button
+                className="admin-panel-reset-button"
+                onClick={handleResetFridge}
+                disabled={isResetting}
+              >
+                {isResetting ? "Resetting..." : "Reset Fridge"}
+              </button>
+            </div>
+            <div className="admin-panel-action-group admin-panel-summon-group">
+              <div className="admin-panel-summon-coordinates">
+                <div className="admin-panel-summon-coordinates-header">
+                  <label className="admin-panel-summon-label">Summon Coordinates</label>
+                  {summonCoordinates.x !== null && summonCoordinates.y !== null ? (
+                    <div className="admin-panel-summon-coordinates-display">
+                      ({summonCoordinates.x}, {summonCoordinates.y})
+                    </div>
+                  ) : (
+                    <div className="admin-panel-summon-coordinates-placeholder">Not set</div>
+                  )}
+                </div>
+                {isSelectingSummonCoordinates ? (
+                  <button
+                    className="admin-panel-summon-coordinate-button admin-panel-summon-coordinate-button-active"
+                    onClick={handleStopCoordinateSelection}
+                  >
+                    Cancel Selection
+                  </button>
+                ) : (
+                  <button
+                    className="admin-panel-summon-coordinate-button"
+                    onClick={handleStartCoordinateSelection}
+                  >
+                    Click Canvas to Set
+                  </button>
+                )}
+              </div>
+              <div className="admin-panel-summon-magnets">
+                <div className="admin-panel-summon-magnets-header">
+                  <label className="admin-panel-summon-label">Text to Summon</label>
+                  <div className="admin-panel-summon-controls-row">
+                    <div className="admin-panel-summon-letter-mode">
+                      <label className="admin-panel-summon-letter-mode-label">
+                        <input
+                          type="checkbox"
+                          checked={useClosestLetters}
+                          onChange={(e) => setUseClosestLetters(e.target.checked)}
+                        />
+                        <span>Use closest</span>
+                      </label>
+                    </div>
+                    <button
+                      className="admin-panel-sprite-list-button"
+                      onClick={() => setShowSpriteList(!showSpriteList)}
+                    >
+                      {showSpriteList ? "Hide" : "Show"} Sprites
+                    </button>
+                  </div>
+                </div>
+                {showSpriteList && (
+                  <div className="admin-panel-sprite-list">
+                    <div className="admin-panel-sprite-list-label">Available sprites:</div>
+                    <div className="admin-panel-sprite-list-items">
+                      {getAvailableSprites().map((sprite) => (
+                        <button
+                          key={sprite}
+                          className="admin-panel-sprite-item"
+                          onClick={() => {
+                            const current = magnetsToSummon
+                            const cursorPos =
+                              document.activeElement?.selectionStart || current.length
+                            const before = current.slice(0, cursorPos)
+                            const after = current.slice(cursorPos)
+                            setMagnetsToSummon(`${before}'${sprite}'${after}`)
+                            setTimeout(() => {
+                              const input = document.querySelector(".admin-panel-summon-input")
+                              if (input) {
+                                const newPos = cursorPos + sprite.length + 2
+                                input.setSelectionRange(newPos, newPos)
+                                input.focus()
+                              }
+                            }, 0)
+                          }}
+                          title={`Click to insert '${sprite}'`}
+                        >
+                          {sprite}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="admin-panel-summon-magnets-controls">
+                  <input
+                    type="text"
+                    className="admin-panel-summon-input"
+                    placeholder="hello😁'yoshi_running'"
+                    value={magnetsToSummon}
+                    onChange={(e) => setMagnetsToSummon(e.target.value)}
+                    onKeyDown={(e) => {
+                      e.stopPropagation()
+                    }}
+                    onKeyUp={(e) => {
+                      e.stopPropagation()
+                    }}
+                  />
+                  <button className="admin-panel-summon-button" onClick={handleSummonMagnets}>
+                    Summon
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="admin-panel-section">
@@ -786,7 +1039,7 @@ export default function AdminPanel() {
                 </div>
                 <div className="admin-panel-metric-bar">
                   <div
-                    className={`admin-panel-metric-bar-fill ${getMemoryBarClass(metrics.memory.usagePercent)}`}
+                    className={`admin-panel-metric-bar-fill ${getMetricBarClass(metrics.memory.usagePercent)}`}
                     style={{ width: `${metrics.memory.usagePercent}%` }}
                   />
                 </div>
@@ -803,7 +1056,7 @@ export default function AdminPanel() {
                     </div>
                     <div className="admin-panel-metric-bar">
                       <div
-                        className={`admin-panel-metric-bar-fill ${getCPUBarClass(metrics.cpu.usagePercent)}`}
+                        className={`admin-panel-metric-bar-fill ${getMetricBarClass(metrics.cpu.usagePercent)}`}
                         style={{ width: `${metrics.cpu.usagePercent}%` }}
                       />
                     </div>

@@ -4,8 +4,8 @@ import { CHAT_RATE_LIMIT_WINDOW_MS, CHAT_RATE_LIMIT_MAX_MESSAGES } from "../../c
 /**
  * Handles chat message events
  */
-export function handleChatMessage(socket, io, context) {
-  const { socketId, clientIp, chatRateLimitMap, socketUsernames } = context
+export function handleChatMessage(socket, context) {
+  const { socketId, clientIp, chatRateLimitMap, socketUsernames, io } = context
 
   socket.on("chatMessage", (data) => {
     const chatRateLimit = chatRateLimitMap.get(socketId)

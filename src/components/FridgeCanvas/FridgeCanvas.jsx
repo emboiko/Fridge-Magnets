@@ -29,6 +29,11 @@ export default function FridgeCanvas() {
   const openAdminAuthModal = useAdminStore((state) => state.openAdminAuthModal)
   const openAdminPanel = useAdminStore((state) => state.openAdminPanel)
   const closeAdminPanel = useAdminStore((state) => state.closeAdminPanel)
+  const isSelectingSummonCoordinates = useAdminStore((state) => state.isSelectingSummonCoordinates)
+  const setSelectingSummonCoordinates = useAdminStore(
+    (state) => state.setSelectingSummonCoordinates
+  )
+  const setSummonCoordinates = useAdminStore((state) => state.setSummonCoordinates)
   const isChatOpen = useUIStore((state) => state.isChatOpen)
   const openChat = useUIStore((state) => state.openChat)
   const closeChat = useUIStore((state) => state.closeChat)
@@ -213,28 +218,56 @@ export default function FridgeCanvas() {
     closeAdminPanel
   )
 
-  const { handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel } =
-    useCanvasInteraction(
-      containerRef,
+  const {
+    handlePointerDown: baseHandlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
+    handlePointerCancel,
+  } = useCanvasInteraction(
+    containerRef,
+    getCanvasCoordinates,
+    findClickedMagnet,
+    magnetsRef,
+    interpolatedPositionsRef,
+    setDraggingIndex,
+    setIsPanning,
+    setPanStart,
+    panStartScrollRef,
+    isPanning,
+    panStart,
+    socket,
+    draggingIndexRef,
+    updateMagnetByIndex,
+    markMagnetInteracted,
+    sortedMagnetsCacheRef,
+    lastEmitTimeRef,
+    lastSentPositionRef,
+    recentlyDraggedRef
+  )
+
+  const handlePointerDown = useCallback(
+    (e) => {
+      if (isSelectingSummonCoordinates) {
+        e.preventDefault()
+        const coords = getCanvasCoordinates(e.clientX, e.clientY)
+        if (coords) {
+          const clampedX = Math.max(0, Math.min(CANVAS_WIDTH, Math.round(coords.x)))
+          const clampedY = Math.max(0, Math.min(CANVAS_HEIGHT, Math.round(coords.y)))
+          setSummonCoordinates(clampedX, clampedY)
+          setSelectingSummonCoordinates(false)
+        }
+      } else {
+        baseHandlePointerDown(e)
+      }
+    },
+    [
+      isSelectingSummonCoordinates,
       getCanvasCoordinates,
-      findClickedMagnet,
-      magnetsRef,
-      interpolatedPositionsRef,
-      setDraggingIndex,
-      setIsPanning,
-      setPanStart,
-      panStartScrollRef,
-      isPanning,
-      panStart,
-      socket,
-      draggingIndexRef,
-      updateMagnetByIndex,
-      markMagnetInteracted,
-      sortedMagnetsCacheRef,
-      lastEmitTimeRef,
-      lastSentPositionRef,
-      recentlyDraggedRef
-    )
+      setSummonCoordinates,
+      setSelectingSummonCoordinates,
+      baseHandlePointerDown,
+    ]
+  )
 
   useCanvasCleanup(recentlyDraggedRef, interpolatedPositionsRef, magnetsRef, lastSentPositionRef)
 
@@ -261,7 +294,7 @@ export default function FridgeCanvas() {
     }
   }, [])
 
-  const canvasClassName = `fridge-canvas ${draggingIndex !== null ? "dragging" : ""} ${isPanning ? "panning" : ""}`
+  const canvasClassName = `fridge-canvas ${draggingIndex !== null ? "dragging" : ""} ${isPanning ? "panning" : ""} ${isSelectingSummonCoordinates ? "selecting-coordinates" : ""}`
 
   return (
     <div className="canvas-wrapper">

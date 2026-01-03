@@ -246,20 +246,20 @@ app.prepare().then(async () => {
       magnetsChanged,
     }
 
-    handleSetUsername(socket, io, context)
+    handleSetUsername(socket, context)
     handleMagnetMove(socket, context)
-    handleChatMessage(socket, io, context)
+    handleChatMessage(socket, context)
     handleAdminAuth(socket, context)
     handleAdminGetUsers(socket, context)
-    handleAdminKickUser(socket, io, context)
-    handleAdminBanUser(socket, io, context)
+    handleAdminKickUser(socket, context)
+    handleAdminBanUser(socket, context)
     handleAdminUnbanIP(socket, context)
     handleAdminGetKickedIPs(socket, context)
     handleAdminGetBannedIPs(socket, context)
-    handleAdminResetFridge(socket, io, context)
+    handleAdminResetFridge(socket, context)
     handleAdminGetMovements(socket, context)
     handleAdminGetMetrics(socket, context)
-    handleDisconnect(socket, io, context)
+    handleDisconnect(socket, context)
   })
 
   setupServerIntervals(io, {

@@ -73,6 +73,8 @@ Fridge Magnets is a collaborative canvas application that simulates a shared ref
 
 This application is deployed on **Heroku** due to its requirement for persistent WebSocket connections via Socket.IO. The custom server (`server.js`) runs a long-running Node.js process that maintains WebSocket connections, which is incompatible with serverless platforms like Vercel that use ephemeral function-based architecture. Heroku's traditional dyno model provides the persistent process environment needed for real-time multiplayer functionality.
 
+**Note**: When deployed behind proxies (like Heroku's routing layer), the application automatically extracts the real client IP address from HTTP headers (`X-Forwarded-For` or `X-Real-IP`) rather than using the proxy's IP address. This ensures IP-based features (connection limits, bans, kicks) work correctly in production environments.
+
 ### Domain Configuration
 
 The application enforces a canonical domain (`fridgemagnets.fun`) to ensure all traffic is routed through a single URL. This is implemented at two levels:
@@ -267,6 +269,8 @@ The application uses Socket.IO for bidirectional communication:
   - API requests: 5 per 15 minutes per IP
 - **Input Validation**: Zod schemas for all socket events and API requests
 - **IP-based Controls**: One connection per IP, kick/ban functionality
+  - **IP Address Extraction**: On Heroku and other proxy environments, the real client IP is extracted from the `X-Forwarded-For` header (fallback to `X-Real-IP`). This ensures accurate IP-based controls when behind reverse proxies.
+  - **IP Normalization**: All IP addresses are normalized by stripping the `::ffff:` prefix (IPv4-mapped IPv6 addresses) to ensure consistent comparison across different network configurations.
 - **Admin Authentication**: bcrypt password hashing
 - **CORS Protection**: Origin validation for Socket.IO connections
 - **Domain Enforcement**: Canonical domain restriction ensures all traffic routes through `fridgemagnets.fun` (see [Domain Configuration](#domain-configuration))

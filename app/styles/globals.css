@@ -71,7 +71,7 @@ body::-webkit-scrollbar {
 button {
   font-family: var(--font-raleway), "Arial", "Sans-Serif";
   font-size: 1.1em;
-  margin: 25px auto 0 auto;
+  margin: 0;
   transition-duration: 0.4s;
   border: none;
   border-radius: 15px;

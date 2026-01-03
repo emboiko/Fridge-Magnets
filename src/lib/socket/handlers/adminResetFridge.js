@@ -4,8 +4,8 @@ import { isAdmin } from "../utils.js"
 /**
  * Handles admin reset fridge request
  */
-export function handleAdminResetFridge(socket, io, context) {
-  const { socketId, socketIPs, adminIPs, refrigerator } = context
+export function handleAdminResetFridge(socket, context) {
+  const { socketId, socketIPs, adminIPs, refrigerator, io } = context
 
   socket.on("adminResetFridge", async () => {
     if (!isAdmin(socketId, socketIPs, adminIPs)) {

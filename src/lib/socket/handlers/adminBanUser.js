@@ -5,8 +5,8 @@ import { isAdmin, normalizeIP } from "../utils.js"
 /**
  * Handles admin ban user request
  */
-export function handleAdminBanUser(socket, io, context) {
-  const { socketId, socketIPs, adminIPs, bannedIPsSet } = context
+export function handleAdminBanUser(socket, context) {
+  const { socketId, socketIPs, adminIPs, bannedIPsSet, io } = context
 
   socket.on("adminBanUser", async (data) => {
     if (!isAdmin(socketId, socketIPs, adminIPs)) {
