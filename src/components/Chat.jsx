@@ -263,6 +263,13 @@ export default function Chat() {
     setIsResizingHeight(true)
   }
 
+  const handleResizeDiagonalStart = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsResizingWidth(true)
+    setIsResizingHeight(true)
+  }
+
   if (!isOpen) {
     return null
   }
@@ -333,6 +340,11 @@ export default function Chat() {
               ×
             </button>
           </div>
+          <div
+            className="chat-resize-handle-diagonal"
+            onMouseDown={handleResizeDiagonalStart}
+            onKeyDown={(e) => e.stopPropagation()}
+          />
           <div className="chat-messages">
             {messages.map((message, index) => {
               if (message.messageType === "system") {

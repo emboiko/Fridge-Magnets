@@ -481,6 +481,13 @@ export default function AdminPanel() {
     setIsResizingHeight(true)
   }
 
+  const handleResizeDiagonalStart = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsResizingWidth(true)
+    setIsResizingHeight(true)
+  }
+
   const handleResizeListStart = (setIsResizing) => (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -727,6 +734,11 @@ export default function AdminPanel() {
           ×
         </button>
       </div>
+      <div
+        className="admin-panel-resize-handle-diagonal"
+        onMouseDown={handleResizeDiagonalStart}
+        onKeyDown={(e) => e.stopPropagation()}
+      />
 
       <div className="admin-panel-content">
         <div className="admin-panel-section">

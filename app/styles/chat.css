@@ -463,3 +463,31 @@
 .dark-mode .chat-resize-handle-height:active {
   background: rgba(255, 255, 255, 0.2);
 }
+
+.chat-resize-handle-diagonal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  cursor: nwse-resize;
+  z-index: 11;
+  border-top-right-radius: 8px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.chat-resize-handle-diagonal:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .chat-resize-handle-diagonal:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-resize-handle-diagonal:active {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .chat-resize-handle-diagonal:active {
+  background: rgba(255, 255, 255, 0.2);
+}

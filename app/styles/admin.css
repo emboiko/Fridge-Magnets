@@ -502,6 +502,34 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+.admin-panel-resize-handle-diagonal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  cursor: nesw-resize;
+  z-index: 11;
+  border-top-left-radius: 8px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.admin-panel-resize-handle-diagonal:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .admin-panel-resize-handle-diagonal:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-panel-resize-handle-diagonal:active {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .admin-panel-resize-handle-diagonal:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .admin-panel-resize-handle-list {
   position: absolute;
   bottom: 0;
