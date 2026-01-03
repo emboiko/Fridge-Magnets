@@ -22,6 +22,7 @@ import { useCanvasAnimation } from "./hooks/useCanvasAnimation.js"
 import { useKeyboardControls } from "./hooks/useKeyboardControls.js"
 import { useCanvasInteraction } from "./hooks/useCanvasInteraction.js"
 import { useCanvasCleanup } from "./hooks/useCanvasCleanup.js"
+import { useMagnetHover } from "./hooks/useMagnetHover.js"
 
 export default function FridgeCanvas() {
   const isAdminAuthenticated = useAdminStore((state) => state.isAdminAuthenticated)
@@ -273,6 +274,15 @@ export default function FridgeCanvas() {
 
   useCanvasCleanup(recentlyDraggedRef, interpolatedPositionsRef, magnetsRef, lastSentPositionRef)
 
+  const isHoveringMagnet = useMagnetHover(
+    canvasRef,
+    getCanvasCoordinates,
+    findClickedMagnet,
+    draggingIndex,
+    isPanning,
+    isSelectingSummonCoordinates
+  )
+
   useEffect(() => {
     const container = containerRef.current
     if (!container) {
@@ -296,7 +306,7 @@ export default function FridgeCanvas() {
     }
   }, [])
 
-  const canvasClassName = `fridge-canvas ${draggingIndex !== null ? "dragging" : ""} ${isPanning ? "panning" : ""} ${isSelectingSummonCoordinates ? "selecting-coordinates" : ""}`
+  const canvasClassName = `fridge-canvas ${draggingIndex !== null ? "dragging" : ""} ${isPanning ? "panning" : ""} ${isSelectingSummonCoordinates ? "selecting-coordinates" : ""} ${isHoveringMagnet ? "hovering-magnet" : ""}`
 
   return (
     <div className="canvas-wrapper">

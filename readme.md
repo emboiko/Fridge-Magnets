@@ -291,6 +291,8 @@ The application uses Socket.IO for bidirectional communication:
 - More enhanced magnets:
   - Functional Portals
   - Stationary stuff
+  - Rotatables
+  - Magnet trails
   - Admin-only draggables
   - Boo magnet (he'd need several sprite frames to show which way he's facing. Closes his eyes when he's 'noticed')
   - DVD magnet (Sometimes it might bounce perfectly from a corner, often will not. Changes color when it bounces.)
@@ -301,6 +303,7 @@ The application uses Socket.IO for bidirectional communication:
 - CSS architecture improvements (low priority)
 - Client queue system above a certain threshold once we have better baselines for performance metrics and latency
 - Hardware metrics in admin panel are a bit crude and could benefit from better strategies (maybe using a library like `systeminformation`)
+- We could easily support magnet-to-magnet or magnet-to-canvas interactions (like magnets being attracted to each other or repelled by each other). Magnet spawning rules could be modified to support collisions and canvas boundaries.
 
 ## Contributing
 
