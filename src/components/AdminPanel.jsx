@@ -559,7 +559,7 @@ export default function AdminPanel() {
     }
 
     if (!magnetsToSummon.trim()) {
-      alert("Please enter text to summon (e.g., hello or hello'yoshi_running'😁)")
+      alert("Please enter text to summon")
       return
     }
 
@@ -1008,7 +1008,6 @@ export default function AdminPanel() {
                   <input
                     type="text"
                     className="admin-panel-summon-input"
-                    placeholder="hello😁'yoshi_running'"
                     value={magnetsToSummon}
                     onChange={(e) => setMagnetsToSummon(e.target.value)}
                     onKeyDown={(e) => {
