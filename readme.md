@@ -344,6 +344,8 @@ The application uses Socket.IO for bidirectional communication:
 - **Direct DOM Manipulation**: Optimized resize operations
 - **Animated GIF Frame-Skipping**: GIF animations only advance frames when magnets are visible in the viewport, saving CPU cycles for off-screen animated sprites
 
+Note: Primarily tested on Brave Browser / Chromium-based browsers. Brave seems to be noticeably more performant than others, especially on mobile devices.
+
 ## Security
 
 - **Rate Limiting**:
