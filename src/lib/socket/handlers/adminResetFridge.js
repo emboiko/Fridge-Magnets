@@ -1,8 +1,18 @@
 import { magnetsArraySchema } from "../../validation/socketSchemas.js"
 import { isAdmin } from "../utils.js"
+import { RESET_ANIMATION_WINDOW_MS } from "../../constants.js"
 
 export function handleAdminResetFridge(socket, context) {
-  const { socketId, socketIPs, adminIPs, refrigerator, io, clearPendingSave } = context
+  const {
+    socketId,
+    socketIPs,
+    adminIPs,
+    refrigerator,
+    io,
+    clearPendingSave,
+    resetTimeoutId,
+    isResetting,
+  } = context
 
   socket.on("adminResetFridge", async () => {
     if (!isAdmin(socketId, socketIPs, adminIPs)) {
@@ -25,7 +35,16 @@ export function handleAdminResetFridge(socket, context) {
       const validationResult = magnetsArraySchema.safeParse(magnetsData)
 
       if (validationResult.success) {
+        if (resetTimeoutId.current) {
+          clearTimeout(resetTimeoutId.current)
+        }
+        isResetting.current = true
+        io.emit("fridgeReset")
         io.emit("welcome", validationResult.data)
+        resetTimeoutId.current = setTimeout(() => {
+          resetTimeoutId.current = null
+          isResetting.current = false
+        }, RESET_ANIMATION_WINDOW_MS)
         socket.emit("adminActionResult", { success: true, message: "Fridge reset successfully" })
         console.info(`Admin ${socketId} reset the fridge`)
       } else {

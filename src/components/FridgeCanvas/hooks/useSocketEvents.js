@@ -15,11 +15,34 @@ export function useSocketEvents(
   interpolatedPositionsRef,
   sortedMagnetsCacheRef,
   activeMovementsRef,
-  hasCalledHomeRef
+  hasCalledHomeRef,
+  isResettingRef,
+  fallingMagnetsRef,
+  newMagnetsRef,
+  resetAnimationStartTimeRef
 ) {
   useEffect(() => {
     if (!socket) {
       return
+    }
+
+    const handleFridgeReset = () => {
+      const currentMagnets = magnetsRef.current
+
+      if (currentMagnets.length === 0) {
+        return
+      }
+
+      isResettingRef.current = true
+      fallingMagnetsRef.current.clear()
+      newMagnetsRef.current = []
+
+      currentMagnets.forEach((magnet, index) => {
+        fallingMagnetsRef.current.set(index, { ...magnet })
+      })
+
+      const interpolated = interpolatedPositionsRef.current
+      interpolated.clear()
     }
 
     const handleWelcome = (data) => {
@@ -32,18 +55,23 @@ export function useSocketEvents(
 
       const initialMagnets = validationResult.data
       console.info("Received welcome event with", initialMagnets.length, "magnets")
-      initializeMagnets(initialMagnets)
 
-      const interpolated = interpolatedPositionsRef.current
-      interpolated.clear()
-      initialMagnets.forEach((magnet, index) => {
-        interpolated.set(index, {
-          x: magnet.x,
-          y: magnet.y,
-          targetX: magnet.x,
-          targetY: magnet.y,
+      if (isResettingRef.current) {
+        newMagnetsRef.current = initialMagnets
+      } else {
+        initializeMagnets(initialMagnets)
+
+        const interpolated = interpolatedPositionsRef.current
+        interpolated.clear()
+        initialMagnets.forEach((magnet, index) => {
+          interpolated.set(index, {
+            x: magnet.x,
+            y: magnet.y,
+            targetX: magnet.x,
+            targetY: magnet.y,
+          })
         })
-      })
+      }
 
       // Only call home() on the initial load, not on fridge reset events
       if (!hasCalledHomeRef.current) {
@@ -65,6 +93,7 @@ export function useSocketEvents(
       }
 
       const changes = validationResult.data.changes
+      const isResetting = isResettingRef.current
 
       const currentDraggingIndex = draggingIndexRef.current
       const now = Date.now()
@@ -80,28 +109,35 @@ export function useSocketEvents(
           return
         }
 
-        const currentMagnet = magnetsRef.current[index]
-        if (!currentMagnet) {
-          return
-        }
-
-        const interpolated = interpolatedPositionsRef.current.get(index)
-        const currentX = currentMagnet.x
-        const currentY = currentMagnet.y
-
-        if (interpolated) {
-          interpolated.targetX = magnet.x
-          interpolated.targetY = magnet.y
+        if (isResetting) {
+          const newMagnets = newMagnetsRef.current
+          if (newMagnets && index >= 0 && index < newMagnets.length) {
+            newMagnets[index] = { ...newMagnets[index], x: magnet.x, y: magnet.y }
+          }
         } else {
-          interpolatedPositionsRef.current.set(index, {
-            x: currentX,
-            y: currentY,
-            targetX: magnet.x,
-            targetY: magnet.y,
-          })
-        }
+          const currentMagnet = magnetsRef.current[index]
+          if (!currentMagnet) {
+            return
+          }
 
-        updatesToApply.push({ index, x: magnet.x, y: magnet.y })
+          const interpolated = interpolatedPositionsRef.current.get(index)
+          const currentX = currentMagnet.x
+          const currentY = currentMagnet.y
+
+          if (interpolated) {
+            interpolated.targetX = magnet.x
+            interpolated.targetY = magnet.y
+          } else {
+            interpolatedPositionsRef.current.set(index, {
+              x: currentX,
+              y: currentY,
+              targetX: magnet.x,
+              targetY: magnet.y,
+            })
+          }
+
+          updatesToApply.push({ index, x: magnet.x, y: magnet.y })
+        }
       })
 
       if (updatesToApply.length > 0) {
@@ -136,12 +172,14 @@ export function useSocketEvents(
       activeMovementsRef.current = movementsMap
     }
 
+    socket.on("fridgeReset", handleFridgeReset)
     socket.on("welcome", handleWelcome)
     socket.on("update", handleUpdate)
     socket.on("error", handleError)
     socket.on("magnetMovementUpdate", handleMagnetMovementUpdate)
 
     return () => {
+      socket.off("fridgeReset", handleFridgeReset)
       socket.off("welcome", handleWelcome)
       socket.off("update", handleUpdate)
       socket.off("error", handleError)
@@ -161,5 +199,9 @@ export function useSocketEvents(
     sortedMagnetsCacheRef,
     activeMovementsRef,
     hasCalledHomeRef,
+    isResettingRef,
+    fallingMagnetsRef,
+    newMagnetsRef,
+    resetAnimationStartTimeRef,
   ])
 }

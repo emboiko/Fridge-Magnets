@@ -7,10 +7,25 @@ import {
   SORTED_MAGNETS_CACHE_TTL_MS,
   ADMIN_MOVEMENT_LABEL_FONT_SIZE,
   ADMIN_MOVEMENT_LABEL_PADDING,
+  RESET_CENTER_SPEED,
+  RESET_CENTER_THRESHOLD,
+  RESET_POP_IN_DURATION_MS,
+  RESET_RE_ENABLE_DRAG_DELAY_MS,
 } from "@/src/lib/constants.js"
-import { drawMagnet, isMagnetVisible, calculateDistanceSquared } from "../utils.js"
+import { drawMagnet, isMagnetVisible, calculateDistance, drawBlackHole } from "../utils.js"
 
-// Hook to manage canvas animation loop
+function easeOutCubic(time) {
+  if (time <= 0) {
+    return 0
+  }
+  if (time >= 1) {
+    return 1
+  }
+  const oneMinusTime = 1 - time
+  const oneMinusTimeCubed = Math.pow(oneMinusTime, 3)
+  return 1 - oneMinusTimeCubed
+}
+
 export function useCanvasAnimation(
   canvasRef,
   magnetsRef,
@@ -25,7 +40,12 @@ export function useCanvasAnimation(
   activeMovementsRef,
   isDarkMode,
   showDebug,
-  isAdminAuthenticated
+  isAdminAuthenticated,
+  isResettingRef,
+  fallingMagnetsRef,
+  newMagnetsRef,
+  resetAnimationStartTimeRef,
+  initializeMagnets
 ) {
   const animationFrameRef = useRef(null)
 
@@ -40,6 +60,107 @@ export function useCanvasAnimation(
       const currentMagnets = magnetsRef.current
       const currentDraggingIndex = draggingIndexRef.current
       const now = Date.now()
+      const isResetting = isResettingRef.current
+
+      ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+
+      if (isResetting) {
+        const fallingMagnets = fallingMagnetsRef.current
+        const newMagnets = newMagnetsRef.current
+        const resetStartTime = resetAnimationStartTimeRef.current
+        const centerX = CANVAS_WIDTH / 2
+        const centerY = CANVAS_HEIGHT / 2
+
+        if (fallingMagnets.size > 0) {
+          const viewport = getViewportBounds()
+
+          for (const [index, magnet] of fallingMagnets.entries()) {
+            const dx = centerX - magnet.x
+            const dy = centerY - magnet.y
+            const distance = calculateDistance(magnet.x, magnet.y, centerX, centerY)
+
+            if (distance <= RESET_CENTER_THRESHOLD) {
+              fallingMagnets.delete(index)
+            } else {
+              const moveDistance = Math.min(RESET_CENTER_SPEED, distance)
+              magnet.x += (dx / distance) * moveDistance
+              magnet.y += (dy / distance) * moveDistance
+
+              if (viewport && !isMagnetVisible(magnet, viewport)) {
+                continue
+              }
+
+              drawMagnet(
+                ctx,
+                magnet,
+                imageCacheRef.current,
+                animationStateRef.current,
+                isDarkMode,
+                showDebug,
+                true
+              )
+            }
+          }
+
+          drawBlackHole(ctx, centerX, centerY, 1, 1)
+        }
+
+        if (fallingMagnets.size === 0 && newMagnets.length > 0) {
+          if (resetStartTime === 0) {
+            resetAnimationStartTimeRef.current = now
+            initializeMagnets(newMagnets)
+            const interpolated = interpolatedPositionsRef.current
+            interpolated.clear()
+            newMagnets.forEach((magnet, index) => {
+              interpolated.set(index, {
+                x: magnet.x,
+                y: magnet.y,
+                targetX: magnet.x,
+                targetY: magnet.y,
+              })
+            })
+          }
+
+          const elapsed = now - resetAnimationStartTimeRef.current
+          const progress = Math.min(elapsed / RESET_POP_IN_DURATION_MS, 1)
+          const easedProgress = easeOutCubic(progress)
+          const scale = easedProgress
+          const opacity = easedProgress
+
+          const sortedMagnets = getSortedMagnets()
+          const viewport = getViewportBounds()
+
+          const magnetsToDraw = viewport
+            ? sortedMagnets.filter(({ magnet }) => isMagnetVisible(magnet, viewport))
+            : sortedMagnets
+
+          magnetsToDraw.forEach(({ magnet }) => {
+            drawMagnet(
+              ctx,
+              magnet,
+              imageCacheRef.current,
+              animationStateRef.current,
+              isDarkMode,
+              showDebug,
+              true,
+              scale,
+              opacity
+            )
+          })
+
+          drawBlackHole(ctx, centerX, centerY, scale, opacity)
+
+          if (elapsed >= RESET_POP_IN_DURATION_MS + RESET_RE_ENABLE_DRAG_DELAY_MS) {
+            isResettingRef.current = false
+            fallingMagnetsRef.current.clear()
+            newMagnetsRef.current = []
+            resetAnimationStartTimeRef.current = 0
+          }
+        }
+
+        animationFrameRef.current = requestAnimationFrame(animate)
+        return
+      }
 
       if (
         !sortedMagnetsCacheRef.current ||
@@ -50,8 +171,6 @@ export function useCanvasAnimation(
       }
       const sortedMagnets = sortedMagnetsCacheRef.current
       const interpolated = interpolatedPositionsRef.current
-
-      ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
       const viewport = getViewportBounds()
 
@@ -217,5 +336,10 @@ export function useCanvasAnimation(
     sortedMagnetsCacheRef,
     sortedMagnetsCacheTimeRef,
     activeMovementsRef,
+    isResettingRef,
+    fallingMagnetsRef,
+    newMagnetsRef,
+    resetAnimationStartTimeRef,
+    initializeMagnets,
   ])
 }

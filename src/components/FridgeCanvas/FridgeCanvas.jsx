@@ -72,6 +72,11 @@ export default function FridgeCanvas() {
 
   const interpolatedPositionsRef = useRef(new Map())
 
+  const isResettingRef = useRef(false)
+  const fallingMagnetsRef = useRef(new Map())
+  const newMagnetsRef = useRef([])
+  const resetAnimationStartTimeRef = useRef(0)
+
   useEffect(() => {
     draggingIndexRef.current = draggingIndex
   }, [draggingIndex])
@@ -168,7 +173,11 @@ export default function FridgeCanvas() {
     interpolatedPositionsRef,
     sortedMagnetsCacheRef,
     activeMovementsRef,
-    hasCalledHomeRef
+    hasCalledHomeRef,
+    isResettingRef,
+    fallingMagnetsRef,
+    newMagnetsRef,
+    resetAnimationStartTimeRef
   )
 
   useCanvasAnimation(
@@ -185,7 +194,12 @@ export default function FridgeCanvas() {
     activeMovementsRef,
     isDarkMode,
     showDebug,
-    isAdminAuthenticated
+    isAdminAuthenticated,
+    isResettingRef,
+    fallingMagnetsRef,
+    newMagnetsRef,
+    resetAnimationStartTimeRef,
+    initializeMagnets
   )
 
   useKeyboardControls(
@@ -229,7 +243,8 @@ export default function FridgeCanvas() {
     sortedMagnetsCacheRef,
     lastEmitTimeRef,
     lastSentPositionRef,
-    recentlyDraggedRef
+    recentlyDraggedRef,
+    isResettingRef
   )
 
   const handlePointerDown = useCallback(

@@ -96,6 +96,19 @@ export const KEYBOARD_SCROLL_AMOUNT = 35
 export const ADMIN_MOVEMENT_LABEL_FONT_SIZE = 14
 export const ADMIN_MOVEMENT_LABEL_PADDING = 8
 
+export const RESET_CENTER_SPEED = 5 // pixels per frame
+// distance from center to remove magnet - usually roughly equal to the black hole radius
+export const RESET_CENTER_THRESHOLD = 70 //
+export const RESET_POP_IN_DURATION_MS = 500 // animation duration
+export const RESET_RE_ENABLE_DRAG_DELAY_MS = 500 // delay before re-enabling drag
+// radius for black hole decoration in pixels - slightly larger than the largest magnet radius
+export const RESET_BLACK_HOLE_RADIUS = 70
+// RESET_ANIMATION_WINDOW_MS is a bit crude, but it's fine for our purposes.
+// This must align with above constants- if the above constants change, this likely must change.
+// We use this to ensure any clients get redirected to the fridge.
+// If they arrived during a reset, we don't bother with the animation.
+export const RESET_ANIMATION_WINDOW_MS = 30000 // current animation takes ~30 seconds
+
 // ============================================================================
 // Server Constants
 // ============================================================================

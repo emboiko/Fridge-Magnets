@@ -196,6 +196,8 @@ app.prepare().then(async () => {
   const changedMagnetIndices = new Set()
   // Shared save functions - will be set by setupServerIntervals
   const saveFunctions = { scheduleSave: null, clearPendingSave: null }
+  const resetTimeoutId = { current: null }
+  const isResetting = { current: false }
   io.on("connection", async (socket) => {
     const socketId = socket.id
 
@@ -229,6 +231,10 @@ app.prepare().then(async () => {
       return
     }
 
+    if (isResetting.current) {
+      socket.emit("fridgeReset")
+    }
+
     socket.emit("welcome", validationResult.data)
 
     const context = {
@@ -254,6 +260,8 @@ app.prepare().then(async () => {
       socketPings,
       scheduleSave: saveFunctions.scheduleSave,
       clearPendingSave: saveFunctions.clearPendingSave,
+      resetTimeoutId,
+      isResetting,
     }
 
     handleSetUsername(socket, context)

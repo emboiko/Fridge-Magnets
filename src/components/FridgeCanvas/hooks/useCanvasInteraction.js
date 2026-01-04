@@ -21,10 +21,15 @@ export function useCanvasInteraction(
   sortedMagnetsCacheRef,
   lastEmitTimeRef,
   lastSentPositionRef,
-  recentlyDraggedRef
+  recentlyDraggedRef,
+  isResettingRef
 ) {
   const handlePointerDown = useCallback(
     (e) => {
+      if (isResettingRef.current) {
+        return
+      }
+
       e.preventDefault()
       const coords = getCanvasCoordinates(e.clientX, e.clientY)
       if (!coords) return
@@ -71,11 +76,16 @@ export function useCanvasInteraction(
       setIsPanning,
       setPanStart,
       panStartScrollRef,
+      isResettingRef,
     ]
   )
 
   const handlePointerMove = useCallback(
     (e) => {
+      if (isResettingRef.current) {
+        return
+      }
+
       const currentDraggingIndex = draggingIndexRef.current
 
       if (currentDraggingIndex !== null) {
@@ -134,6 +144,7 @@ export function useCanvasInteraction(
       lastSentPositionRef,
       sortedMagnetsCacheRef,
       interpolatedPositionsRef,
+      isResettingRef,
     ]
   )
 

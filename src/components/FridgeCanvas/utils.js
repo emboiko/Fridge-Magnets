@@ -6,6 +6,7 @@ import {
   FONT_SIZE_TEXT_MULTIPLIER,
   FONT_SIZE_HEIGHT_ESTIMATE_MULTIPLIER,
   CANVAS_PADDING,
+  RESET_BLACK_HOLE_RADIUS,
 } from "@/src/lib/constants.js"
 
 export function calculateFontSize(ctx, text, maxRadius) {
@@ -55,8 +56,27 @@ export function drawMagnet(
   animationState,
   isDarkMode,
   showDebug = false,
-  isVisible = true
+  isVisible = true,
+  scale = 1,
+  opacity = 1
 ) {
+  ctx.save()
+
+  // Only set globalAlpha if opacity is less than 1 to avoid unnecessary context state changes
+  // Setting globalAlpha when it's already 1.0 can cause slight performance overhead
+  if (opacity < 1) {
+    ctx.globalAlpha = opacity
+  }
+
+  // Only apply scale transform if scale is not 1 to avoid unnecessary context transformations
+  // The translate-scale-translate pattern centers the scaling around the magnet's position
+  // rather than the canvas origin, so the magnet scales in place
+  if (scale !== 1) {
+    ctx.translate(magnet.x, magnet.y)
+    ctx.scale(scale, scale)
+    ctx.translate(-magnet.x, -magnet.y)
+  }
+
   if (magnet.letter) {
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
@@ -83,6 +103,7 @@ export function drawMagnet(
       if (imageData.isAnimated) {
         const state = animationState.get(cacheKey)
         if (!state) {
+          ctx.restore()
           return
         }
 
@@ -104,6 +125,7 @@ export function drawMagnet(
         height = imageData.height
       } else {
         if (!imageData.complete || !imageData.naturalWidth) {
+          ctx.restore()
           return
         }
         img = imageData
@@ -112,9 +134,9 @@ export function drawMagnet(
       }
 
       const maxDimension = Math.max(width, height)
-      const scale = (magnet.radius * 2) / maxDimension
-      const scaledWidth = width * scale
-      const scaledHeight = height * scale
+      const imageScale = (magnet.radius * 2) / maxDimension
+      const scaledWidth = width * imageScale
+      const scaledHeight = height * imageScale
 
       ctx.drawImage(
         img,
@@ -137,6 +159,8 @@ export function drawMagnet(
       magnet.radius * 2
     )
   }
+
+  ctx.restore()
 }
 
 export function isMagnetVisible(magnet, viewport) {
@@ -147,6 +171,23 @@ export function isMagnetVisible(magnet, viewport) {
     magnet.y + padding >= viewport.top &&
     magnet.y - padding <= viewport.bottom
   )
+}
+
+export function drawBlackHole(ctx, x, y, scale = 1, opacity = 1) {
+  ctx.save()
+
+  if (opacity < 1) {
+    ctx.globalAlpha = opacity
+  }
+
+  const radius = RESET_BLACK_HOLE_RADIUS * scale
+
+  ctx.fillStyle = "rgba(0, 0, 0, 1)"
+  ctx.beginPath()
+  ctx.arc(x, y, radius, 0, Math.PI * 2)
+  ctx.fill()
+
+  ctx.restore()
 }
 
 export function isEmoji(text) {
