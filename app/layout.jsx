@@ -40,13 +40,13 @@ const raleway = Raleway({
 })
 
 export const metadata = {
-  title: "Fridge Magnets",
+  title: "💩🧲.ws",
   description: "Anonymous multiplayer refrigerator magnets",
   icons: {
     icon: "/img/header/fridge.png",
   },
   openGraph: {
-    title: "💩🧲.ws",
+    title: "Fridge Magnets",
     description:
       "Anonymous multiplayer refrigerator magnets 🧲 Drag, arrange, and interact with magnets in real-time on a shared canvas",
     url: "https://fridgemagnets.fun",
