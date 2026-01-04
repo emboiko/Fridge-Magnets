@@ -310,7 +310,7 @@ export default function Chat() {
                         e.stopPropagation()
                       }
                     }}
-                    placeholder="Enter your name to chat"
+                    placeholder={"Enter your name" + (isMobile ? " to chat" : "")}
                     maxLength={MAX_USERNAME_LENGTH}
                     className="chat-name-input"
                   />

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -19,10 +19,85 @@ export default function Header() {
   const isChatOpen = useUIStore((state) => state.isChatOpen)
   const isAdminPanelOpen = useAdminStore((state) => state.isAdminPanelOpen)
   const isMobile = useUIStore((state) => state.isMobile)
+  const openAdminAuthModal = useAdminStore((state) => state.openAdminAuthModal)
+  const isAdminAuthModalOpen = useAdminStore((state) => state.isAdminAuthModalOpen)
   const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
   const pathname = usePathname()
   const titleRef = useRef(null)
+  const longPressTimeoutRef = useRef(null)
+  const touchStartPositionRef = useRef(null)
+
+  useEffect(() => {
+    if (!isMobile || !titleRef.current || isAdminAuthenticated || isAdminAuthModalOpen) {
+      return
+    }
+
+    const titleElement = titleRef.current
+    const LONG_PRESS_DURATION = 5000
+    const MAX_MOVE_DISTANCE = 10
+
+    const handleTouchStart = (e) => {
+      const touch = e.touches[0]
+      touchStartPositionRef.current = {
+        x: touch.clientX,
+        y: touch.clientY,
+      }
+
+      longPressTimeoutRef.current = setTimeout(() => {
+        openAdminAuthModal()
+        longPressTimeoutRef.current = null
+      }, LONG_PRESS_DURATION)
+    }
+
+    const handleTouchMove = (e) => {
+      if (!touchStartPositionRef.current || !longPressTimeoutRef.current) {
+        return
+      }
+
+      const touch = e.touches[0]
+      const deltaX = Math.abs(touch.clientX - touchStartPositionRef.current.x)
+      const deltaY = Math.abs(touch.clientY - touchStartPositionRef.current.y)
+
+      if (deltaX > MAX_MOVE_DISTANCE || deltaY > MAX_MOVE_DISTANCE) {
+        if (longPressTimeoutRef.current) {
+          clearTimeout(longPressTimeoutRef.current)
+          longPressTimeoutRef.current = null
+        }
+      }
+    }
+
+    const handleTouchEnd = () => {
+      if (longPressTimeoutRef.current) {
+        clearTimeout(longPressTimeoutRef.current)
+        longPressTimeoutRef.current = null
+      }
+      touchStartPositionRef.current = null
+    }
+
+    const handleTouchCancel = () => {
+      if (longPressTimeoutRef.current) {
+        clearTimeout(longPressTimeoutRef.current)
+        longPressTimeoutRef.current = null
+      }
+      touchStartPositionRef.current = null
+    }
+
+    titleElement.addEventListener("touchstart", handleTouchStart, { passive: true })
+    titleElement.addEventListener("touchmove", handleTouchMove, { passive: true })
+    titleElement.addEventListener("touchend", handleTouchEnd, { passive: true })
+    titleElement.addEventListener("touchcancel", handleTouchCancel, { passive: true })
+
+    return () => {
+      titleElement.removeEventListener("touchstart", handleTouchStart)
+      titleElement.removeEventListener("touchmove", handleTouchMove)
+      titleElement.removeEventListener("touchend", handleTouchEnd)
+      titleElement.removeEventListener("touchcancel", handleTouchCancel)
+      if (longPressTimeoutRef.current) {
+        clearTimeout(longPressTimeoutRef.current)
+      }
+    }
+  }, [isMobile, isAdminAuthenticated, isAdminAuthModalOpen, openAdminAuthModal])
 
   if (!isHeaderVisible) {
     return null
