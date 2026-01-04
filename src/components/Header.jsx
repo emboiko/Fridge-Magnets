@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -16,12 +16,19 @@ export default function Header() {
   const toggleAdminPanel = useAdminStore((state) => state.toggleAdminPanel)
   const toggleDarkMode = useUIStore((state) => state.toggleDarkMode)
   const toggleChat = useUIStore((state) => state.toggleChat)
+  const isChatOpen = useUIStore((state) => state.isChatOpen)
+  const isAdminPanelOpen = useAdminStore((state) => state.isAdminPanelOpen)
+  const isMobile = useUIStore((state) => state.isMobile)
   const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
   const pathname = usePathname()
-  const isHomePage = pathname === "/"
+  const titleRef = useRef(null)
 
   if (!isHeaderVisible) {
+    return null
+  }
+
+  if (isMobile && (isChatOpen || isAdminPanelOpen)) {
     return null
   }
 
@@ -32,22 +39,28 @@ export default function Header() {
     </h1>
   )
 
+  const isHomePage = pathname === "/"
+
   return (
     <>
       <div id="header">
-        <Image
-          id="cone"
-          src="/img/header/cone.png"
-          alt="cone"
-          width={60}
-          height={60}
-          priority
-          unoptimized
-        />
-        <p id="beta">Beta</p>
+        <div id="cone-container">
+          <Image
+            id="cone"
+            src="/img/header/cone.png"
+            alt="cone"
+            width={60}
+            height={60}
+            priority
+            unoptimized
+          />
+          <p id="beta">Beta</p>
+        </div>
         <div id="main-title-box">
           {isHomePage ? (
-            titleContent
+            <div ref={titleRef} className="header-title-touchable">
+              {titleContent}
+            </div>
           ) : (
             <Link href="/" className="header-title-link">
               {titleContent}

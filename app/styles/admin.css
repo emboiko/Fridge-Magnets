@@ -1016,3 +1016,28 @@
 .admin-panel-summon-button:active {
   transform: translateY(0);
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .admin-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100vw;
+    min-width: unset;
+    border-radius: 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .admin-panel-resize-handle-width,
+  .admin-panel-resize-handle-height,
+  .admin-panel-resize-handle-diagonal,
+  .admin-panel-resize-handle-list {
+    display: none;
+  }
+}

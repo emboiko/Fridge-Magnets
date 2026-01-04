@@ -9,6 +9,7 @@
   background-color: #ffffff;
   box-sizing: border-box;
   overflow-y: auto;
+  padding-top: 80px;
 }
 
 .dark-mode .status-screen-page {
@@ -18,12 +19,12 @@
 #status-screen-content {
   background: transparent;
   color: var(--main-color);
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
-  margin: 33vh auto 0 auto;
+  margin: auto;
   width: 33%;
   min-width: 300px;
-  max-width: 800px;
+  max-width: 700px;
   font-family: var(--body-font);
   padding: 0 20px;
   display: flex;
@@ -60,7 +61,7 @@ html:not(.dark-mode) #status-screen-content {
   position: absolute;
   top: 50%;
   width: auto;
-  max-width: min(30vw, 300px);
+  max-width: min(22vw, 250px);
   object-fit: contain;
   filter: invert(0);
 }
@@ -73,36 +74,45 @@ html:not(.dark-mode) #status-screen-content {
 .already-connected-man-1-svg {
   left: 0;
   transform: translate(-100%, -50%);
-  height: clamp(240px, 44vh, 440px);
+  height: clamp(200px, 35vh, 350px);
   margin-left: -20px;
 }
 
 .already-connected-man-2-svg {
   right: 0;
   transform: translate(100%, -50%);
-  height: clamp(260px, 46vh, 460px);
+  height: clamp(220px, 37vh, 370px);
   margin-right: -20px;
 }
 
+#status-screen-content .portal-blue,
+#status-screen-content .portal-orange {
+  font-size: 1.6em;
+  line-height: 1.1;
+  margin: 0.3em 0;
+}
+
 #awkward {
-  font-size: 20px;
-  margin-bottom: 20px;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
 .not-found-description,
 .kicked-description {
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  max-width: 600px;
+  margin-top: 0.75rem;
+  font-size: 1.1rem;
+  max-width: 550px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.4;
 }
 
 .kicked-message {
   font-size: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
   color: rgba(0, 0, 0, 0.7);
   font-style: italic;
 }
@@ -116,7 +126,7 @@ html:not(.dark-mode) #status-screen-content {
   position: absolute;
   top: 50%;
   width: auto;
-  max-width: min(30vw, 300px);
+  max-width: min(22vw, 250px);
   object-fit: contain;
   filter: invert(0);
 }
@@ -129,14 +139,14 @@ html:not(.dark-mode) #status-screen-content {
 .kicked-man-1-svg {
   left: 0;
   transform: translate(-100%, -50%);
-  height: clamp(240px, 44vh, 440px);
+  height: clamp(200px, 35vh, 350px);
   margin-left: -20px;
 }
 
 .kicked-man-2-svg {
   right: 0;
   transform: translate(100%, -50%);
-  height: clamp(260px, 46vh, 460px);
+  height: clamp(220px, 37vh, 370px);
   margin-right: -20px;
 }
 
@@ -145,7 +155,7 @@ html:not(.dark-mode) #status-screen-content {
   position: absolute;
   top: 50%;
   width: auto;
-  max-width: min(30vw, 300px);
+  max-width: min(22vw, 250px);
   object-fit: contain;
   filter: invert(0);
 }
@@ -158,13 +168,181 @@ html:not(.dark-mode) #status-screen-content {
 .banned-man-svg-1 {
   right: 0;
   transform: translate(100%, -50%);
-  height: clamp(240px, 44vh, 440px);
+  height: clamp(200px, 35vh, 350px);
   margin-right: -20px;
 }
 
 .banned-man-svg-2 {
   left: 0;
   transform: translate(-100%, -50%);
-  height: clamp(260px, 46vh, 460px);
+  height: clamp(220px, 37vh, 370px);
   margin-left: -20px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .status-screen-page {
+    padding-top: 85px;
+  }
+
+  #status-screen-content {
+    width: 85%;
+    min-width: unset;
+    max-width: 500px;
+    margin: 0.5rem auto 0 auto;
+    padding: 0 16px;
+    font-size: 18px;
+  }
+
+  #status-screen-content .portal-blue,
+  #status-screen-content .portal-orange {
+    font-size: 1.5em;
+    line-height: 1.1;
+    margin: 0.25em 0;
+  }
+
+  #awkward {
+    font-size: 14px;
+    margin-top: 3rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .not-found-description,
+  .kicked-description {
+    font-size: 0.95rem;
+    margin-top: 0.625rem;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+  }
+
+  .kicked-message {
+    font-size: 0.85rem;
+    margin-top: 0.375rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Convert horizontal image layout to vertical column layout on mobile */
+  .already-connected-man-1-svg,
+  .already-connected-man-2-svg,
+  .kicked-man-1-svg,
+  .kicked-man-2-svg,
+  .banned-man-svg-1,
+  .banned-man-svg-2 {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 1.25rem auto 0 auto;
+    max-width: min(55vw, 220px);
+    height: auto;
+    width: auto;
+    display: block;
+  }
+
+  .already-connected-man-1-svg,
+  .kicked-man-1-svg,
+  .banned-man-svg-1 {
+    margin-top: 1.5rem;
+  }
+
+  .already-connected-man-1-svg {
+    max-width: min(45vw, 180px);
+  }
+
+  .already-connected-man-2-svg,
+  .kicked-man-2-svg {
+    margin-top: 1rem;
+  }
+
+  .banned-man-svg-2 {
+    margin-top: 0rem;
+  }
+
+  .not-found-svg {
+    margin-top: auto;
+    margin-bottom: 0;
+    padding: 16px 0 0 0;
+    width: 100%;
+  }
+
+  .status-screen-page:has(.not-found-svg) #status-screen-content {
+    margin: auto;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .status-screen-page {
+    padding-top: 80px;
+  }
+
+  #status-screen-content {
+    width: 90%;
+    margin: 0.25rem auto 0 auto;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+
+  #status-screen-content .portal-blue,
+  #status-screen-content .portal-orange {
+    font-size: 1.4em;
+    line-height: 1.1;
+    margin: 0.2em 0;
+  }
+
+  #awkward {
+    font-size: 13px;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .not-found-description,
+  .kicked-description {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .kicked-message {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .already-connected-man-1-svg,
+  .already-connected-man-2-svg,
+  .kicked-man-1-svg,
+  .kicked-man-2-svg,
+  .banned-man-svg-1,
+  .banned-man-svg-2 {
+    max-width: min(65vw, 180px);
+    margin-top: 1rem;
+  }
+
+  .already-connected-man-1-svg,
+  .kicked-man-1-svg,
+  .banned-man-svg-1 {
+    margin-top: 1.25rem;
+  }
+
+  .already-connected-man-1-svg {
+    max-width: min(50vw, 150px);
+  }
+
+  .already-connected-man-2-svg,
+  .kicked-man-2-svg,
+  .banned-man-svg-2 {
+    margin-top: 0.875rem;
+  }
+
+  .not-found-svg {
+    margin-top: auto;
+    margin-bottom: 0;
+    padding: 12px 0 0 0;
+    width: 100%;
+  }
+
+  .status-screen-page:has(.not-found-svg) #status-screen-content {
+    margin: auto;
+  }
 }

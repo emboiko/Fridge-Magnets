@@ -10,6 +10,7 @@ import "./styles/admin.css"
 import "./styles/contact.css"
 import "./styles/about.css"
 import DarkModeInitializer from "@/src/components/DarkModeInitializer"
+import MobileInitializer from "@/src/components/MobileInitializer"
 
 /**
  * - `next/font/google` automatically optimizes Google Fonts
@@ -121,6 +122,7 @@ export default function RootLayout({ children }) {
       <body className={`${lalezar.variable} ${luckiestGuy.variable} ${raleway.variable}`}>
         <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="lazyOnload" />
         <DarkModeInitializer />
+        <MobileInitializer />
         {children}
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useCallback } from "react"
+import { useState, useRef, useCallback, useEffect } from "react"
 import Turnstile from "@/src/components/Turnstile"
 import {
   MAX_CONTACT_MESSAGE_LENGTH,
@@ -18,6 +18,9 @@ export default function ContactModal({ onSuccess }) {
   const [turnstileToken, setTurnstileToken] = useState(null)
   const [turnstileReady, setTurnstileReady] = useState(false)
   const turnstileRef = useRef(null)
+  const [isResizingHeight, setIsResizingHeight] = useState(false)
+  const textareaRef = useRef(null)
+  const currentHeightRef = useRef(null)
 
   const handleVerify = useCallback((token) => {
     setTurnstileToken(token)
@@ -39,6 +42,44 @@ export default function ContactModal({ onSuccess }) {
     setTurnstileToken(null)
     setTurnstileReady(false)
   }, [])
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!textareaRef.current || !isResizingHeight) {
+        return
+      }
+
+      const textareaRect = textareaRef.current.getBoundingClientRect()
+      const newHeight = e.clientY - textareaRect.top
+      const minHeight = 120
+      const maxHeight = 800
+      const clampedHeight = Math.max(minHeight, Math.min(maxHeight, newHeight))
+      currentHeightRef.current = clampedHeight
+      textareaRef.current.style.height = `${clampedHeight}px`
+    }
+
+    const handleMouseUp = () => {
+      setIsResizingHeight(false)
+    }
+
+    if (isResizingHeight) {
+      window.addEventListener("mousemove", handleMouseMove)
+      window.addEventListener("mouseup", handleMouseUp)
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove)
+        window.removeEventListener("mouseup", handleMouseUp)
+      }
+    }
+  }, [isResizingHeight])
+
+  const handleResizeHeightStart = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsResizingHeight(true)
+    if (textareaRef.current) {
+      currentHeightRef.current = textareaRef.current.offsetHeight
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -157,27 +198,37 @@ export default function ContactModal({ onSuccess }) {
           className="contact-input"
           maxLength={MAX_EMAIL_LENGTH}
         />
-        <textarea
-          name="message"
-          required
-          value={contactMessage}
-          onChange={(e) => {
-            if (e.target.value.length <= MAX_CONTACT_MESSAGE_LENGTH) {
-              setContactMessage(e.target.value)
-            }
-          }}
-          onKeyDown={(e) => e.stopPropagation()}
-          onKeyUp={(e) => e.stopPropagation()}
-          placeholder="Your message..."
-          rows={6}
-          maxLength={MAX_CONTACT_MESSAGE_LENGTH}
-          disabled={isSubmitted}
-          className="contact-textarea"
-        />
-        <p className={`contact-char-count ${contactMessage.length > 0 ? "visible" : ""}`}>
-          {contactMessage.length} / {MAX_CONTACT_MESSAGE_LENGTH}
-        </p>
-        {error && <p className="contact-error">{error}</p>}
+        <div className="contact-textarea-wrapper">
+          <textarea
+            ref={textareaRef}
+            name="message"
+            required
+            value={contactMessage}
+            onChange={(e) => {
+              if (e.target.value.length <= MAX_CONTACT_MESSAGE_LENGTH) {
+                setContactMessage(e.target.value)
+              }
+            }}
+            onKeyDown={(e) => e.stopPropagation()}
+            onKeyUp={(e) => e.stopPropagation()}
+            placeholder="Your message..."
+            rows={6}
+            maxLength={MAX_CONTACT_MESSAGE_LENGTH}
+            disabled={isSubmitted}
+            className="contact-textarea"
+          />
+          <div
+            className="contact-resize-handle-height"
+            onMouseDown={handleResizeHeightStart}
+            onKeyDown={(e) => e.stopPropagation()}
+          />
+        </div>
+        <div className="contact-message-info">
+          <p className={`contact-char-count ${contactMessage.length > 0 ? "visible" : ""}`}>
+            {contactMessage.length} / {MAX_CONTACT_MESSAGE_LENGTH}
+          </p>
+          {error && <p className="contact-error">{error}</p>}
+        </div>
         {!isSubmitted && (
           <Turnstile
             ref={turnstileRef}

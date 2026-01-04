@@ -366,7 +366,6 @@ The application uses Socket.IO for bidirectional communication:
 
 ## TODO / Wishlist
 
-- Mobile support!
 - Rendering of 'screen' components could probably use some router guards
 - Screen components need backgrounds
 - Convert PNGs to WebP for canvas images for performance (See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#supported_image_formats)
@@ -379,6 +378,7 @@ The application uses Socket.IO for bidirectional communication:
   - Boo magnet (he'd need several sprite frames to show which way he's facing. Closes his eyes when he's 'noticed')
   - DVD magnet (Sometimes it might bounce perfectly from a corner, often will not. Changes color when it bounces.)
 - Separate canvas from the document better (zooming the browser has weird side effects- this will probably involve a scaling rabbit-hole). We'd still like to see an arbitrarily larger canvas with magnet density to go along with it, as long as we always have headroom for more magnets later on.
+- Users should be able to set their own home position(s) on the canvas. This will be more important if we grow the canvas to larger sizes.
 - Chat logs persisted in DB (not sure why we'd need or want this but might be useful later on)
 - Track/store UTM params from QR codes, etc.
 - SMS alerts alongside the emails & DB persistence of contact messages

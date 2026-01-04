@@ -27,8 +27,27 @@
   font-family: var(--body-font);
 }
 
+html:not(.dark-mode) .contact-input {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.contact-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+html:not(.dark-mode) .contact-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .contact-input:disabled {
   opacity: 0.6;
+}
+
+.contact-textarea-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .contact-textarea {
@@ -39,19 +58,129 @@
   padding: 8px 12px;
   font-size: 1em;
   font-family: var(--body-font);
-  resize: vertical;
+  resize: none;
+  min-height: 120px;
+  max-height: 800px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.dark-mode .contact-textarea {
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+.contact-textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.contact-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark-mode .contact-textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.contact-textarea::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dark-mode .contact-textarea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.contact-textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.dark-mode .contact-textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+html:not(.dark-mode) .contact-textarea {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.contact-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+html:not(.dark-mode) .contact-textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .contact-textarea:disabled {
   opacity: 0.6;
 }
 
+.contact-resize-handle-height {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  z-index: 10;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: transparent;
+  margin-bottom: -1px;
+}
+
+.contact-resize-handle-height:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .contact-resize-handle-height:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.contact-resize-handle-height:active {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .contact-resize-handle-height:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .contact-resize-handle-height {
+    display: none;
+  }
+
+  .contact-textarea {
+    resize: vertical;
+    max-height: 350px;
+  }
+}
+
+.contact-message-info {
+  position: relative;
+  min-height: 1.5em;
+}
+
 .contact-char-count {
+  position: absolute;
+  top: 0;
+  right: 0;
   margin: 0;
   font-size: 0.8em;
   color: var(--main-color);
   text-align: right;
-  min-height: 1.2em;
+  pointer-events: none;
+  line-height: 1.5em;
+}
+
+html:not(.dark-mode) .contact-char-count {
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .contact-char-count.visible {
@@ -66,14 +195,14 @@
   color: var(--portal-orange);
   margin: 0;
   font-size: 0.9em;
-  margin-bottom: 50px;
+  line-height: 1.5em;
 }
 
 .contact-submit-button {
   font-family: var(--body-font);
   font-size: 1.1em;
   width: 100%;
-  margin: 15px 0 0 0;
+  margin: 5px 0 0 0;
   color: var(--main-color);
   transition-duration: 0.4s;
   border: none;

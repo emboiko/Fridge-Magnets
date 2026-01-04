@@ -38,6 +38,7 @@ export default function Chat() {
   const shouldFocus = useUIStore((state) => state.shouldFocusChat)
   const closeChat = useUIStore((state) => state.closeChat)
   const setShouldFocusChat = useUIStore((state) => state.setShouldFocusChat)
+  const isMobile = useUIStore((state) => state.isMobile)
   const [username, setUsername] = useState("")
   const [messages, setMessages] = useState([])
   const [inputMessage, setInputMessage] = useState("")
@@ -62,7 +63,6 @@ export default function Chat() {
     currentHeightRef.current = chatHeight
   }, [chatHeight])
 
-  // Ensure chat-resizing class is properly managed
   useEffect(() => {
     if (chatPanelRef.current) {
       if (isResizingWidth || isResizingHeight) {
@@ -101,7 +101,6 @@ export default function Chat() {
       const storedUsername = localStorage.getItem("chatUsername")
       if (storedUsername) {
         setUsername(storedUsername)
-        // Set username on server when socket is ready
         socket.emit("setUsername", { username: storedUsername })
       }
     }
@@ -287,48 +286,57 @@ export default function Chat() {
       }}
     >
       {!username ? (
-        <div className="chat-name-prompt-wrapper">
-          {nameError && <div className="chat-name-error">{nameError}</div>}
-          <div className="chat-name-prompt">
-            <form onSubmit={handleNameSubmit}>
-              <div className="chat-name-input-wrapper">
-                <input
-                  ref={nameInputRef}
-                  type="text"
-                  value={nameInput}
-                  onChange={(e) => {
-                    setNameInput(e.target.value)
-                    setNameError("")
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key !== "Escape") {
-                      e.stopPropagation()
-                    }
-                  }}
-                  placeholder="Enter your name to chat"
-                  maxLength={MAX_USERNAME_LENGTH}
-                  className="chat-name-input"
-                />
-                <span className="chat-char-count">{MAX_USERNAME_LENGTH - nameInput.length}</span>
-              </div>
-              <button
-                type="submit"
-                className="chat-submit-button"
-                disabled={nameError !== "" || nameInput.length === 0}
-              >
-                Set Name
-              </button>
-            </form>
+        <>
+          {isMobile && (
+            <button className="chat-name-close-button" onClick={closeChat} aria-label="Close">
+              ×
+            </button>
+          )}
+          <div className="chat-name-prompt-wrapper">
+            {nameError && <div className="chat-name-error">{nameError}</div>}
+            <div className="chat-name-prompt">
+              <form onSubmit={handleNameSubmit}>
+                <div className="chat-name-input-wrapper">
+                  <input
+                    ref={nameInputRef}
+                    type="text"
+                    value={nameInput}
+                    onChange={(e) => {
+                      setNameInput(e.target.value)
+                      setNameError("")
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key !== "Escape") {
+                        e.stopPropagation()
+                      }
+                    }}
+                    placeholder="Enter your name to chat"
+                    maxLength={MAX_USERNAME_LENGTH}
+                    className="chat-name-input"
+                  />
+                  <span className="chat-char-count">{MAX_USERNAME_LENGTH - nameInput.length}</span>
+                </div>
+                <button
+                  type="submit"
+                  className="chat-submit-button"
+                  disabled={nameError !== "" || nameInput.length === 0}
+                >
+                  Set Name
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <div className="chat-header">
-            <div
-              className="chat-resize-handle-height"
-              onMouseDown={handleResizeHeightStart}
-              onKeyDown={(e) => e.stopPropagation()}
-            />
+            {!isMobile && (
+              <div
+                className="chat-resize-handle-height"
+                onMouseDown={handleResizeHeightStart}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            )}
             <button
               className="chat-clear-name-button"
               onClick={handleClearUsername}
@@ -340,11 +348,13 @@ export default function Chat() {
               ×
             </button>
           </div>
-          <div
-            className="chat-resize-handle-diagonal"
-            onMouseDown={handleResizeDiagonalStart}
-            onKeyDown={(e) => e.stopPropagation()}
-          />
+          {!isMobile && (
+            <div
+              className="chat-resize-handle-diagonal"
+              onMouseDown={handleResizeDiagonalStart}
+              onKeyDown={(e) => e.stopPropagation()}
+            />
+          )}
           <div className="chat-messages">
             {messages.map((message, index) => {
               if (message.messageType === "system") {
@@ -392,7 +402,7 @@ export default function Chat() {
           </form>
         </>
       )}
-      {username && (
+      {username && !isMobile && (
         <div
           className="chat-resize-handle-width"
           onMouseDown={handleResizeWidthStart}

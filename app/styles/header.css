@@ -9,14 +9,18 @@
   justify-content: center;
   align-items: center;
   top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   z-index: 100;
   padding: 12px 24px;
   max-width: 90%;
   width: fit-content;
   border-radius: 16px;
   transition: all 0.2s ease;
+  overflow: visible;
+  min-width: 0;
 }
 
 .dark-mode #header {
@@ -30,10 +34,6 @@ html:not(.dark-mode) #header {
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.4),
     0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#header:hover {
-  transform: translateX(-50%);
 }
 
 .dark-mode #header:hover {
@@ -55,6 +55,8 @@ html:not(.dark-mode) #header:hover {
   display: block;
   color: var(--main-color);
   line-height: 1.2;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .dark-mode #main-title {
@@ -72,6 +74,8 @@ html:not(.dark-mode) #main-title {
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 #main-title-box a,
@@ -87,11 +91,17 @@ html:not(.dark-mode) #main-title {
   opacity: 0.8;
 }
 
-#cone {
+#cone-container {
+  position: relative;
+  display: inline-block;
   margin-right: 12px;
+}
+
+#cone {
   height: 60px;
   width: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  display: block;
 }
 
 #beta {
@@ -102,8 +112,9 @@ html:not(.dark-mode) #main-title {
   transform: rotate(-15deg);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   position: absolute;
-  left: 24px;
-  top: 8px;
+  left: 8px;
+  top: -10px;
+  pointer-events: none;
 }
 
 #fridge-icon {
@@ -236,4 +247,157 @@ html:not(.dark-mode) #main-title {
   outline-color: #ffffff;
   color: #ffffff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.header-title-touchable {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile responsive styles */
+/* Breakpoint: 768px and below (tablets and phones) */
+@media (max-width: 768px) {
+  #header {
+    padding: 8px 16px;
+    top: 8px;
+    border-radius: 12px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100vw - 16px);
+  }
+
+  #main-title {
+    font-size: 1.8em;
+  }
+
+  #cone-container {
+    margin-right: 8px;
+  }
+
+  #cone {
+    height: 45px;
+  }
+
+  #fridge-icon {
+    height: 45px;
+    margin-left: 8px;
+  }
+
+  #beta {
+    font-size: 0.75em;
+    left: 6px;
+    top: -10px;
+  }
+
+  .links {
+    font-size: 0.85em;
+    margin-top: 2px;
+    padding: 0px 2px;
+  }
+
+  .header-link-button {
+    font-size: 1em;
+  }
+
+  .mobile-control-button {
+    font-weight: bold;
+    min-width: 28px;
+  }
+}
+
+/* Breakpoint: 480px and below (small phones) */
+@media (max-width: 480px) {
+  #header {
+    padding: 6px 12px;
+    top: 4px;
+    border-radius: 10px;
+    width: calc(100% - 8px);
+    max-width: none;
+    left: 4px;
+  }
+
+  #header:hover {
+    transform: none;
+  }
+
+  #main-title {
+    font-size: 1.4em;
+  }
+
+  #cone-container {
+    margin-right: 6px;
+  }
+
+  #cone {
+    height: 35px;
+  }
+
+  #fridge-icon {
+    height: 35px;
+    margin-left: 6px;
+  }
+
+  #beta {
+    font-size: 0.65em;
+    left: 5px;
+    top: -10px;
+  }
+
+  .links {
+    font-size: 0.75em;
+    gap: 4px;
+  }
+
+  .header-link-button {
+    font-size: 0.9em;
+    padding: 2px 4px;
+  }
+}
+
+/* Breakpoint: 360px and below (very small phones) */
+@media (max-width: 360px) {
+  #main-title {
+    font-size: 1.2em;
+  }
+
+  #cone-container {
+    margin-right: 4px;
+  }
+
+  #cone {
+    height: 30px;
+  }
+
+  #fridge-icon {
+    height: 30px;
+    margin-left: 4px;
+  }
+
+  #beta {
+    left: 2px;
+    top: -10px;
+  }
+
+  .links {
+    font-size: 0.7em;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px;
+  }
+}
+
+/* Breakpoint: 280px and below (miniscule viewport) */
+@media (max-width: 280px) {
+  #cone-container {
+    display: none;
+  }
+  #fridge-icon {
+    display: none;
+  }
+  .mobile-control-button {
+    display: none;
+  }
 }

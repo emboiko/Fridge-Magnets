@@ -41,6 +41,12 @@ export default function FridgeCanvas() {
   const toggleHeader = useUIStore((state) => state.toggleHeader)
   const setShouldFocusChat = useUIStore((state) => state.setShouldFocusChat)
   const togglePingDisplay = useUIStore((state) => state.togglePingDisplay)
+  const isMobile = useUIStore((state) => state.isMobile)
+  const isHeaderVisible = useUIStore((state) => state.isHeaderVisible)
+  const handleTouchStart = useUIStore((state) => state.handleTouchStart)
+  const handleTouchEnd = useUIStore((state) => state.handleTouchEnd)
+  const resetTapCount = useUIStore((state) => state.resetTapCount)
+  const home = useUIStore((state) => state.home)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
 
@@ -62,6 +68,7 @@ export default function FridgeCanvas() {
   const activeMovementsRef = useRef(new Map())
   const isAdminAuthenticatedRef = useRef(isAdminAuthenticated)
   const panStartScrollRef = useRef({ scrollLeft: 0, scrollTop: 0 })
+  const isPanningRef = useRef(false)
 
   const lastEmitTimeRef = useRef(0)
 
@@ -79,26 +86,15 @@ export default function FridgeCanvas() {
   }, [draggingIndex])
 
   useEffect(() => {
+    isPanningRef.current = isPanning
+  }, [isPanning])
+
+  useEffect(() => {
     magnetsRef.current = magnets
     sortedMagnetsCacheRef.current = null
   }, [magnets])
 
   const { imageCacheRef, animationStateRef } = useImageLoading(magnets)
-
-  const home = useCallback(() => {
-    const container = containerRef.current
-    if (!container) {
-      return
-    }
-
-    const scrollLeft = Math.max(0, CANVAS_WIDTH / 2 - container.clientWidth / 2)
-    const scrollTop = Math.max(0, CANVAS_HEIGHT / 2 - container.clientHeight / 2)
-    container.scrollTo({
-      top: scrollTop,
-      left: scrollLeft,
-      behavior: "smooth",
-    })
-  }, [])
 
   useEffect(() => {
     isAdminAuthenticatedRef.current = isAdminAuthenticated
@@ -305,6 +301,149 @@ export default function FridgeCanvas() {
       container.removeEventListener("click", handleCanvasClick)
     }
   }, [])
+
+  useEffect(() => {
+    if (!isMobile) {
+      return
+    }
+
+    const touchStartPositions = new Map()
+    let tapTimeoutId = null
+    let actionTimeoutId = null
+
+    const executeAction = (tapCount) => {
+      if (tapCount === 2) {
+        toggleHeader()
+      } else if (tapCount === 3) {
+        if (home) {
+          home()
+        }
+      } else if (tapCount === 4) {
+        togglePingDisplay()
+      }
+      resetTapCount()
+    }
+
+    const handleDocumentTouchStart = (e) => {
+      if (
+        e.touches.length === 1 &&
+        draggingIndexRef.current === null &&
+        !e.target.closest("button") &&
+        !e.target.closest("input") &&
+        !e.target.closest("textarea")
+      ) {
+        const touch = e.touches[0]
+        const identifier = touch.identifier
+        touchStartPositions.set(identifier, {
+          x: touch.clientX,
+          y: touch.clientY,
+          time: Date.now(),
+        })
+        handleTouchStart(touch.clientX, touch.clientY)
+      }
+    }
+
+    const handleDocumentTouchMove = (e) => {
+      if (e.touches.length === 1) {
+        const touch = e.touches[0]
+        const identifier = touch.identifier
+        const startPos = touchStartPositions.get(identifier)
+        if (startPos) {
+          const deltaX = Math.abs(touch.clientX - startPos.x)
+          const deltaY = Math.abs(touch.clientY - startPos.y)
+          if (deltaX > 10 || deltaY > 10) {
+            touchStartPositions.delete(identifier)
+            resetTapCount()
+            if (actionTimeoutId) {
+              clearTimeout(actionTimeoutId)
+              actionTimeoutId = null
+            }
+          }
+        }
+      }
+    }
+
+    const handleDocumentTouchEnd = (e) => {
+      if (
+        e.changedTouches.length === 1 &&
+        draggingIndexRef.current === null &&
+        !e.target.closest("button") &&
+        !e.target.closest("input") &&
+        !e.target.closest("textarea")
+      ) {
+        const touchEnd = e.changedTouches[0]
+        const identifier = touchEnd.identifier
+        const startPos = touchStartPositions.get(identifier)
+
+        if (startPos) {
+          const deltaX = Math.abs(touchEnd.clientX - startPos.x)
+          const deltaY = Math.abs(touchEnd.clientY - startPos.y)
+          const touchDuration = Date.now() - startPos.time
+
+          if (touchDuration < 300 && deltaX < 10 && deltaY < 10) {
+            const tapCount = handleTouchEnd()
+
+            if (tapCount > 0) {
+              if (actionTimeoutId) {
+                clearTimeout(actionTimeoutId)
+              }
+
+              if (tapTimeoutId) {
+                clearTimeout(tapTimeoutId)
+              }
+
+              actionTimeoutId = setTimeout(() => {
+                executeAction(tapCount)
+                actionTimeoutId = null
+              }, 300)
+
+              tapTimeoutId = setTimeout(() => {
+                resetTapCount()
+                tapTimeoutId = null
+              }, 300)
+            }
+          } else {
+            resetTapCount()
+            if (actionTimeoutId) {
+              clearTimeout(actionTimeoutId)
+              actionTimeoutId = null
+            }
+          }
+          touchStartPositions.delete(identifier)
+        }
+      }
+    }
+
+    document.addEventListener("touchstart", handleDocumentTouchStart, {
+      passive: true,
+      capture: true,
+    })
+    document.addEventListener("touchmove", handleDocumentTouchMove, {
+      passive: true,
+      capture: true,
+    })
+    document.addEventListener("touchend", handleDocumentTouchEnd, { passive: false, capture: true })
+    return () => {
+      if (tapTimeoutId) {
+        clearTimeout(tapTimeoutId)
+      }
+      if (actionTimeoutId) {
+        clearTimeout(actionTimeoutId)
+      }
+      document.removeEventListener("touchstart", handleDocumentTouchStart, { capture: true })
+      document.removeEventListener("touchmove", handleDocumentTouchMove, { capture: true })
+      document.removeEventListener("touchend", handleDocumentTouchEnd, { capture: true })
+    }
+  }, [
+    isMobile,
+    isHeaderVisible,
+    handleTouchStart,
+    handleTouchEnd,
+    toggleHeader,
+    togglePingDisplay,
+    home,
+    resetTapCount,
+  ])
 
   const canvasClassName = `fridge-canvas ${draggingIndex !== null ? "dragging" : ""} ${isPanning ? "panning" : ""} ${isSelectingSummonCoordinates ? "selecting-coordinates" : ""} ${isHoveringMagnet ? "hovering-magnet" : ""}`
 

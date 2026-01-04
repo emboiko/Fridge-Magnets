@@ -4,6 +4,11 @@ export default function AlreadyConnectedScreen() {
   return (
     <div className="status-screen-page">
       <div id="status-screen-content">
+        <img
+          src="/img/screens/already_connected_2.svg"
+          alt="Already Connected Man 2"
+          className="already-connected-man-2-svg"
+        />
         <p id="awkward">You've ended up here because this IP address is</p>
         <p className="portal-blue">Already</p>
         <p className="portal-orange">Connected</p>
@@ -15,11 +20,6 @@ export default function AlreadyConnectedScreen() {
           src="/img/screens/already_connected_1.svg"
           alt="Already Connected Man 1"
           className="already-connected-man-1-svg"
-        />
-        <img
-          src="/img/screens/already_connected_2.svg"
-          alt="Already Connected Man 2"
-          className="already-connected-man-2-svg"
         />
       </div>
     </div>

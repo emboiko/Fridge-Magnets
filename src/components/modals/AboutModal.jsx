@@ -13,15 +13,15 @@ export default function AboutModal({ onOpenContact }) {
         magnets into clever configurations, work with others to form sentences, or cause chaos. We
         won&apos;t judge.
       </p>
-      <h3 className="about-section-title">Shortcuts, Keyboard & Mouse:</h3>
+      <h3 className="about-section-title">Controls:</h3>
       <ul className="about-list">
-        <li>Click and drag a magnet to place it somewhere else</li>
-        <li>Click and drag the background to move the viewport</li>
-        <li>Arrow keys & QWEASD are bound to scroll / pan the viewport</li>
-        <li>Return to center of canvas with &lt;H&gt;</li>
+        <li>Touch/click and drag a magnet to place it somewhere else</li>
+        <li>Touch/click and drag the background to move the viewport</li>
+        <li>Arrow keys & QWEASD scroll / pan the viewport (desktop)</li>
+        <li>Return to center of canvas with &lt;H&gt; (desktop) or triple-tap anywhere (mobile)</li>
         <li>Open the chat with &lt;Enter&gt; / Close with &lt;Esc&gt;</li>
-        <li>Toggle the header with &lt;Z&gt;</li>
-        <li>Toggle ping/latency display with &lt;P&gt;</li>
+        <li>Toggle the header with &lt;Z&gt; (desktop) or double-tap anywhere (mobile)</li>
+        <li>Toggle ping/latency display with &lt;P&gt; (desktop) or quad-tap anywhere (mobile)</li>
         <li>Toggle dark/light mode with the fridge icon in the header</li>
       </ul>
       <h3 className="about-section-title">Contribute</h3>

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { useSocket } from "@/src/hooks/useSocket"
 import { useAdminStore } from "@/src/stores/adminStore"
 import { useMagnetStore } from "@/src/stores/magnetStore"
+import { useUIStore } from "@/src/stores/uiStore"
 import {
   ADMIN_PANEL_MIN_WIDTH,
   ADMIN_PANEL_DEFAULT_WIDTH,
@@ -20,7 +21,6 @@ import {
   MIN_ADMIN_KICK_TIMEOUT_SECONDS,
   MAX_ADMIN_KICK_TIMEOUT_SECONDS,
   MAGNET_STANDARD_SPRITE_RADIUS,
-  MAGNET_ENHANCED_SPRITE_RADIUS,
 } from "@/src/lib/constants.js"
 
 const getAdminPanelMaxWidth = () => {
@@ -98,6 +98,7 @@ export default function AdminPanel() {
   const isAdminAuthenticated = useAdminStore((state) => state.isAdminAuthenticated)
   const isAdminPanelOpen = useAdminStore((state) => state.isAdminPanelOpen)
   const closeAdminPanel = useAdminStore((state) => state.closeAdminPanel)
+  const isMobile = useUIStore((state) => state.isMobile)
   const isSelectingSummonCoordinates = useAdminStore((state) => state.isSelectingSummonCoordinates)
   const summonCoordinates = useAdminStore((state) => state.summonCoordinates)
   const setSelectingSummonCoordinates = useAdminStore(
@@ -724,21 +725,25 @@ export default function AdminPanel() {
       style={{ width: `${panelWidth}px`, height: `${panelHeight}px` }}
     >
       <div className="admin-panel-header">
-        <div
-          className="admin-panel-resize-handle-height"
-          onMouseDown={handleResizeHeightStart}
-          onKeyDown={(e) => e.stopPropagation()}
-        />
+        {!isMobile && (
+          <div
+            className="admin-panel-resize-handle-height"
+            onMouseDown={handleResizeHeightStart}
+            onKeyDown={(e) => e.stopPropagation()}
+          />
+        )}
         <h2 className="admin-panel-title">Administrator</h2>
         <button className="panel-close-button" onClick={closeAdminPanel}>
           ×
         </button>
       </div>
-      <div
-        className="admin-panel-resize-handle-diagonal"
-        onMouseDown={handleResizeDiagonalStart}
-        onKeyDown={(e) => e.stopPropagation()}
-      />
+      {!isMobile && (
+        <div
+          className="admin-panel-resize-handle-diagonal"
+          onMouseDown={handleResizeDiagonalStart}
+          onKeyDown={(e) => e.stopPropagation()}
+        />
+      )}
 
       <div className="admin-panel-content">
         <div className="admin-panel-section">
@@ -820,11 +825,13 @@ export default function AdminPanel() {
                 })
               )}
             </div>
-            <div
-              className="admin-panel-resize-handle-list"
-              onMouseDown={handleResizeListStart(setIsResizingUsersList)}
-              onKeyDown={(e) => e.stopPropagation()}
-            />
+            {!isMobile && (
+              <div
+                className="admin-panel-resize-handle-list"
+                onMouseDown={handleResizeListStart(setIsResizingUsersList)}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            )}
           </div>
         </div>
 
@@ -856,11 +863,13 @@ export default function AdminPanel() {
                 ))
               )}
             </div>
-            <div
-              className="admin-panel-resize-handle-list"
-              onMouseDown={handleResizeListStart(setIsResizingMovementsList)}
-              onKeyDown={(e) => e.stopPropagation()}
-            />
+            {!isMobile && (
+              <div
+                className="admin-panel-resize-handle-list"
+                onMouseDown={handleResizeListStart(setIsResizingMovementsList)}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            )}
           </div>
         </div>
 
@@ -897,11 +906,13 @@ export default function AdminPanel() {
                 })
               )}
             </div>
-            <div
-              className="admin-panel-resize-handle-list"
-              onMouseDown={handleResizeListStart(setIsResizingKickedIPsList)}
-              onKeyDown={(e) => e.stopPropagation()}
-            />
+            {!isMobile && (
+              <div
+                className="admin-panel-resize-handle-list"
+                onMouseDown={handleResizeListStart(setIsResizingKickedIPsList)}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            )}
           </div>
         </div>
 
@@ -937,11 +948,13 @@ export default function AdminPanel() {
                 ))
               )}
             </div>
-            <div
-              className="admin-panel-resize-handle-list"
-              onMouseDown={handleResizeListStart(setIsResizingBannedIPsList)}
-              onKeyDown={(e) => e.stopPropagation()}
-            />
+            {!isMobile && (
+              <div
+                className="admin-panel-resize-handle-list"
+                onMouseDown={handleResizeListStart(setIsResizingBannedIPsList)}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            )}
           </div>
         </div>
 
@@ -1108,11 +1121,13 @@ export default function AdminPanel() {
         </div>
       </div>
 
-      <div
-        className="admin-panel-resize-handle-width"
-        onMouseDown={handleResizeWidthStart}
-        onKeyDown={(e) => e.stopPropagation()}
-      />
+      {!isMobile && (
+        <div
+          className="admin-panel-resize-handle-width"
+          onMouseDown={handleResizeWidthStart}
+          onKeyDown={(e) => e.stopPropagation()}
+        />
+      )}
     </div>
   )
 }
