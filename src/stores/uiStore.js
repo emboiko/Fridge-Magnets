@@ -25,6 +25,7 @@ export const useUIStore = create((set) => ({
   isPingDisplayVisible: false,
 
   isMobile: false,
+  isSmallMobile: false,
 
   lastTapTime: 0,
   tapCount: 0,
@@ -109,6 +110,13 @@ export const useUIStore = create((set) => ({
       return
     }
     set({ isMobile: window.innerWidth <= 768 })
+  },
+
+  checkSmallMobile: () => {
+    if (typeof window === "undefined") {
+      return
+    }
+    set({ isSmallMobile: window.innerWidth < 360 })
   },
 
   // Multi-tap detection actions

@@ -129,7 +129,6 @@ export default function Header() {
             priority
             unoptimized
           />
-          <p id="beta">Beta</p>
         </div>
         <div id="main-title-box">
           {isHomePage ? (

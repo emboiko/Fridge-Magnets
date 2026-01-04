@@ -2,7 +2,6 @@
 
 #header {
   position: fixed;
-  background: var(--secondary-color);
   color: var(--main-color);
   font-family: var(--main-font);
   display: flex;
@@ -18,12 +17,21 @@
   max-width: 90%;
   width: fit-content;
   border-radius: 16px;
-  transition: all 0.2s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    width 0.3s ease,
+    height 0.3s ease;
   overflow: visible;
   min-width: 0;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .dark-mode #header {
+  background: var(--secondary-color);
   box-shadow:
     0 0 20px rgba(255, 255, 255, 0.15),
     0 0 40px rgba(255, 255, 255, 0.1),
@@ -31,9 +39,7 @@
 }
 
 html:not(.dark-mode) #header {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .dark-mode #header:hover {
@@ -44,9 +50,7 @@ html:not(.dark-mode) #header {
 }
 
 html:not(.dark-mode) #header:hover {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 #main-title {
@@ -60,12 +64,14 @@ html:not(.dark-mode) #header:hover {
 }
 
 .dark-mode #main-title {
+  color: var(--main-color);
   text-shadow:
     0 0 10px rgba(255, 255, 255, 0.3),
     0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 html:not(.dark-mode) #main-title {
+  color: rgba(0, 0, 0, 0.85);
   text-shadow: none;
 }
 
@@ -93,8 +99,10 @@ html:not(.dark-mode) #main-title {
 
 #cone-container {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin-right: 12px;
+  height: 60px;
 }
 
 #cone {
@@ -102,19 +110,7 @@ html:not(.dark-mode) #main-title {
   width: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
   display: block;
-}
-
-#beta {
-  color: #ffd700;
-  font-size: 0.9em;
-  font-weight: bold;
-  margin: 0;
-  transform: rotate(-15deg);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  position: absolute;
-  left: 8px;
-  top: -10px;
-  pointer-events: none;
+  object-fit: contain;
 }
 
 #fridge-icon {
@@ -123,6 +119,9 @@ html:not(.dark-mode) #main-title {
   margin-left: 12px;
   cursor: pointer;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  display: block;
+  object-fit: contain;
+  align-self: center;
 }
 
 #header a:active {
@@ -177,6 +176,15 @@ html:not(.dark-mode) #main-title {
   opacity: 1;
 }
 
+html:not(.dark-mode) #header a:not(.portal-blue):not(.portal-orange):not(.admin-link-button):hover,
+html:not(.dark-mode)
+  #header
+  button:not(.portal-blue):not(.portal-orange):not(.admin-link-button):hover {
+  color: rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+}
+
 .links {
   display: flex;
   justify-content: space-between;
@@ -218,6 +226,11 @@ html:not(.dark-mode) #main-title {
   color: #ffffff;
 }
 
+html:not(.dark-mode)
+  .header-link-button:not(.portal-blue):not(.portal-orange):not(.admin-link-button) {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .header-link-button:focus-visible {
   outline: 2px solid;
   outline-offset: 4px;
@@ -249,6 +262,13 @@ html:not(.dark-mode) #main-title {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
+html:not(.dark-mode)
+  .header-link-button:not(.portal-blue):not(.portal-orange):not(.admin-link-button):focus-visible {
+  outline-color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
 .header-title-touchable {
   cursor: pointer;
   user-select: none;
@@ -278,6 +298,7 @@ html:not(.dark-mode) #main-title {
 
   #cone-container {
     margin-right: 8px;
+    height: 45px;
   }
 
   #cone {
@@ -287,12 +308,6 @@ html:not(.dark-mode) #main-title {
   #fridge-icon {
     height: 45px;
     margin-left: 8px;
-  }
-
-  #beta {
-    font-size: 0.75em;
-    left: 6px;
-    top: -10px;
   }
 
   .links {
@@ -336,6 +351,7 @@ html:not(.dark-mode) #main-title {
 
   #cone-container {
     margin-right: 6px;
+    height: 35px;
   }
 
   #cone {
@@ -345,12 +361,6 @@ html:not(.dark-mode) #main-title {
   #fridge-icon {
     height: 35px;
     margin-left: 6px;
-  }
-
-  #beta {
-    font-size: 0.65em;
-    left: 5px;
-    top: -10px;
   }
 
   .links {
@@ -372,6 +382,7 @@ html:not(.dark-mode) #main-title {
 
   #cone-container {
     margin-right: 4px;
+    height: 30px;
   }
 
   #cone {
@@ -381,11 +392,6 @@ html:not(.dark-mode) #main-title {
   #fridge-icon {
     height: 30px;
     margin-left: 4px;
-  }
-
-  #beta {
-    left: 2px;
-    top: -10px;
   }
 
   .links {

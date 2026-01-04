@@ -70,9 +70,6 @@ export const CHAT_MAX_HEIGHT_FALLBACK = 600
 export const CHAT_VIEWPORT_PADDING_HORIZONTAL = 60
 export const CHAT_VIEWPORT_PADDING_VERTICAL = 40
 
-export const CHAT_NAME_PROMPT_WIDTH = 400
-export const CHAT_NAME_PROMPT_HEIGHT = 60
-
 // ============================================================================
 // FridgeCanvas Constants
 // ============================================================================

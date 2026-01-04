@@ -12,8 +12,6 @@ import {
   CHAT_MAX_HEIGHT_FALLBACK,
   CHAT_VIEWPORT_PADDING_HORIZONTAL,
   CHAT_VIEWPORT_PADDING_VERTICAL,
-  CHAT_NAME_PROMPT_WIDTH,
-  CHAT_NAME_PROMPT_HEIGHT,
   MAX_USERNAME_LENGTH,
   MAX_CHAT_MESSAGE_LENGTH,
 } from "@/src/lib/constants.js"
@@ -39,6 +37,7 @@ export default function Chat() {
   const closeChat = useUIStore((state) => state.closeChat)
   const setShouldFocusChat = useUIStore((state) => state.setShouldFocusChat)
   const isMobile = useUIStore((state) => state.isMobile)
+  const isSmallMobile = useUIStore((state) => state.isSmallMobile)
   const [username, setUsername] = useState("")
   const [messages, setMessages] = useState([])
   const [inputMessage, setInputMessage] = useState("")
@@ -273,25 +272,32 @@ export default function Chat() {
     return null
   }
 
-  const displayWidth = username ? chatWidth : CHAT_NAME_PROMPT_WIDTH
-  const displayHeight = username ? chatHeight : CHAT_NAME_PROMPT_HEIGHT
-
   return (
     <div
       className="chat-panel"
       ref={chatPanelRef}
-      style={{
-        "--chat-width": `${displayWidth}px`,
-        "--chat-height": `${displayHeight}px`,
-      }}
+      style={
+        username
+          ? {
+              "--chat-width": `${chatWidth}px`,
+              "--chat-height": `${chatHeight}px`,
+            }
+          : undefined
+      }
     >
       {!username ? (
         <>
-          {isMobile && (
-            <button className="chat-name-close-button" onClick={closeChat} aria-label="Close">
-              ×
-            </button>
-          )}
+          <button className="chat-name-close-button" onClick={closeChat} aria-label="Close">
+            ×
+          </button>
+
+          {isMobile ? <div className="chat-name-mobile-spacer" /> : null}
+
+          <div className="chat-top-svgs-wrapper">
+            <img src="/img/panels/chat_man_1.svg" alt="Chat 1" className="chat-man-1-svg" />
+            <img src="/img/panels/chat_man_2.svg" alt="Chat 2" className="chat-man-2-svg" />
+          </div>
+
           <div className="chat-name-prompt-wrapper">
             {nameError && <div className="chat-name-error">{nameError}</div>}
             <div className="chat-name-prompt">
@@ -310,7 +316,13 @@ export default function Chat() {
                         e.stopPropagation()
                       }
                     }}
-                    placeholder={"Enter your name" + (isMobile ? " to chat" : "")}
+                    placeholder={
+                      isSmallMobile
+                        ? "Name"
+                        : isMobile
+                          ? "Enter your name"
+                          : "Enter your name to chat"
+                    }
                     maxLength={MAX_USERNAME_LENGTH}
                     className="chat-name-input"
                   />
@@ -326,6 +338,7 @@ export default function Chat() {
               </form>
             </div>
           </div>
+          <img src="/img/panels/chat_ladies.svg" alt="Chat 3" className="chat-ladies-svg" />
         </>
       ) : (
         <>
