@@ -48,7 +48,7 @@ export const metadata = {
   openGraph: {
     title: "Fridge Magnets",
     description:
-      "Anonymous multiplayer refrigerator magnets 🧲 Drag, arrange, and interact with magnets in real-time on a shared canvas",
+      "Anonymous multiplayer refrigerator magnets! Drag, arrange, and interact with magnets in real-time on a shared canvas",
     url: "https://fridgemagnets.fun",
     siteName: "Fridge Magnets",
     images: [
@@ -66,7 +66,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Fridge Magnets",
     description:
-      "Anonymous multiplayer refrigerator magnets 🧲 Drag, arrange, and interact with magnets in real-time on a shared canvas",
+      "Anonymous multiplayer refrigerator magnets! Drag, arrange, and interact with magnets in real-time on a shared canvas",
     images: ["https://fridgemagnets.fun/img/utility/og_preview.png"],
   },
 }
