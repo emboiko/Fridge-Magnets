@@ -309,8 +309,15 @@ export default function FridgeCanvas() {
   const canvasClassName = `fridge-canvas ${draggingIndex !== null ? "dragging" : ""} ${isPanning ? "panning" : ""} ${isSelectingSummonCoordinates ? "selecting-coordinates" : ""} ${isHoveringMagnet ? "hovering-magnet" : ""}`
 
   return (
-    <div className="canvas-wrapper">
-      <div ref={containerRef} className="canvas-container">
+    <div ref={containerRef} className="canvas-container">
+      <div className="canvas-content-wrapper">
+        <div
+          className="canvas-background"
+          style={{
+            width: `${CANVAS_WIDTH}px`,
+            height: `${CANVAS_HEIGHT}px`,
+          }}
+        />
         <canvas
           ref={canvasRef}
           id="fridge"

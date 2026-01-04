@@ -27,8 +27,8 @@ export default function KickedScreen() {
           naughty misconduct and come back later. Maybe consider using a VPN to hide your IP
           address, who knows?
         </p>
-        <img src="/img/kicked_2.svg" alt="Kicked" className="kicked-man-1-svg" />
-        <img src="/img/kicked_1.svg" alt="Kicked" className="kicked-man-2-svg" />
+        <img src="/img/screens/kicked_2.svg" alt="Kicked" className="kicked-man-1-svg" />
+        <img src="/img/screens/kicked_1.svg" alt="Kicked" className="kicked-man-2-svg" />
       </div>
     </div>
   )

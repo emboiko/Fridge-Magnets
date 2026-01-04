@@ -368,6 +368,7 @@ The application uses Socket.IO for bidirectional communication:
 
 - Mobile support!
 - Rendering of 'screen' components could probably use some router guards
+- Screen components need backgrounds
 - Convert PNGs to WebP for canvas images for performance (See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#supported_image_formats)
 - More enhanced magnets:
   - Functional Portals
@@ -379,6 +380,7 @@ The application uses Socket.IO for bidirectional communication:
   - DVD magnet (Sometimes it might bounce perfectly from a corner, often will not. Changes color when it bounces.)
 - Separate canvas from the document better (zooming the browser has weird side effects- this will probably involve a scaling rabbit-hole)
 - Chat logs persisted in DB (not sure why we'd need or want this but might be useful later on)
+- Track/store UTM params from QR codes, etc.
 - SMS alerts alongside the emails & DB persistence of contact messages
 - Support for additional fridge styles (stainless/black/eggshell/white/etc.) beyond dark/light mode
 - CSS architecture improvements (low priority)

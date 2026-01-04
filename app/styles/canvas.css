@@ -1,19 +1,10 @@
-/* Canvas-specific styles */
-
-.canvas-wrapper {
+.canvas-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-}
-
-.canvas-container {
-  width: 100%;
-  height: 100%;
   overflow: auto;
-  position: relative;
   background-color: #f5f5f5;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
@@ -64,18 +55,57 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-#fridge {
-  display: block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
-  touch-action: none;
-  background-color: #f5f5f5;
+.canvas-content-wrapper {
+  position: relative;
+  width: fit-content;
   margin: 0 auto;
 }
 
-.dark-mode #fridge {
+.canvas-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 512px 512px;
+  background-repeat: repeat;
+  background-image: url("/img/canvas/textures/leather.png");
+  background-color: #e0e0d2; /* appliance-white */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark-mode .canvas-background {
   background-color: #000000;
+  background-image: none;
+}
+
+/* Use a pseudo-element for the texture in dark mode to control its opacity independently.
+ * This allows us to have a solid black base color while applying a subtle texture overlay
+ * without affecting the base color's opacity. The texture opacity can be adjusted separately
+ * from the background color, giving us fine control over the "black fridge" appearance. */
+.dark-mode .canvas-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 512px 512px;
+  background-repeat: repeat;
+  background-image: url("/img/canvas/textures/leather.png");
+  opacity: 0.05;
+  background-blend-mode: multiply;
+}
+
+#fridge {
+  display: block;
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+
+  touch-action: none;
+  user-select: none;
 }
 
 .fridge-canvas.dragging,

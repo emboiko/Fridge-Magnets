@@ -1,7 +1,6 @@
 "use client"
 
 export default function AlreadyConnectedScreen() {
-
   return (
     <div className="status-screen-page">
       <div id="status-screen-content">
@@ -13,12 +12,12 @@ export default function AlreadyConnectedScreen() {
           browser tab or window. Please close other Fridge Magnets tabs and refresh this page.
         </p>
         <img
-          src="/img/already_connected_1.svg"
+          src="/img/screens/already_connected_1.svg"
           alt="Already Connected Man 1"
           className="already-connected-man-1-svg"
         />
         <img
-          src="/img/already_connected_2.svg"
+          src="/img/screens/already_connected_2.svg"
           alt="Already Connected Man 2"
           className="already-connected-man-2-svg"
         />

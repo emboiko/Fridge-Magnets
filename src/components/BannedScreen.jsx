@@ -26,8 +26,8 @@ export default function BannedScreen() {
           You have been permanently banned from the server. This ban will remain in effect until an
           administrator removes it.
         </p>
-        <img src="/img/banned_1.svg" alt="Banned" className="banned-man-svg-1" />
-        <img src="/img/banned_2.svg" alt="Banned" className="banned-man-svg-2" />
+        <img src="/img/screens/banned_1.svg" alt="Banned" className="banned-man-svg-1" />
+        <img src="/img/screens/banned_2.svg" alt="Banned" className="banned-man-svg-2" />
       </div>
     </div>
   )

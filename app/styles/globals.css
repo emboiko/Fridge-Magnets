@@ -23,6 +23,15 @@ body {
   overflow: hidden;
 }
 
+/* Hide content until dark mode is initialized to prevent flash */
+html:not(.hydrated) body {
+  visibility: hidden;
+}
+
+html.hydrated body {
+  visibility: visible;
+}
+
 body {
   background-color: var(--secondary-color);
   font-family: var(--font-raleway), Arial, sans-serif;
@@ -105,4 +114,9 @@ button:hover {
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: var(--portal-blue);
+}
+
+.turnstile-container {
+  display: flex;
+  justify-content: center;
 }

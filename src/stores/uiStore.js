@@ -14,7 +14,7 @@ function updateDOMClass(isDarkMode) {
 }
 
 // Always start with default (dark mode) to ensure SSR/client match
-// Will be synced from localStorage on client mount
+// Will be synced from localStorage or system preference on client mount
 export const useUIStore = create((set) => ({
   // Dark mode state
   isDarkMode: true,
@@ -37,10 +37,19 @@ export const useUIStore = create((set) => ({
     }
 
     const stored = localStorage.getItem(DARK_MODE_STORAGE_KEY)
-    const storedMode = stored === null ? true : stored === "true"
+    let initialMode
 
-    set({ isDarkMode: storedMode, isHydrated: true })
-    updateDOMClass(storedMode)
+    if (stored !== null) {
+      // User has a stored preference, use it
+      initialMode = stored === "true"
+    } else {
+      // No stored preference, detect system preference
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      initialMode = prefersDark
+    }
+
+    set({ isDarkMode: initialMode, isHydrated: true })
+    updateDOMClass(initialMode)
   },
 
   toggleDarkMode: () => {
