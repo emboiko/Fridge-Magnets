@@ -48,7 +48,6 @@ export default function Chat() {
   const [isResizingWidth, setIsResizingWidth] = useState(false)
   const [isResizingHeight, setIsResizingHeight] = useState(false)
   const messagesEndRef = useRef(null)
-  const messagesContainerRef = useRef(null)
   const inputRef = useRef(null)
   const nameInputRef = useRef(null)
   const chatPanelRef = useRef(null)
@@ -149,26 +148,6 @@ export default function Chat() {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [messages, isOpen])
-
-  const handleInputFocus = () => {
-    if (isMobile) {
-      const scrollToBottom = () => {
-        if (messagesContainerRef.current) {
-          messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
-        }
-        if (messagesEndRef.current) {
-          messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" })
-        }
-      }
-
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", scrollToBottom, { once: true })
-        setTimeout(scrollToBottom, 100)
-      } else {
-        setTimeout(scrollToBottom, 300)
-      }
-    }
-  }
 
   useEffect(() => {
     if (isOpen && shouldFocus) {
@@ -389,7 +368,7 @@ export default function Chat() {
               onKeyDown={(e) => e.stopPropagation()}
             />
           )}
-          <div className="chat-messages" ref={messagesContainerRef}>
+          <div className="chat-messages">
             {messages.map((message, index) => {
               if (message.messageType === "system") {
                 return (
@@ -417,7 +396,6 @@ export default function Chat() {
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                onFocus={handleInputFocus}
                 onKeyDown={(e) => {
                   if (e.key !== "Escape") {
                     e.stopPropagation()
