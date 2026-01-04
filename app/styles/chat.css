@@ -356,6 +356,10 @@
   flex-shrink: 0;
 }
 
+.chat-username.portal-orange {
+  color: var(--portal-orange);
+}
+
 .chat-text {
   color: #000000;
   flex: 1;

@@ -380,9 +380,12 @@ export default function Chat() {
                   </div>
                 )
               }
+              const isOwnMessage = message.username === username
               return (
                 <div key={index} className="chat-message">
-                  <span className="chat-username">{message.username}:</span>
+                  <span className={`chat-username ${!isOwnMessage ? "portal-orange" : ""}`}>
+                    {message.username}:
+                  </span>
                   <span className="chat-text">{message.message}</span>
                 </div>
               )
