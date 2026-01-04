@@ -2,9 +2,6 @@ import { adminKickUserSchema } from "../../validation/socketSchemas.js"
 import { KickLog } from "../../db/KickLog.js"
 import { isAdmin, normalizeIP } from "../utils.js"
 
-/**
- * Handles admin kick user request
- */
 export function handleAdminKickUser(socket, context) {
   const { socketId, socketIPs, adminIPs, kickedSockets, kickedIPs, socketUsernames, io } = context
 
@@ -36,13 +33,11 @@ export function handleAdminKickUser(socket, context) {
     const rawAdminIP = socketIPs.get(socketId) || null
     const adminIP = rawAdminIP ? normalizeIP(rawAdminIP) : null
 
-    // Add to kicked sockets and IPs (message can be null/undefined if not provided)
     kickedSockets.set(targetSocketId, { kickUntil, message: message || null })
     if (targetIP) {
       kickedIPs.set(targetIP, { kickUntil, message: message || null })
     }
 
-    // Save kick log to database
     try {
       await KickLog.create({
         ipAddress: targetIP || null,
@@ -58,7 +53,6 @@ export function handleAdminKickUser(socket, context) {
       console.error("Error saving kick log:", error)
     }
 
-    // Disconnect the user with kicked error code
     targetSocket.emit("error", {
       message: message || null,
       code: "KICKED",

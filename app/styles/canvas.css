@@ -80,10 +80,10 @@
   background-image: none;
 }
 
-/* Use a pseudo-element for the texture in dark mode to control its opacity independently.
- * This allows us to have a solid black base color while applying a subtle texture overlay
- * without affecting the base color's opacity. The texture opacity can be adjusted separately
- * from the background color, giving us fine control over the "black fridge" appearance. */
+/* Use a pseudo-element for the texture in dark mode to control its opacity independently. */
+/* This allows us to have a solid black base color while applying a subtle texture overlay */
+/* without affecting the base color's opacity. The texture opacity can be adjusted separately */
+/* from the background color, giving us fine control over the "black fridge" appearance. */
 .dark-mode .canvas-background::before {
   content: "";
   position: absolute;

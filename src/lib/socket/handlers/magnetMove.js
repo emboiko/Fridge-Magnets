@@ -1,9 +1,6 @@
 import { magnetMoveSchema } from "../../validation/socketSchemas.js"
 import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX_MOVES } from "../../constants.js"
 
-/**
- * Handles magnet movement events
- */
 export function handleMagnetMove(socket, context) {
   const {
     socketId,
@@ -57,15 +54,11 @@ export function handleMagnetMove(socket, context) {
     refrigerator.magnets[magnetIndex].x = x
     refrigerator.magnets[magnetIndex].y = y
 
-    // Mark that magnets have changed (for validation optimization)
     context.magnetsChanged.value = true
-    // Track which magnet changed (for differential updates)
     context.changedMagnetIndices.add(magnetIndex)
 
-    // Schedule debounced save - will save 3 seconds after last change
     scheduleSave()
 
-    // Track magnet movement for admin panel
     const username = socketUsernames.get(socketId) || null
     if (!activeMagnetMovements.has(socketId)) {
       activeMagnetMovements.set(socketId, {

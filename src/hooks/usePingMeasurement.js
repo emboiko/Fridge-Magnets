@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useSocket } from "@/src/hooks/useSocket"
 
-/**
- * Hook that continuously measures ping/latency regardless of UI visibility
- * This ensures ping data is always available for the admin panel
- * Returns the current ping value in milliseconds, or null if not yet measured
- */
+// Hook that continuously measures ping/latency regardless of UI visibility
+// This ensures ping data is always available for the admin panel
+// Returns the current ping value in milliseconds, or null if not yet measured
 export function usePingMeasurement() {
   const socket = useSocket()
   const intervalRef = useRef(null)

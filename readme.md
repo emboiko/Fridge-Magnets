@@ -239,6 +239,7 @@ Configure the test via environment variables (see `.env.example` for available o
 - Descriptive variable names
 - Async/await preferred over promises
 - Minimal comments (code should be _reasonably_ self-documenting)
+- Prefer single-line comments
 
 **Inline Styles:**
 

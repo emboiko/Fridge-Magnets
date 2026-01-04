@@ -5,9 +5,7 @@ import {
   CLEANUP_INTERVAL_MS,
 } from "@/src/lib/constants.js"
 
-/**
- * Hook to manage cleanup intervals for canvas state
- */
+// Hook to manage cleanup intervals for canvas state
 export function useCanvasCleanup(
   recentlyDraggedRef,
   interpolatedPositionsRef,

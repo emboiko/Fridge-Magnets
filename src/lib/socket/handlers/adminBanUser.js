@@ -2,9 +2,6 @@ import { adminBanUserSchema } from "../../validation/socketSchemas.js"
 import { BannedIP } from "../../db/BannedIP.js"
 import { isAdmin, normalizeIP } from "../utils.js"
 
-/**
- * Handles admin ban user request
- */
 export function handleAdminBanUser(socket, context) {
   const { socketId, socketIPs, adminIPs, bannedIPsSet, io } = context
 
@@ -32,17 +29,14 @@ export function handleAdminBanUser(socket, context) {
     const targetIP = normalizeIP(rawTargetIP)
 
     try {
-      // Add to database
       await BannedIP.findOneAndUpdate(
         { ipAddress: targetIP },
         { ipAddress: targetIP, reason: reason || null, bannedAt: new Date() },
         { upsert: true, new: true }
       )
 
-      // Add to in-memory set
       bannedIPsSet.add(targetIP)
 
-      // Disconnect the user with banned error code
       targetSocket.emit("error", {
         message: reason || null,
         code: "BANNED",

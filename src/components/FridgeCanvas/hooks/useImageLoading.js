@@ -2,10 +2,8 @@ import { useEffect, useRef } from "react"
 import { GifReader } from "omggif"
 import { isAnimatedImage } from "../utils.js"
 
-/**
- * Hook to manage image loading and caching
- * For animated GIFs, decodes frames using omggif
- */
+// Hook to manage image loading and caching
+// For animated GIFs, decodes frames using omggif
 export function useImageLoading(magnets) {
   const imageCacheRef = useRef(new Map())
   const animationStateRef = useRef(new Map())

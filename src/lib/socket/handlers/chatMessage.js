@@ -1,9 +1,6 @@
 import { chatMessageSchema } from "../../validation/socketSchemas.js"
 import { CHAT_RATE_LIMIT_WINDOW_MS, CHAT_RATE_LIMIT_MAX_MESSAGES } from "../../constants.js"
 
-/**
- * Handles chat message events
- */
 export function handleChatMessage(socket, context) {
   const { socketId, clientIp, chatRateLimitMap, socketUsernames, io } = context
 
@@ -48,7 +45,6 @@ export function handleChatMessage(socket, context) {
       timestamp: Date.now(),
     }
 
-    // Broadcast to all clients including sender
     io.emit("chatMessage", chatData)
   })
 }

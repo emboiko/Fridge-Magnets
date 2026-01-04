@@ -1,9 +1,7 @@
 import { BannedIP } from "../../db/BannedIP.js"
 import { isAdmin, normalizeIP } from "../utils.js"
 
-/**
- * Handles admin get banned IPs request
- */
+// Handles admin get banned IPs request
 export function handleAdminGetBannedIPs(socket, context) {
   const { socketId, socketIPs, adminIPs } = context
 

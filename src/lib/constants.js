@@ -85,7 +85,6 @@ export const FONT_SIZE_HEIGHT_ESTIMATE_MULTIPLIER = 0.85
 export const EMIT_THROTTLE_MS = 17 // ~60fps
 export const RECENTLY_DRAGGED_TIMEOUT_MS = 1000
 export const RECENTLY_DRAGGED_CLEANUP_MULTIPLIER = 2
-export const POSITION_MATCH_THRESHOLD = 2
 export const INTERPOLATION_SPEED = 0.3
 export const INTERPOLATION_DISTANCE_THRESHOLD_SQUARED = 0.01
 
@@ -109,29 +108,26 @@ export const SERVER_MOVEMENT_STALE_TIMEOUT_MS = 1000
 // ============================================================================
 // Rate Limiting Constants
 // ============================================================================
-// Magnet movement rate limiting (per socket)
 export const RATE_LIMIT_WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS || "1000", 10) // 1 second
-export const RATE_LIMIT_MAX_MOVES = parseInt(process.env.RATE_LIMIT_MAX_MOVES || "60", 10) // Max moves per second per client
+export const RATE_LIMIT_MAX_MOVES = parseInt(process.env.RATE_LIMIT_MAX_MOVES || "60", 10)
 
-// Chat message rate limiting (per socket)
 export const CHAT_RATE_LIMIT_WINDOW_MS = parseInt(
-  process.env.CHAT_RATE_LIMIT_WINDOW_MS || "10000",
+  process.env.CHAT_RATE_LIMIT_WINDOW_MS || "10000", // 10 seconds
   10
-) // 10 seconds
+)
 export const CHAT_RATE_LIMIT_MAX_MESSAGES = parseInt(
   process.env.CHAT_RATE_LIMIT_MAX_MESSAGES || "15",
   10
-) // Max messages per window per client
+)
 
-// Contact form API rate limiting (per IP address)
 export const API_RATE_LIMIT_MAX_REQUESTS = parseInt(
   process.env.API_RATE_LIMIT_MAX_REQUESTS || "5",
   10
-) // Max requests per window per IP
+)
 export const API_RATE_LIMIT_WINDOW_MS = parseInt(
-  process.env.API_RATE_LIMIT_WINDOW_MS || "900000",
+  process.env.API_RATE_LIMIT_WINDOW_MS || "900000", // 15 minutes (900000ms)
   10
-) // 15 minutes (900000ms)
+)
 
 // ============================================================================
 // Turnstile Constants

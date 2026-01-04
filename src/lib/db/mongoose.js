@@ -10,14 +10,12 @@ function getMongoURI() {
   return uri
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- *
- * Connect to MongoDB:
- * Uses connection caching to prevent multiple connections
- */
+// Global is used here to maintain a cached connection across hot reloads
+// in development. This prevents connections growing exponentially
+// during API Route usage.
+//
+// Connect to MongoDB:
+// Uses connection caching to prevent multiple connections
 
 const cached = global.mongoose || { conn: null, promise: null }
 

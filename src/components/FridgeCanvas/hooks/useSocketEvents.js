@@ -1,10 +1,7 @@
 import { useEffect } from "react"
 import { magnetsArraySchema, magnetUpdateEventSchema } from "@/src/lib/validation/socketSchemas.js"
-import { RECENTLY_DRAGGED_TIMEOUT_MS, POSITION_MATCH_THRESHOLD } from "@/src/lib/constants.js"
+import { RECENTLY_DRAGGED_TIMEOUT_MS } from "@/src/lib/constants.js"
 
-/**
- * Hook to handle socket events (welcome, update, error, magnetMovementUpdate)
- */
 export function useSocketEvents(
   socket,
   initializeMagnets,
@@ -48,7 +45,7 @@ export function useSocketEvents(
         })
       })
 
-      // Only call home() on the initial load, not on resets
+      // Only call home() on the initial load, not on fridge reset events
       if (!hasCalledHomeRef.current) {
         home()
         hasCalledHomeRef.current = true
@@ -56,7 +53,6 @@ export function useSocketEvents(
     }
 
     const handleUpdate = (data) => {
-      // All update events are now differential
       const validationResult = magnetUpdateEventSchema.safeParse(data)
       if (!validationResult.success) {
         console.error("Invalid update data received:", validationResult.error)
@@ -81,34 +77,11 @@ export function useSocketEvents(
 
         const recentlyDraggedTime = recentlyDraggedRef.current.get(index)
         if (recentlyDraggedTime && now - recentlyDraggedTime < RECENTLY_DRAGGED_TIMEOUT_MS) {
-          const lastSent = lastSentPositionRef.current.get(index)
-          if (lastSent) {
-            // Calculate how far the magnet moved using distance formula (Pythagorean theorem)
-            // Like measuring the straight-line distance between two points on a map
-            const distanceFromSent = Math.sqrt(
-              Math.pow(magnet.x - lastSent.x, 2) + Math.pow(magnet.y - lastSent.y, 2)
-            )
-            if (distanceFromSent > POSITION_MATCH_THRESHOLD) {
-              return
-            }
-          } else {
-            return
-          }
+          return
         }
 
         const currentMagnet = magnetsRef.current[index]
         if (!currentMagnet) {
-          return
-        }
-
-        // Calculate how far the new position is from where we currently see the magnet
-        // This tells us if the magnet actually moved enough to care about
-        // TODO: Unsure if we actually need this, but it's here for now. May deprecate later.
-        const distanceFromCurrent = Math.sqrt(
-          Math.pow(magnet.x - currentMagnet.x, 2) + Math.pow(magnet.y - currentMagnet.y, 2)
-        )
-
-        if (distanceFromCurrent < POSITION_MATCH_THRESHOLD) {
           return
         }
 

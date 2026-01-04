@@ -6,10 +6,10 @@ const magnetSchema = new Schema(
     x: { type: Number, required: true },
     y: { type: Number, required: true },
     radius: { type: Number, required: true },
-    letter: { type: String, required: false }, // Optional - magnets can be sprite-only
-    color: { type: String, required: false }, // Optional - magnets can be sprite-only
-    sprite: { type: String, required: false }, // Optional - magnets can be letter-only
-    spriteCategory: { type: String, required: true }, // Required - "regular" or "enhanced"
+    letter: { type: String, required: false },
+    color: { type: String, required: false },
+    sprite: { type: String, required: false },
+    spriteCategory: { type: String, required: true },
   },
   {
     _id: false,

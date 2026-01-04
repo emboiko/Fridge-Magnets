@@ -27,7 +27,6 @@ const Turnstile = forwardRef(({ onVerify, onError, onExpire, onTimeout }, ref) =
   }, [onTimeout])
 
   useEffect(() => {
-    // Use test keys for local development if no keys are configured
     const siteKey =
       process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
       (process.env.NODE_ENV === "development" ? "1x00000000000000000000AA" : null)

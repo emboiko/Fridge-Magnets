@@ -1,8 +1,5 @@
 import { isAdmin } from "../utils.js"
 
-/**
- * Handles admin get movements request
- */
 export function handleAdminGetMovements(socket, context) {
   const { socketId, socketIPs, adminIPs, activeMagnetMovements, refrigerator } = context
 
@@ -35,7 +32,8 @@ export function handleAdminGetMovements(socket, context) {
         magnetIndex: movement.magnetIndex,
         username: movement.username,
         startTime: movement.startTime,
-        magnetDisplay: magnetDisplay || `#${movement.magnetIndex}`, // Fallback to index if no display
+        // Fallback to index if no display - this should never happen.
+        magnetDisplay: magnetDisplay || `#${movement.magnetIndex}`,
       })
     }
 

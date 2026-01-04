@@ -13,32 +13,23 @@ function updateDOMClass(isDarkMode) {
   }
 }
 
-// Always start with default (dark mode) to ensure SSR/client match
-// Will be synced from localStorage or system preference on client mount
 export const useUIStore = create((set) => ({
-  // Dark mode state
   isDarkMode: true,
   isHydrated: false,
 
-  // Chat state
   isChatOpen: false,
   shouldFocusChat: false,
 
-  // Header state
   isHeaderVisible: true,
 
-  // Ping display state
   isPingDisplayVisible: false,
 
-  // Mobile detection state
   isMobile: false,
 
-  // Multi-tap detection state (for header toggle, home, ping)
   lastTapTime: 0,
   tapCount: 0,
   touchStartTime: null,
 
-  // Dark mode actions
   initialize: () => {
     if (typeof window === "undefined") {
       return
@@ -48,10 +39,8 @@ export const useUIStore = create((set) => ({
     let initialMode
 
     if (stored !== null) {
-      // User has a stored preference, use it
       initialMode = stored === "true"
     } else {
-      // No stored preference, detect system preference
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
       initialMode = prefersDark
     }
@@ -71,7 +60,6 @@ export const useUIStore = create((set) => ({
     })
   },
 
-  // Chat actions
   toggleChat: () => {
     set((state) => ({
       isChatOpen: !state.isChatOpen,
@@ -91,17 +79,14 @@ export const useUIStore = create((set) => ({
     set({ shouldFocusChat: value })
   },
 
-  // Header actions
   toggleHeader: () => {
     set((state) => ({ isHeaderVisible: !state.isHeaderVisible }))
   },
 
-  // Ping display actions
   togglePingDisplay: () => {
     set((state) => ({ isPingDisplayVisible: !state.isPingDisplayVisible }))
   },
 
-  // Canvas home function
   home: () => {
     if (typeof document === "undefined") {
       return
@@ -119,7 +104,6 @@ export const useUIStore = create((set) => ({
     })
   },
 
-  // Mobile detection actions
   checkMobile: () => {
     if (typeof window === "undefined") {
       return

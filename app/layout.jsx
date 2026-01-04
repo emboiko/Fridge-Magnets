@@ -12,12 +12,10 @@ import "./styles/about.css"
 import DarkModeInitializer from "@/src/components/DarkModeInitializer"
 import MobileInitializer from "@/src/components/MobileInitializer"
 
-/**
- * - `next/font/google` automatically optimizes Google Fonts
- * - Fonts are self-hosted (better performance, no external requests)
- * - CSS variables are automatically generated for each font
- * - This is the recommended approach for App Router (replaces _document.js pattern)
- */
+// - `next/font/google` automatically optimizes Google Fonts
+// - Fonts are self-hosted (better performance, no external requests)
+// - CSS variables are automatically generated for each font
+// - This is the recommended approach for App Router (replaces _document.js pattern)
 
 const lalezar = Lalezar({
   weight: "400",
@@ -81,14 +79,12 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    /* 
-    Preventing FOUC (Flash of Unstyled Content) from UI mode updating on page load:
-    Blocking script sets dark-mode class immediately (no flash)
-    Content is hidden until React hydrates
-    React initializes the store and adds hydrated class
-    Content appears with the correct mode already applied
-    No hydration warning because we've suppressed it for this intentional case
-    */
+    // Preventing FOUC (Flash of Unstyled Content) from UI mode updating on page load:
+    // Blocking script sets dark-mode class immediately (no flash)
+    // Content is hidden until React hydrates
+    // React initializes the store and adds hydrated class
+    // Content appears with the correct mode already applied
+    // No hydration warning because we've suppressed it for this intentional case
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
@@ -111,7 +107,6 @@ export default function RootLayout({ children }) {
                     document.documentElement.classList.remove('dark-mode');
                   }
                 } catch (e) {
-                  // Fallback to dark mode if anything fails
                   document.documentElement.classList.add('dark-mode');
                 }
               })();

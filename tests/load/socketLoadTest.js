@@ -50,9 +50,7 @@ const networkConfig = NETWORK_PROFILES[NETWORK_PROFILE] || NETWORK_PROFILES.none
 // TEST_MEASURE_LATENCY: Enable latency measurement (one user moves, others measure)
 const MEASURE_LATENCY = process.env.TEST_MEASURE_LATENCY === "true"
 
-/**
- * Virtual user that simulates a real client
- */
+// Virtual user that simulates a real client
 class VirtualUser {
   constructor(userId) {
     this.userId = userId
@@ -313,9 +311,7 @@ class VirtualUser {
   }
 }
 
-/**
- * Run the load test
- */
+// Run the load test
 async function runLoadTest() {
   console.info("\n" + "=".repeat(60))
   console.info("Socket.IO Load Test")

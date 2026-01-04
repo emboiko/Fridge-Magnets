@@ -306,7 +306,6 @@ export default function AdminPanel() {
         const maxWidth = getAdminPanelMaxWidth()
         const clampedWidth = Math.max(ADMIN_PANEL_MIN_WIDTH, Math.min(maxWidth, newWidth))
         currentWidthRef.current = clampedWidth
-        // Direct DOM manipulation to avoid re-renders during resize
         panelRef.current.style.width = `${clampedWidth}px`
       }
 
@@ -316,7 +315,6 @@ export default function AdminPanel() {
         const maxHeight = getAdminPanelMaxHeight()
         const clampedHeight = Math.max(ADMIN_PANEL_MIN_HEIGHT, Math.min(maxHeight, newHeight))
         currentHeightRef.current = clampedHeight
-        // Direct DOM manipulation to avoid re-renders during resize
         panelRef.current.style.height = `${clampedHeight}px`
       }
     }
@@ -369,7 +367,6 @@ export default function AdminPanel() {
         const newHeight = e.clientY - listRect.top
         const clampedHeight = Math.max(ADMIN_LIST_MIN_HEIGHT, newHeight)
         currentUsersListHeightRef.current = clampedHeight
-        // Direct DOM manipulation to avoid re-renders during resize
         usersListRef.current.style.height = `${clampedHeight}px`
       }
 
@@ -378,7 +375,6 @@ export default function AdminPanel() {
         const newHeight = e.clientY - listRect.top
         const clampedHeight = Math.max(ADMIN_LIST_MIN_HEIGHT, newHeight)
         currentMovementsListHeightRef.current = clampedHeight
-        // Direct DOM manipulation to avoid re-renders during resize
         movementsListRef.current.style.height = `${clampedHeight}px`
       }
 
@@ -387,7 +383,6 @@ export default function AdminPanel() {
         const newHeight = e.clientY - listRect.top
         const clampedHeight = Math.max(ADMIN_LIST_MIN_HEIGHT, newHeight)
         currentKickedIPsListHeightRef.current = clampedHeight
-        // Direct DOM manipulation to avoid re-renders during resize
         kickedIPsListRef.current.style.height = `${clampedHeight}px`
       }
 
@@ -396,7 +391,6 @@ export default function AdminPanel() {
         const newHeight = e.clientY - listRect.top
         const clampedHeight = Math.max(ADMIN_LIST_MIN_HEIGHT, newHeight)
         currentBannedIPsListHeightRef.current = clampedHeight
-        // Direct DOM manipulation to avoid re-renders during resize
         bannedIPsListRef.current.style.height = `${clampedHeight}px`
       }
     }

@@ -41,7 +41,6 @@ export default [
         "warn",
         {
           argsIgnorePattern: "^_",
-          // Allow unused vars that start with uppercase (React components) or underscore
           varsIgnorePattern: "^(_|[A-Z])",
         },
       ],

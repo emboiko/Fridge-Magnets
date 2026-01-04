@@ -67,7 +67,7 @@ app.prepare().then(async () => {
   }
 
   // Admin password hash from environment
-  // Note: Dollar signs in .env files need to be escaped as \$ to prevent variable expansion
+  // Note: Dollar signs in .env files need to be escaped as \$ to prevent variable expansion in development
   const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH?.trim()
   if (!adminPasswordHash) {
     console.warn("WARNING: ADMIN_PASSWORD_HASH not set. Admin features will be disabled.")

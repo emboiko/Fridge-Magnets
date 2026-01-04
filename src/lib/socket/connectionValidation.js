@@ -1,13 +1,6 @@
 import { BannedIP } from "../db/BannedIP.js"
 import { normalizeIP } from "./utils.js"
 
-/**
- * Validates a new socket connection
- * @param {Object} socket - The socket instance
- * @param {string} socketId - The socket ID
- * @param {Object} context - Shared state context
- * @returns {Promise<{valid: boolean, clientIp: string, error?: Object}>}
- */
 export async function validateConnection(socket, socketId, context) {
   const { bannedIPsSet, kickedIPs, activeIPs, io } = context
 

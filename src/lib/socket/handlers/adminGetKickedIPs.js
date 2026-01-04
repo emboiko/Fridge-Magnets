@@ -1,8 +1,5 @@
 import { isAdmin, normalizeIP } from "../utils.js"
 
-/**
- * Handles admin get kicked IPs request
- */
 export function handleAdminGetKickedIPs(socket, context) {
   const { socketId, socketIPs, adminIPs, kickedIPs } = context
 
@@ -27,10 +24,8 @@ export function handleAdminGetKickedIPs(socket, context) {
       }
     }
 
-    // Sort by kickUntil (soonest first)
     kickedIPsList.sort((a, b) => a.kickUntil - b.kickUntil)
 
     socket.emit("adminKickedIPsList", { kickedIPs: kickedIPsList })
   })
 }
-

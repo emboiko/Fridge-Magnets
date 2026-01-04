@@ -160,3 +160,16 @@ export function isAnimatedImage(filename) {
   const lowerFilename = filename.toLowerCase()
   return lowerFilename.endsWith(".gif")
 }
+
+// Calculate Euclidean distance between two points
+export function calculateDistance(x1, y1, x2, y2) {
+  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+}
+
+// Calculate squared distance between two points (faster, no sqrt)
+// Use this when you only need to compare distances, not the actual distance value
+export function calculateDistanceSquared(x1, y1, x2, y2) {
+  const dx = x2 - x1
+  const dy = y2 - y1
+  return dx * dx + dy * dy
+}

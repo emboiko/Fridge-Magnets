@@ -1,9 +1,6 @@
 import { magnetsArraySchema } from "../../validation/socketSchemas.js"
 import { isAdmin } from "../utils.js"
 
-/**
- * Handles admin reset fridge request
- */
 export function handleAdminResetFridge(socket, context) {
   const { socketId, socketIPs, adminIPs, refrigerator, io, clearPendingSave } = context
 

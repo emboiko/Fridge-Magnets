@@ -2,9 +2,7 @@ import { adminUnbanIPSchema } from "../../validation/socketSchemas.js"
 import { BannedIP } from "../../db/BannedIP.js"
 import { isAdmin, normalizeIP } from "../utils.js"
 
-/**
- * Handles admin unban IP request
- */
+// Handles admin unban IP request
 export function handleAdminUnbanIP(socket, context) {
   const { socketId, socketIPs, adminIPs, bannedIPsSet } = context
 

@@ -1,9 +1,7 @@
 import { isAdmin } from "../utils.js"
 import os from "os"
 
-/**
- * Calculates CPU usage by sampling CPU times over an interval
- */
+// Calculates CPU usage by sampling CPU times over an interval
 function cpuAverage() {
   const cpus = os.cpus()
   let idle = 0
@@ -36,9 +34,7 @@ function getCPUUsage(intervalMs = 100) {
   })
 }
 
-/**
- * Handles admin get server metrics request
- */
+// This is a bit of a toy feature at the moment. Prefer heroku metrics for more accurate data.
 export function handleAdminGetMetrics(socket, context) {
   const { socketId, socketIPs, adminIPs } = context
 
@@ -49,21 +45,17 @@ export function handleAdminGetMetrics(socket, context) {
     }
 
     try {
-      // Memory metrics
       const totalMemory = os.totalmem()
       const freeMemory = os.freemem()
       const usedMemory = totalMemory - freeMemory
       const memoryUsagePercent = (usedMemory / totalMemory) * 100
 
-      // System uptime
       const uptime = os.uptime()
 
-      // CPU info (static - model, speed, cores)
       const cpus = os.cpus()
       const cpuCount = cpus.length
       const cpuModel = cpus[0]?.model || "Unknown"
 
-      // CPU usage (requires sampling over time)
       const cpuUsagePercent = await getCPUUsage(100)
 
       const metrics = {

@@ -8,11 +8,9 @@ import {
   ADMIN_MOVEMENT_LABEL_FONT_SIZE,
   ADMIN_MOVEMENT_LABEL_PADDING,
 } from "@/src/lib/constants.js"
-import { drawMagnet, isMagnetVisible } from "../utils.js"
+import { drawMagnet, isMagnetVisible, calculateDistanceSquared } from "../utils.js"
 
-/**
- * Hook to manage canvas animation loop
- */
+// Hook to manage canvas animation loop
 export function useCanvasAnimation(
   canvasRef,
   magnetsRef,

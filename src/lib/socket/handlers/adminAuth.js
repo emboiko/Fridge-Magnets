@@ -2,9 +2,7 @@ import { adminAuthSchema } from "../../validation/socketSchemas.js"
 import bcrypt from "bcrypt"
 import { normalizeIP } from "../utils.js"
 
-/**
- * Handles admin authentication
- */
+// Handles admin authentication
 export function handleAdminAuth(socket, context) {
   const { socketId, clientIp, adminIPs, adminPasswordHash } = context
 

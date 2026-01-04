@@ -1,5 +1,3 @@
-/** @type {import('next').NextConfig} */
-
 // Custom server handles Socket.IO (see server.js)
 
 const nextConfig = {

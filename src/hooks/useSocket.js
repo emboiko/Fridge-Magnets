@@ -1,19 +1,14 @@
-/**
- * Socket.IO Hook
- *
- * Custom hook for managing Socket.IO connection using a singleton pattern.
- * All components share the same socket instance, which is automatically
- * cleaned up on page unload. Handles connection errors, redirects for
- * "already connected" and "kicked" states, and supports test IP override
- * in development mode via query parameter.
- */
+// Custom hook for managing Socket.IO connection using a singleton pattern.
+// All components share the same socket instance, which is automatically
+// cleaned up on page unload. Handles connection errors, redirects for
+// "already connected" and "kicked" states, and supports test IP override
+// in development mode via query parameter.
 
 "use client"
 
 import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
 
-// Singleton socket instance - shared across all components
 let socketInstance = null
 
 const getSocket = () => {
@@ -22,13 +17,10 @@ const getSocket = () => {
   }
 
   if (!socketInstance) {
-    // Use NEXT_PUBLIC_APP_URL if set, otherwise fall back to current origin
-    // Normalize URL (remove trailing slash, ensure protocol)
     const envUrl = process.env.NEXT_PUBLIC_APP_URL
     const fallbackUrl = window.location.origin
     const socketUrl = envUrl || fallbackUrl
 
-    // Get test IP from URL query parameter (development only)
     const urlParams = new URLSearchParams(window.location.search)
     const testIP = urlParams.get("testIP")
 
@@ -45,7 +37,6 @@ const getSocket = () => {
 
     socketInstance = io(socketUrl, socketOptions)
 
-    // Add connection event listeners for debugging
     socketInstance.on("connect", () => {
       console.info("Socket.IO connected, socket ID:", socketInstance.id)
       if (testIP) {
@@ -64,15 +55,12 @@ const getSocket = () => {
       console.error("NEXT_PUBLIC_APP_URL:", process.env.NEXT_PUBLIC_APP_URL || "not set")
     })
 
-    // Handle error events (including already connected and kicked)
     socketInstance.on("error", (data) => {
       if (data.code === "ALREADY_CONNECTED" || data.message === "already_connected") {
-        // Redirect to already connected page
         if (typeof window !== "undefined") {
           window.location.href = "/already-connected"
         }
       } else if (data.code === "KICKED") {
-        // Store kick message in sessionStorage for display on kicked page
         if (typeof window !== "undefined") {
           if (data.message) {
             sessionStorage.setItem("kickMessage", data.message)
@@ -80,7 +68,6 @@ const getSocket = () => {
           window.location.href = "/kicked"
         }
       } else if (data.code === "BANNED") {
-        // Store ban message/reason in sessionStorage for display on banned page
         if (typeof window !== "undefined") {
           if (data.reason) {
             sessionStorage.setItem("banReason", data.reason)
@@ -92,7 +79,6 @@ const getSocket = () => {
       }
     })
 
-    // Cleanup on page unload
     window.addEventListener("beforeunload", () => {
       if (socketInstance) {
         socketInstance.disconnect()

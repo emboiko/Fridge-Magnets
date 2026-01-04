@@ -1,9 +1,7 @@
 import { useCallback } from "react"
 import { CANVAS_WIDTH, CANVAS_HEIGHT, EMIT_THROTTLE_MS } from "@/src/lib/constants.js"
 
-/**
- * Hook to handle canvas pointer interactions (dragging and panning)
- */
+// Hook to handle canvas pointer interactions (dragging and panning)
 export function useCanvasInteraction(
   containerRef,
   getCanvasCoordinates,

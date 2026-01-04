@@ -1,14 +1,12 @@
 import { create } from "zustand"
+import { calculateDistance } from "@/src/components/FridgeCanvas/utils.js"
 
 export const useMagnetStore = create((set, get) => ({
-  // Initial state
   magnets: [],
   draggingIndex: null,
   lastInteracted: new Map(),
 
-  // Actions
   initializeMagnets: (magnets) => {
-    // Initialize lastInteracted timestamps for all magnets
     const lastInteracted = new Map()
     magnets.forEach((_, index) => {
       lastInteracted.set(index, Date.now() - index) // Stagger initial timestamps to preserve original order
@@ -50,87 +48,60 @@ export const useMagnetStore = create((set, get) => ({
       .map(({ magnet, index }) => ({ magnet, index }))
   },
 
-  // Get lookup table mapping letters to arrays of { magnet, index, distance } objects
+  // Get lookup table mapping letters or sprites to arrays of { magnet, index, distance, ... } objects
   // distance is calculated from the target point (for choosing closest/furthest)
-  // Case-insensitive: normalizes all letters to uppercase for lookup
+  // Case-insensitive: normalizes letters to uppercase, sprites to lowercase
+  getLookup: (targetX, targetY, type = "letter", useClosest = true) => {
+    const state = get()
+    const lookup = new Map()
+    const isLetter = type === "letter"
+
+    state.magnets.forEach((magnet, index) => {
+      const value = isLetter ? magnet.letter : magnet.sprite
+      if (value) {
+        const normalizedKey = isLetter ? value.toUpperCase() : value.toLowerCase()
+        const distance = calculateDistance(magnet.x, magnet.y, targetX, targetY)
+
+        if (!lookup.has(normalizedKey)) {
+          lookup.set(normalizedKey, [])
+        }
+
+        const entry = {
+          magnet,
+          index,
+          distance,
+        }
+
+        if (!isLetter) {
+          entry.radius = magnet.radius
+        }
+
+        lookup.get(normalizedKey).push(entry)
+      }
+    })
+
+    // Sort each key's magnets by distance (closest or furthest first)
+    lookup.forEach((magnets) => {
+      magnets.sort((a, b) => {
+        if (useClosest) {
+          return a.distance - b.distance
+        } else {
+          return b.distance - a.distance
+        }
+      })
+    })
+
+    return lookup
+  },
+
   getLetterLookup: (targetX, targetY, useClosest = true) => {
-    const state = get()
-    const lookup = new Map()
-
-    state.magnets.forEach((magnet, index) => {
-      if (magnet.letter) {
-        const normalizedLetter = magnet.letter.toUpperCase()
-        const distance = Math.sqrt(
-          Math.pow(magnet.x - targetX, 2) + Math.pow(magnet.y - targetY, 2)
-        )
-
-        if (!lookup.has(normalizedLetter)) {
-          lookup.set(normalizedLetter, [])
-        }
-
-        lookup.get(normalizedLetter).push({
-          magnet,
-          index,
-          distance,
-        })
-      }
-    })
-
-    // Sort each letter's magnets by distance (closest or furthest first)
-    lookup.forEach((magnets) => {
-      magnets.sort((a, b) => {
-        if (useClosest) {
-          return a.distance - b.distance
-        } else {
-          return b.distance - a.distance
-        }
-      })
-    })
-
-    return lookup
+    return get().getLookup(targetX, targetY, "letter", useClosest)
   },
 
-  // Get lookup table mapping sprite names to arrays of { magnet, index, distance, radius } objects
-  // distance is calculated from the target point (for choosing closest/furthest)
   getSpriteLookup: (targetX, targetY, useClosest = true) => {
-    const state = get()
-    const lookup = new Map()
-
-    state.magnets.forEach((magnet, index) => {
-      if (magnet.sprite) {
-        const spriteName = magnet.sprite.toLowerCase()
-        const distance = Math.sqrt(
-          Math.pow(magnet.x - targetX, 2) + Math.pow(magnet.y - targetY, 2)
-        )
-
-        if (!lookup.has(spriteName)) {
-          lookup.set(spriteName, [])
-        }
-
-        lookup.get(spriteName).push({
-          magnet,
-          index,
-          distance,
-          radius: magnet.radius,
-        })
-      }
-    })
-
-    // Sort each sprite's magnets by distance (closest or furthest first)
-    lookup.forEach((magnets) => {
-      magnets.sort((a, b) => {
-        if (useClosest) {
-          return a.distance - b.distance
-        } else {
-          return b.distance - a.distance
-        }
-      })
-    })
-
-    return lookup
+    return get().getLookup(targetX, targetY, "sprite", useClosest)
   },
 
-  // Get list of all available sprite names (for autocomplete/reference)
   getAvailableSprites: () => {
     const state = get()
     const sprites = new Set()

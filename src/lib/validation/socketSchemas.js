@@ -51,7 +51,7 @@ export const chatMessageSchema = z.object({
   message: z.string().min(1).max(MAX_CHAT_MESSAGE_LENGTH).trim(), // Message: 1-MAX_CHAT_MESSAGE_LENGTH characters, trimmed
 })
 
-// Admin schemas
+// Admin schemas:
 export const adminAuthSchema = z.object({
   password: z.string().min(1),
 })

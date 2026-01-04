@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react"
+import { EMIT_THROTTLE_MS } from "@/src/lib/constants.js"
 
-/**
- * Hook to detect when mouse is hovering over a magnet
- * Uses throttling to avoid performance issues
- */
 export function useMagnetHover(
   canvasRef,
   getCanvasCoordinates,
@@ -14,7 +11,6 @@ export function useMagnetHover(
 ) {
   const [isHoveringMagnet, setIsHoveringMagnet] = useState(false)
   const lastHoverCheckRef = useRef(0)
-  const hoverCheckThrottleMs = 16 // ~60fps
 
   const handleMouseMove = useCallback(
     (e) => {
@@ -27,7 +23,7 @@ export function useMagnetHover(
       }
 
       const now = Date.now()
-      if (now - lastHoverCheckRef.current < hoverCheckThrottleMs) {
+      if (now - lastHoverCheckRef.current < EMIT_THROTTLE_MS) {
         return
       }
       lastHoverCheckRef.current = now

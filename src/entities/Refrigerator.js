@@ -1,13 +1,3 @@
-/**
- * Refrigerator Entity
- *
- * Manages the collection of magnets with improved generation:
- * - Larger canvas support (6000x6000)
- * - Full canvas distribution
- * - Character count validation
- * - Better letter distribution
- */
-
 import { readdir } from "fs/promises"
 import { join, basename } from "path"
 import { Magnet } from "./Magnet.js"
@@ -32,11 +22,9 @@ export class Refrigerator {
 
   constructor() {}
 
-  /**
-   * Generate a random uppercase letter with frequency weighting
-   * Uses English letter frequency for better word-building
-   * Based on standard English corpus analysis
-   */
+  // Generate a random uppercase letter with frequency weighting
+  // Uses English letter frequency for better word-building
+  // Based on standard English corpus analysis
   generateCharacter() {
     const letterFrequencies = {
       E: 12.7,
@@ -83,10 +71,8 @@ export class Refrigerator {
     return letters[letters.length - 1]
   }
 
-  /**
-   * Count how many of each letter we have
-   * Only counts actual letters (A-Z), not emojis, symbols, numbers, or specials
-   */
+  // Count how many of each letter we have
+  // Only counts actual letters (A-Z), not emojis, symbols, numbers, or specials
   countLetters() {
     const counts = new Map()
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -105,10 +91,8 @@ export class Refrigerator {
     return counts
   }
 
-  /**
-   * Ensure we have at least MIN_COUNT of each letter
-   * Adds missing letters to reach minimum
-   */
+  // Ensure we have at least MIN_COUNT of each letter
+  // Adds missing letters to reach minimum
   ensureMinimumLetterCounts(minCount) {
     const counts = this.countLetters()
 
@@ -135,10 +119,8 @@ export class Refrigerator {
     }
   }
 
-  /**
-   * - Distribute across full canvas
-   * - Ensure minimum counts of each letter
-   */
+  // - Distribute across full canvas
+  // - Ensure minimum counts of each letter
   async initializeMagnets() {
     this.magnets = []
 
@@ -353,10 +335,8 @@ export class Refrigerator {
     }
   }
 
-  /**
-   * Load magnets from database
-   * If fridge exists in DB, use those magnets instead of defaults
-   */
+  // Load magnets from database
+  // If fridge exists in DB, use those magnets instead of defaults
   async loadMagnets() {
     const fridge = await Fridge.findOne()
 
@@ -378,10 +358,8 @@ export class Refrigerator {
     }
   }
 
-  /**
-   * Save magnets to database
-   * Uses findOneAndUpdate with retry logic to handle version conflicts
-   */
+  // Save magnets to database
+  // Uses findOneAndUpdate with retry logic to handle version conflicts
   async save() {
     const magnetsData = this.magnets.map((magnet) => magnet.toObject())
     const maxRetries = 5
@@ -417,9 +395,7 @@ export class Refrigerator {
     }
   }
 
-  /**
-   * Get magnets as plain objects (for Socket.IO broadcasting)
-   */
+  // Get magnets as plain objects (for Socket.IO broadcasting)
   getMagnetsAsObjects() {
     return this.magnets.map((magnet) => magnet.toObject())
   }

@@ -7,9 +7,6 @@ import {
   SERVER_MOVEMENT_STALE_TIMEOUT_MS,
 } from "../constants.js"
 
-/**
- * Sets up all server interval loops
- */
 export function setupServerIntervals(io, context) {
   const {
     refrigerator,
