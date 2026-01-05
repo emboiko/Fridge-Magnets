@@ -470,6 +470,7 @@ export default function FridgeCanvas() {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerCancel}
+          onContextMenu={(e) => e.preventDefault()}
           style={{
             width: `${CANVAS_WIDTH}px`,
             height: `${CANVAS_HEIGHT}px`,
